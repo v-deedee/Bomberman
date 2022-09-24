@@ -12,11 +12,32 @@ import java.util.ArrayList;
 
 public class Bomber extends Entity {
 
+    public final int step = 2;
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
     }
 
     @Override
     public void update() {
+    }
+
+    public void moveUp()
+    {
+        y = y - step;
+    }
+
+    public void moveDown()
+    {
+        y = y + step;
+    }
+
+    public void moveRight()
+    {
+        x = x + step;
+    }
+
+    public void moveLeft()
+    {
+        x = x - step;
     }
 }
