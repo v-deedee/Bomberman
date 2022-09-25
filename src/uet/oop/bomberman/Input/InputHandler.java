@@ -1,7 +1,7 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.Input;
 
 import javafx.scene.Scene;
-import uet.oop.bomberman.entities.Bomber;
+import uet.oop.bomberman.entities.Character.Bomber;
 
 import java.util.*;
 
@@ -17,7 +17,7 @@ public class InputHandler {
 
     public void handleInput(Bomber bomberman) {
         String[] activeKeysArr = currentlyActiveKeys.toArray(new String[0]);
-        if(activeKeysArr.length != 0) {
+        if (activeKeysArr.length != 0) {
             String _input = activeKeysArr[activeKeysArr.length - 1];
             if (currentlyActiveKeys.contains("LEFT") || currentlyActiveKeys.contains("A")) {
                 bomberman.moveLeft();

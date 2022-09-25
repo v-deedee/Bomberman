@@ -1,6 +1,7 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Character;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends Entity {
@@ -10,36 +11,32 @@ public class Bomber extends Entity {
     public int cntDownFrame = 0;
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
+
     public Bomber(double x, double y, Image img) {
-        super( x, y, img);
+        super(x, y, img);
     }
 
     @Override
     public void update() {
     }
 
-    public void moveUp()
-    {
+    public void moveUp() {
         y = y - step;
     }
 
-    public void moveDown()
-    {
+    public void moveDown() {
         y = y + step;
     }
 
-    public void moveRight()
-    {
+    public void moveRight() {
         x = x + step;
     }
 
-    public void moveLeft()
-    {
+    public void moveLeft() {
         x = x - step;
     }
 
-    public void movingSprite(String _input)
-    {
+    public void movingSprite(String _input) {
         switch (_input) {
             case "LEFT":
             case "A":
