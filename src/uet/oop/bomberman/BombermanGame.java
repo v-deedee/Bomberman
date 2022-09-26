@@ -15,11 +15,15 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Tile.Grass;
 import uet.oop.bomberman.entities.Tile.Wall;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.LevelLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BombermanGame extends Application {
+    Board board = new Board();
+
+    private LevelLoader lvLoad = new LevelLoader(board, 1);
 
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
@@ -43,7 +47,7 @@ public class BombermanGame extends Application {
     private boolean frameArrFilled = false;
     private double frameRate;
 
-    Entity bomberman = new Bomber(2, 2, Sprite.player_right.getFxImage());
+    Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
 
     public static void main(String[] args) {
