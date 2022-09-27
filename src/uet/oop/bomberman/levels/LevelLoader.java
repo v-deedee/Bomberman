@@ -2,8 +2,11 @@ package uet.oop.bomberman.levels;
 
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Character.Bomber;
+import uet.oop.bomberman.entities.Enemy.Balloon;
+import uet.oop.bomberman.entities.Enemy.Oneal;
 import uet.oop.bomberman.entities.Tile.Brick;
 import uet.oop.bomberman.entities.Tile.Grass;
+import uet.oop.bomberman.entities.Tile.Portal;
 import uet.oop.bomberman.entities.Tile.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -74,8 +77,6 @@ public class LevelLoader {
                 System.err.print(map[y][x]);
                 switch (map[y][x]){
                     case ' ':
-                    case '1':
-                    case '2':
                         board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
                         break;
                     case '#':
@@ -85,8 +86,23 @@ public class LevelLoader {
                         board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEntity(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
+                    case 'x':
+                        board.addEntity(new Portal(x, y, Sprite.portal.getFxImage()));
+                        board.addEntity(new Brick(x, y, Sprite.brick.getFxImage()));
+                        break;
                     case 'p':
                         board.addBomber(new Bomber(x, y, Sprite.player_right.getFxImage()));
+                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
+                        break;
+                    case '1':
+                        board.addEnemy(new Balloon(x, y, Sprite.balloom_right1.getFxImage()));
+                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
+                        break;
+                    case '2':
+                        board.addEnemy(new Oneal(x, y, Sprite.oneal_right1.getFxImage()));
+                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
+                        break;
+                    default:
                         board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
                         break;
                 }

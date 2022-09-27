@@ -21,9 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BombermanGame extends Application {
-    Board board = new Board();
-
     private LevelLoader lvLoad = new LevelLoader(1);
+    Board board = lvLoad.board;
 
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
@@ -47,7 +46,7 @@ public class BombermanGame extends Application {
     private boolean frameArrFilled = false;
     private double frameRate;
 
-    Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
+//    Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
 
     public static void main(String[] args) {
@@ -74,7 +73,9 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                _input.handleInput((Bomber) bomberman);
+                if (!board.bombers.isEmpty()) {
+                    _input.handleInput((Bomber) board.bombers.get(0));
+                }
                 render();
                 update();
 
@@ -94,15 +95,21 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        lvLoad.board.entities.forEach(Entity::update);
-        bomberman.update();
+        board.entities.forEach(Entity::update);
+        if (!board.bombers.isEmpty()) {
+            board.bombers.get(0).update();
+        }
+        board.enemies.forEach(Entity::update);
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 //        lvLoad.board.bombers.forEach(g -> g.render(gc));
-        lvLoad.board.entities.forEach(g -> g.render(gc));
-        bomberman.render(gc);
+        board.entities.forEach(g -> g.render(gc));
+        if (!board.bombers.isEmpty()) {
+            board.bombers.get(0).render(gc);
+        }
+        board.enemies.forEach(g -> g.render(gc));
 //        System.err.println(board.entities.size());
     }
 }
