@@ -16,11 +16,27 @@ public class LevelLoader {
     protected int width = 20;
     protected int height = 15;
     protected int _level;
-    protected Board board;
+    public Board board = new Board();
     private static char map[][];
 
-    public LevelLoader(Board board, int level) {
+    public LevelLoader(int level) {
         loadLevel(level);
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     public void loadLevel(int level) {
@@ -46,34 +62,37 @@ public class LevelLoader {
                 map[i][j] = list.get(i + 1).charAt(j);
             }
         }
-//        addEntity(_level);
+        addEntity();
     }
 
-//    public void addEntity(int level)
-//    {
-//        for(int y=0;y<height;y++)
-//        {
-//            for(int x=0;x<width;x++)
-//            {
-//                switch (map[y][x]){
-//                    case ' ':
-//                    case '1':
-//                    case '2':
-//                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
-//                        break;
-//                    case '#':
-//                        board.addEntity(new Wall(x, y, Sprite.wall.getFxImage()));
-//                        break;
-//                    case '*':
-//                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
-//                        board.addEntity(new Brick(x, y, Sprite.brick.getFxImage()));
-//                        break;
-//                    case 'p':
-//                        board.addBomber(new Bomber(x, y, Sprite.player_right.getFxImage()));
-//                        break;
-//                }
-//            }
-//        }
-//    }
+    public void addEntity()
+    {
+        for(int y=0;y<height;y++)
+        {
+            for(int x=0;x<width;x++)
+            {
+                System.err.print(map[y][x]);
+                switch (map[y][x]){
+                    case ' ':
+                    case '1':
+                    case '2':
+                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
+                        break;
+                    case '#':
+                        board.addEntity(new Wall(x, y, Sprite.wall.getFxImage()));
+                        break;
+                    case '*':
+                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
+                        board.addEntity(new Brick(x, y, Sprite.brick.getFxImage()));
+                        break;
+                    case 'p':
+                        board.addBomber(new Bomber(x, y, Sprite.player_right.getFxImage()));
+                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
+                        break;
+                }
+            }
+            System.err.println();
+        }
+    }
 
 }

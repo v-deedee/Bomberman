@@ -33,6 +33,6 @@ public class InputHandler {
             }
             bomberman.movingSprite(_input);
         }
-        System.out.println(currentlyActiveKeys); // test
+//        System.out.println(currentlyActiveKeys); // test
     }
 }

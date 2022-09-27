@@ -23,7 +23,7 @@ import java.util.List;
 public class BombermanGame extends Application {
     Board board = new Board();
 
-    private LevelLoader lvLoad = new LevelLoader(board, 1);
+    private LevelLoader lvLoad = new LevelLoader(1);
 
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
@@ -59,7 +59,7 @@ public class BombermanGame extends Application {
         stage.setTitle(TITLE + "| Current Frame Rate: " + frameRate);
         stage.getIcons().add(new Image("/textures/icon.jfif"));
         // Tao Canvas
-        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+        canvas = new Canvas(lvLoad.getWidth() * Sprite.SCALED_SIZE, lvLoad.getHeight() * Sprite.SCALED_SIZE);
         gc = canvas.getGraphicsContext2D();
 
         // Tao root container
@@ -91,33 +91,18 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
-
-        createMap();
-
-        entities.add(bomberman);
-    }
-
-    public void createMap() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
-                } else {
-                    object = new Grass(i, j, Sprite.grass.getFxImage());
-                }
-                stillObjects.add(object);
-            }
-        }
     }
 
     public void update() {
-        entities.forEach(Entity::update);
+        lvLoad.board.entities.forEach(Entity::update);
+        bomberman.update();
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        stillObjects.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
+//        lvLoad.board.bombers.forEach(g -> g.render(gc));
+        lvLoad.board.entities.forEach(g -> g.render(gc));
+        bomberman.render(gc);
+//        System.err.println(board.entities.size());
     }
 }
