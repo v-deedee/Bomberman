@@ -74,7 +74,7 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long now) {
                 if (!board.bombers.isEmpty()) {
-                    _input.handleInput((Bomber) board.bombers.get(0));
+                    _input.handleInput((Bomber) board.bombers.get(0), lvLoad);
                 }
                 render();
                 update();
