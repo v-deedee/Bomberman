@@ -18,20 +18,30 @@ public class InputHandler {
     public void handleInput(Bomber bomberman) {
         String[] activeKeysArr = currentlyActiveKeys.toArray(new String[0]);
         if (activeKeysArr.length != 0) {
-            String _input = activeKeysArr[activeKeysArr.length - 1];
+            bomberman._direction = activeKeysArr[activeKeysArr.length - 1];
             if (currentlyActiveKeys.contains("LEFT") || currentlyActiveKeys.contains("A")) {
                 bomberman.moveLeft();
+                bomberman._moving = true;
             }
             if (currentlyActiveKeys.contains("RIGHT") || currentlyActiveKeys.contains("D")) {
                 bomberman.moveRight();
+                bomberman._moving = true;
             }
             if (currentlyActiveKeys.contains("UP") || currentlyActiveKeys.contains("W")) {
                 bomberman.moveUp();
+                bomberman._moving = true;
             }
             if (currentlyActiveKeys.contains("DOWN") || currentlyActiveKeys.contains("S")) {
                 bomberman.moveDown();
+                bomberman._moving = true;
             }
-            bomberman.movingSprite(_input);
+            bomberman.movingSprite(bomberman._direction);
+        }
+        else bomberman._moving = false;
+        if(!bomberman._moving)
+        {
+            bomberman.setAllCnt();
+            bomberman.movingSprite(bomberman._direction);
         }
 //        System.out.println(currentlyActiveKeys); // test
     }

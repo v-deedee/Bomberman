@@ -23,10 +23,6 @@ import java.util.List;
 public class BombermanGame extends Application {
     private LevelLoader lvLoad = new LevelLoader(1);
     Board board = lvLoad.board;
-
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 15;
-
     static Group root = new Group();
 
     static Scene scene = new Scene(root);
@@ -37,8 +33,6 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
-    private final List<Entity> entities = new ArrayList<>();
-    private final List<Entity> stillObjects = new ArrayList<>();
 
     // fps counter
     private final long[] frameTimes = new long[100];
@@ -106,10 +100,10 @@ public class BombermanGame extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 //        lvLoad.board.bombers.forEach(g -> g.render(gc));
         board.entities.forEach(g -> g.render(gc));
+        board.enemies.forEach(g -> g.render(gc));
         if (!board.bombers.isEmpty()) {
             board.bombers.get(0).render(gc);
         }
-        board.enemies.forEach(g -> g.render(gc));
 //        System.err.println(board.entities.size());
     }
 }

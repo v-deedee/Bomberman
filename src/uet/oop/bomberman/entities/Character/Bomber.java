@@ -7,10 +7,20 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Bomber extends Entity {
 
     public final double step = 2;
+    public boolean _moving = false;
+    public String _direction = "RIGHT";
     public int cntUpFrame = 0;
     public int cntDownFrame = 0;
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
+
+    public void setAllCnt()
+    {
+        cntUpFrame = 0;
+        cntDownFrame = 0;
+        cntLeftFrame = 0;
+        cntRightFrame = 0;
+    }
 
     public Bomber(double x, double y, Image img) {
         super(x, y, img);
