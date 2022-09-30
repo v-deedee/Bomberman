@@ -12,17 +12,12 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.Input.InputHandler;
 import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Tile.Grass;
-import uet.oop.bomberman.entities.Tile.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BombermanGame extends Application {
     private LevelLoader lvLoad = new LevelLoader(1);
-    Board board = lvLoad.board;
+//    Board board = lvLoad.board;
     static Group root = new Group();
 
     static Scene scene = new Scene(root);
@@ -67,8 +62,8 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (!board.bombers.isEmpty()) {
-                    _input.handleInput((Bomber) board.bombers.get(0));
+                if (!lvLoad.board.bombers.isEmpty()) {
+                    _input.handleInput((Bomber) lvLoad.board.bombers.get(0), lvLoad.board);
                 }
                 render();
                 update();
@@ -89,21 +84,22 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        board.entities.forEach(Entity::update);
-        if (!board.bombers.isEmpty()) {
-            board.bombers.get(0).update();
+        lvLoad.board.entities.forEach(Entity::update);
+        if (!lvLoad.board.bombers.isEmpty()) {
+            lvLoad.board.bombers.get(0).update();
         }
-        board.enemies.forEach(Entity::update);
+        lvLoad.board.enemies.forEach(Entity::update);
+        lvLoad.board.bombs.forEach(Entity::update);
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        lvLoad.board.bombers.forEach(g -> g.render(gc));
-        board.entities.forEach(g -> g.render(gc));
-        board.enemies.forEach(g -> g.render(gc));
-        if (!board.bombers.isEmpty()) {
-            board.bombers.get(0).render(gc);
+        lvLoad.board.entities.forEach(g -> g.render(gc));
+        lvLoad.board.enemies.forEach(g -> g.render(gc));
+        if (!lvLoad.board.bombers.isEmpty()) {
+            lvLoad.board.bombers.get(0).render(gc);
+            lvLoad.board.bombs.forEach(g -> g.render(gc));
         }
-//        System.err.println(board.entities.size());
+        System.err.println("Bomb size =" + lvLoad.board.bombs.size());
     }
 }

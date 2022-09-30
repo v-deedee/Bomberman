@@ -1,6 +1,7 @@
 package uet.oop.bomberman.Input;
 
 import javafx.scene.Scene;
+import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Character.Bomber;
 
 import java.util.*;
@@ -15,7 +16,7 @@ public class InputHandler {
         scene.setOnKeyReleased(event -> currentlyActiveKeys.remove(event.getCode().toString()));
     }
 
-    public void handleInput(Bomber bomberman) {
+    public void handleInput(Bomber bomberman, Board board) {
         String[] activeKeysArr = currentlyActiveKeys.toArray(new String[0]);
         if (activeKeysArr.length != 0) {
             bomberman._direction = activeKeysArr[activeKeysArr.length - 1];
@@ -36,11 +37,14 @@ public class InputHandler {
                 bomberman._moving = true;
             }
             bomberman.movingSprite(bomberman._direction);
+            if(currentlyActiveKeys.contains("SPACE")) {
+                bomberman.plantBomb(board);
+            }
         }
         else bomberman._moving = false;
         if(!bomberman._moving)
         {
-            bomberman.setAllCnt();
+            bomberman.setAllFrameCnt();
             bomberman.movingSprite(bomberman._direction);
         }
 //        System.out.println(currentlyActiveKeys); // test

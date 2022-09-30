@@ -1,8 +1,13 @@
 package uet.oop.bomberman.entities.Character;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Board;
+import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bomber extends Entity {
 
@@ -14,8 +19,10 @@ public class Bomber extends Entity {
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
 
-    public void setAllCnt()
-    {
+    int maxBomb = 1;
+    int currentBomb = 0;
+
+    public void setAllFrameCnt() {
         cntUpFrame = 0;
         cntDownFrame = 0;
         cntLeftFrame = 0;
@@ -120,6 +127,13 @@ public class Bomber extends Entity {
                 }
                 cntDownFrame++;
                 break;
+        }
+    }
+
+    public void plantBomb(Board _board)
+    {
+        if(currentBomb < maxBomb){
+            _board.addBomb(new Bomb(x, y, Sprite.bomb.getFxImage()));
         }
     }
 }

@@ -1,5 +1,6 @@
 package uet.oop.bomberman;
 
+import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.Enemy;
 import uet.oop.bomberman.entities.Entity;
@@ -12,6 +13,8 @@ public class Board {
     public List<Bomber> bombers = new ArrayList<>();
 
     public List<Enemy> enemies = new ArrayList<>();
+
+    public List<Bomb> bombs = new ArrayList<>();
 
     public Board()
     {
@@ -27,5 +30,9 @@ public class Board {
     public void addEnemy(Enemy enemy)
     {
         enemies.add(enemy);
+    }
+
+    public void addBomb(Bomb bomb){
+        bombs.add(bomb);
     }
 }

@@ -76,9 +76,6 @@ public class LevelLoader {
             {
                 System.err.print(map[y][x]);
                 switch (map[y][x]){
-                    case ' ':
-                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
-                        break;
                     case '#':
                         board.addEntity(new Wall(x, y, Sprite.wall.getFxImage()));
                         break;
