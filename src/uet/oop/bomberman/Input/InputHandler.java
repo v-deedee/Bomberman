@@ -8,6 +8,7 @@ import java.util.*;
 
 public class InputHandler {
     public Set<String> currentlyActiveKeys;
+    int bombPlantCD = 15;
 
     public void prepareActionHandlers(Scene scene) {
         // use a set so duplicates are not possible
@@ -17,6 +18,7 @@ public class InputHandler {
     }
 
     public void handleInput(Bomber bomberman, Board board) {
+        bombPlantCD--;
         String[] activeKeysArr = currentlyActiveKeys.toArray(new String[0]);
         if (activeKeysArr.length != 0) {
             bomberman._direction = activeKeysArr[activeKeysArr.length - 1];
@@ -37,8 +39,9 @@ public class InputHandler {
                 bomberman._moving = true;
             }
             bomberman.movingSprite(bomberman._direction);
-            if(currentlyActiveKeys.contains("SPACE")) {
+            if(currentlyActiveKeys.contains("SPACE") && bombPlantCD <= 0) {
                 bomberman.plantBomb(board);
+                bombPlantCD = 15;
             }
         }
         else bomberman._moving = false;

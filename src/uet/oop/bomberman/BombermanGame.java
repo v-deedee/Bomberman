@@ -63,7 +63,7 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long now) {
                 if (!lvLoad.board.bombers.isEmpty()) {
-                    _input.handleInput((Bomber) lvLoad.board.bombers.get(0), lvLoad.board);
+                    _input.handleInput( lvLoad.board.bombers.get(0), lvLoad.board);
                 }
                 render();
                 update();
@@ -96,10 +96,9 @@ public class BombermanGame extends Application {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         lvLoad.board.entities.forEach(g -> g.render(gc));
         lvLoad.board.enemies.forEach(g -> g.render(gc));
+        lvLoad.board.bombs.forEach(g -> g.render(gc));
         if (!lvLoad.board.bombers.isEmpty()) {
             lvLoad.board.bombers.get(0).render(gc);
-            lvLoad.board.bombs.forEach(g -> g.render(gc));
         }
-        System.err.println("Bomb size =" + lvLoad.board.bombs.size());
     }
 }

@@ -6,9 +6,6 @@ import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Bomber extends Entity {
 
     public final double step = 2;
@@ -19,7 +16,7 @@ public class Bomber extends Entity {
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
 
-    int maxBomb = 1;
+    int maxBomb = 100;
     int currentBomb = 0;
 
     public void setAllFrameCnt() {
@@ -132,8 +129,18 @@ public class Bomber extends Entity {
 
     public void plantBomb(Board _board)
     {
-        if(currentBomb < maxBomb){
-            _board.addBomb(new Bomb(x, y, Sprite.bomb.getFxImage()));
+        int sw = 0;
+        int bombX = (int)(getX()/Sprite.SCALED_SIZE);
+        int bombY = (int)(getY()/Sprite.SCALED_SIZE);
+        Bomb tempBomb = new Bomb(bombX, bombY, Sprite.bomb.getFxImage());
+        for(int i=0;i<_board.bombs.size();i++){
+            if(_board.bombs.get(i).getX() == bombX*Sprite.SCALED_SIZE
+                    && _board.bombs.get(i).getY() == bombY*Sprite.SCALED_SIZE) sw++;
         }
+        if(currentBomb < maxBomb && sw==0){
+            _board.addBomb(tempBomb);
+            currentBomb++;
+        }
+        System.err.println(bombX + " " + bombY);
     }
 }
