@@ -5,6 +5,8 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 
+import java.awt.*;
+
 public class Bomber extends Entity {
 
     public final double step = 2;
@@ -38,56 +40,95 @@ public class Bomber extends Entity {
     }
 
     public void checkCollisionUp(LevelLoader lvLoad) {
-        int x_ = (int)Math.ceil(x / 32.0);
-        int x2 = (int)Math.floor(x / 32.0);
-        int y_ = (int)Math.round(y / 32.0);
-        if (y_ == 0) {
-            y_++;
-        }
-        if (lvLoad.getMap(y_ - 1, x_) != ' ' && lvLoad.getMap(y_ - 1, x_) != 'p' && (int)(y + 2) % 32 == 0) {
-            moveDown();
-        }
-        if (lvLoad.getMap(y_ - 1, x2) != ' ' && lvLoad.getMap(y_ - 1, x2) != 'p' && (int)(y + 2) % 32 == 0) {
+        // Get position in map
+        int x1 = (int)x / Sprite.SCALED_SIZE;
+        int y1 = (int)y / Sprite.SCALED_SIZE;
+        // Get rectangle of bomber
+        int bomberWidth = Sprite.player_down.get_realWidth() * 2;
+        int bomberHeight = Sprite.player_down.get_realHeight() * 2;
+        Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
+        // Create rectangle of obstacle
+        int obstacleSize = Sprite.wall.get_realWidth() * 2;
+        Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
+                y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
+        Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
+                y1 * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
+        // Check up collision
+        if ((lvLoad.getMap(y1, x1) != ' ' && lvLoad.getMap(y1, x1) != 'p'
+                && bomber.getBounds().intersects(obstacleTopLeft.getBounds()))
+                || (lvLoad.getMap(y1, (x1 + 1)) != ' ' && lvLoad.getMap(y1, (x1 + 1)) != 'p'
+                && bomber.getBounds().intersects(obstacleTopRight.getBounds()))){
             moveDown();
         }
     }
 
     public void checkCollisionLeft(LevelLoader lvLoad) {
-        int x_ = (int)Math.round(x / 32.0);
-        int y_ = (int)Math.ceil(y / 32.0);
-        int y2 = (int)Math.floor(y / 32.0);
-        if (x_ == 0) {
-            x_++;
-        }
-        if (lvLoad.getMap(y_, x_ - 1) != ' ' && lvLoad.getMap(y_ , x_ - 1) != 'p' && (int)(x + 2) % 32 == 0) {
-            moveRight();
-        }
-        if (lvLoad.getMap(y2, x_ - 1) != ' ' && lvLoad.getMap(y2 , x_ - 1) != 'p' && (int)(x + 2) % 32 == 0) {
+        // Get position in map
+        int x1 = (int)x / Sprite.SCALED_SIZE;
+        int y1 = (int)y / Sprite.SCALED_SIZE;
+        // Get rectangle of bomber
+        int bomberWidth = Sprite.player_down.get_realWidth() * 2;
+        int bomberHeight = Sprite.player_down.get_realHeight() * 2;
+        Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
+        // Create rectangle of obstacle
+        int obstacleSize = Sprite.wall.get_realWidth() * 2;
+        Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
+                y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
+        Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
+                (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
+        // Check left collision
+        if ((lvLoad.getMap(y1, x1) != ' ' && lvLoad.getMap(y1, x1) != 'p'
+                && bomber.getBounds().intersects(obstacleTopLeft.getBounds()))
+                || (lvLoad.getMap((y1 + 1), x1) != ' ' && lvLoad.getMap((y1 + 1), x1) != 'p'
+                && bomber.getBounds().intersects(obstacleDownLeft.getBounds()))){
             moveRight();
         }
     }
 
     public void checkCollisionDown(LevelLoader lvLoad) {
-        int x_ = (int)Math.ceil(x / 32.0);
-        int x2 = (int)Math.floor(x / 32.0);
-        int y_ = (int)Math.round(y / 32.0);
-        if (lvLoad.getMap(y_ + 1, x_) != ' ' && lvLoad.getMap(y_ + 1, x_) != 'p' && (int)(y - 2) % 32 == 0) {
-            moveUp();
-        }
-        if (lvLoad.getMap(y_ + 1, x2) != ' ' && lvLoad.getMap(y_ + 1, x2) != 'p' && (int)(y - 2) % 32 == 0) {
+        // Get position in map
+        int x1 = (int)x / Sprite.SCALED_SIZE;
+        int y1 = (int)y / Sprite.SCALED_SIZE;
+        // Get rectangle of bomber
+        int bomberWidth = Sprite.player_down.get_realWidth() * 2;
+        int bomberHeight = Sprite.player_down.get_realHeight() * 2;
+        Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
+        // Create rectangle of obstacle
+        int obstacleSize = Sprite.wall.get_realWidth() * 2;
+        Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
+                (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
+        Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
+                (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
+        // Check down collision
+        if ((lvLoad.getMap((y1 + 1), (x1 + 1)) != ' '
+                && bomber.getBounds().intersects(obstacleDownRight.getBounds()))
+                || (lvLoad.getMap((y1 + 1), x1) != ' '
+                && bomber.getBounds().intersects(obstacleDownLeft.getBounds()))){
             moveUp();
         }
     }
 
     public void checkCollisionRight(LevelLoader lvLoad) {
-        int x_ = (int)Math.round(x / 32.0);
-        int y_ = (int)Math.ceil(y / 32.0);
-        int y2 = (int)Math.floor(y / 32.0);
-        if (lvLoad.getMap(y_, x_ + 1) != ' ' && lvLoad.getMap(y_ , x_ + 1) != 'p' && (int)(x - 2) % 32 == 0) {
+        // Get position in map
+        int x1 = (int)x / Sprite.SCALED_SIZE;
+        int y1 = (int)y / Sprite.SCALED_SIZE;
+        // Get rectangle of bomber
+        int bomberWidth = Sprite.player_down.get_realWidth() * 2;
+        int bomberHeight = Sprite.player_down.get_realHeight() * 2;
+        Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
+        // Create rectangle of obstacle
+        int obstacleSize = Sprite.wall.get_realWidth() * 2;
+        Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
+                y1 * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
+        Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
+                (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
+        // Check right collision
+        if ((lvLoad.getMap((y1 + 1), (x1 + 1)) != ' '
+                && bomber.getBounds().intersects(obstacleDownRight.getBounds()))
+                || (lvLoad.getMap(y1, (x1 + 1)) != ' '
+                && bomber.getBounds().intersects(obstacleTopRight.getBounds()))){
             moveLeft();
-        }
-        if (lvLoad.getMap(y2, x_ + 1) != ' ' && lvLoad.getMap(y2 , x_ + 1) != 'p' && (int)(x - 2) % 32 == 0) {
-            moveLeft();
+            return;
         }
     }
 
