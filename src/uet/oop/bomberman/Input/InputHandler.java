@@ -8,6 +8,7 @@ import java.util.*;
 
 public class InputHandler {
     public Set<String> currentlyActiveKeys;
+    public List<String> movementKey = new ArrayList<>();
     int bombPlantCD = 15;
 
     public void prepareActionHandlers(Scene scene) {
@@ -15,13 +16,26 @@ public class InputHandler {
         currentlyActiveKeys = new LinkedHashSet<>();
         scene.setOnKeyPressed(event -> currentlyActiveKeys.add(event.getCode().toString()));
         scene.setOnKeyReleased(event -> currentlyActiveKeys.remove(event.getCode().toString()));
+
+        // set movementKey
+        movementKey.add("LEFT");
+        movementKey.add("RIGHT");
+        movementKey.add("UP");
+        movementKey.add("DOWN");
+        movementKey.add("A");
+        movementKey.add("S");
+        movementKey.add("W");
+        movementKey.add("D");
     }
 
     public void handleInput(Bomber bomberman, Board board) {
         bombPlantCD--;
         String[] activeKeysArr = currentlyActiveKeys.toArray(new String[0]);
         if (activeKeysArr.length != 0) {
-            bomberman._direction = activeKeysArr[activeKeysArr.length - 1];
+            if(movementKey.contains(activeKeysArr[activeKeysArr.length - 1]))
+            {
+                bomberman._direction = activeKeysArr[activeKeysArr.length - 1];
+            }
             if (currentlyActiveKeys.contains("LEFT") || currentlyActiveKeys.contains("A")) {
                 bomberman.moveLeft();
                 bomberman._moving = true;
@@ -39,10 +53,6 @@ public class InputHandler {
                 bomberman._moving = true;
             }
             bomberman.movingSprite(bomberman._direction);
-            if(currentlyActiveKeys.contains("SPACE") && bombPlantCD <= 0) {
-                bomberman.plantBomb(board);
-                bombPlantCD = 15;
-            }
         }
         else bomberman._moving = false;
         if(!bomberman._moving)
@@ -50,6 +60,9 @@ public class InputHandler {
             bomberman.setAllFrameCnt();
             bomberman.movingSprite(bomberman._direction);
         }
-//        System.out.println(currentlyActiveKeys); // test
+        if(currentlyActiveKeys.contains("SPACE") && bombPlantCD <= 0) {
+            bomberman.plantBomb(board);
+            bombPlantCD = 15;
+        }
     }
 }

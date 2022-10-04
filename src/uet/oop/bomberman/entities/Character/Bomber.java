@@ -151,7 +151,6 @@ public class Bomber extends Entity {
         if (currentBomb < maxBomb && sw == 0) {
             _board.addBomb(tempBomb);
             currentBomb++;
-            System.err.println(bombX + " " + bombY);
         }
     }
 }
