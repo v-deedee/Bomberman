@@ -16,8 +16,7 @@ public class Bomber extends Entity {
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
 
-    int maxBomb = 100;
-    int currentBomb = 0;
+    int maxBomb = 1;
 
     public void setAllFrameCnt() {
         cntUpFrame = 0;
@@ -148,9 +147,8 @@ public class Bomber extends Entity {
             if (_board.enemies.get(i).getX() == bombX * Sprite.SCALED_SIZE
                     && _board.enemies.get(i).getY() == bombY * Sprite.SCALED_SIZE) sw++;
         }
-        if (currentBomb < maxBomb && sw == 0) {
+        if (_board.bombs.size() < maxBomb && sw == 0) {
             _board.addBomb(tempBomb);
-            currentBomb++;
         }
     }
 }

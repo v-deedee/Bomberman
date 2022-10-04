@@ -6,17 +6,20 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends Entity {
     int cntBombFrame = 0;
+    public boolean isRemoved = false;
+    int explodeTime = 120;
+
     public Bomb(double xUnit, double yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
 
-    public void update()
-    {
+    public void update() {
         bombSprite();
+        explodeTime--;
+        if(explodeTime <= 0) isRemoved = true;
     }
 
-    public void bombSprite()
-    {
+    public void bombSprite() {
         if (cntBombFrame >= 0 && cntBombFrame <= 20) {
             img = Sprite.bomb.getFxImage();
         } else if (cntBombFrame >= 21 && cntBombFrame <= 40) {
