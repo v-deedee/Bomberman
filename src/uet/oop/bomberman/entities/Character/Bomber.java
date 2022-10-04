@@ -127,20 +127,31 @@ public class Bomber extends Entity {
         }
     }
 
-    public void plantBomb(Board _board)
-    {
+    public void plantBomb(Board _board) {
         int sw = 0;
-        int bombX = (int)(getX()/Sprite.SCALED_SIZE);
-        int bombY = (int)(getY()/Sprite.SCALED_SIZE);
+        double bombX = (int) (getX() / Sprite.SCALED_SIZE + 0.5);
+        double bombY = (int) (getY() / Sprite.SCALED_SIZE + 0.5);
         Bomb tempBomb = new Bomb(bombX, bombY, Sprite.bomb.getFxImage());
-        for(int i=0;i<_board.bombs.size();i++){
-            if(_board.bombs.get(i).getX() == bombX*Sprite.SCALED_SIZE
-                    && _board.bombs.get(i).getY() == bombY*Sprite.SCALED_SIZE) sw++;
+        for (int i = 0; i < _board.bombs.size(); i++) {
+            if (_board.bombs.get(i).getX() == bombX * Sprite.SCALED_SIZE
+                    && _board.bombs.get(i).getY() == bombY * Sprite.SCALED_SIZE) sw++;
         }
-        if(currentBomb < maxBomb && sw==0){
+        for (int i = 0; i < _board.walls.size(); i++) {
+            if (_board.walls.get(i).getX() == bombX * Sprite.SCALED_SIZE
+                    && _board.walls.get(i).getY() == bombY * Sprite.SCALED_SIZE) sw++;
+        }
+        for (int i = 0; i < _board.bricks.size(); i++) {
+            if (_board.bricks.get(i).getX() == bombX * Sprite.SCALED_SIZE
+                    && _board.bricks.get(i).getY() == bombY * Sprite.SCALED_SIZE) sw++;
+        }
+        for (int i = 0; i < _board.enemies.size(); i++) {
+            if (_board.enemies.get(i).getX() == bombX * Sprite.SCALED_SIZE
+                    && _board.enemies.get(i).getY() == bombY * Sprite.SCALED_SIZE) sw++;
+        }
+        if (currentBomb < maxBomb && sw == 0) {
             _board.addBomb(tempBomb);
             currentBomb++;
+            System.err.println(bombX + " " + bombY);
         }
-        System.err.println(bombX + " " + bombY);
     }
 }

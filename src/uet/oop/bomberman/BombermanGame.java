@@ -10,8 +10,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import uet.oop.bomberman.Input.InputHandler;
-import uet.oop.bomberman.entities.Character.Bomber;
-import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 
@@ -84,21 +82,11 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        lvLoad.board.entities.forEach(Entity::update);
-        if (!lvLoad.board.bombers.isEmpty()) {
-            lvLoad.board.bombers.get(0).update();
-        }
-        lvLoad.board.enemies.forEach(Entity::update);
-        lvLoad.board.bombs.forEach(Entity::update);
+        lvLoad.board.updateAllEntity();
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        lvLoad.board.entities.forEach(g -> g.render(gc));
-        lvLoad.board.enemies.forEach(g -> g.render(gc));
-        lvLoad.board.bombs.forEach(g -> g.render(gc));
-        if (!lvLoad.board.bombers.isEmpty()) {
-            lvLoad.board.bombers.get(0).render(gc);
-        }
+        lvLoad.board.renderAllEntity(gc);
     }
 }
