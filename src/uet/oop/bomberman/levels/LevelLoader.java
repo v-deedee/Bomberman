@@ -42,6 +42,10 @@ public class LevelLoader {
         this.width = width;
     }
 
+    public char getMap(int i, int j) {
+        return map[i][j];
+    }
+
     public void loadLevel(int level) {
         List<String> list = new ArrayList<>();
         try {

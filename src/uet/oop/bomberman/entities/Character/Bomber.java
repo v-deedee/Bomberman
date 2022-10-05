@@ -5,6 +5,7 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.LevelLoader;
 
 public class Bomber extends Entity {
 
@@ -47,6 +48,60 @@ public class Bomber extends Entity {
 
     public void moveLeft() {
         x = x - step;
+    }
+
+    public void checkCollisionUp(LevelLoader lvLoad) {
+        int x_ = (int)Math.ceil(x / 32.0);
+        int x2 = (int)Math.floor(x / 32.0);
+        int y_ = (int)Math.round(y / 32.0);
+        if (y_ == 0) {
+            y_++;
+        }
+        if (lvLoad.getMap(y_ - 1, x_) != ' ' && lvLoad.getMap(y_ - 1, x_) != 'p' && (int)(y + 2) % 32 == 0) {
+            moveDown();
+        }
+        if (lvLoad.getMap(y_ - 1, x2) != ' ' && lvLoad.getMap(y_ - 1, x2) != 'p' && (int)(y + 2) % 32 == 0) {
+            moveDown();
+        }
+    }
+
+    public void checkCollisionLeft(LevelLoader lvLoad) {
+        int x_ = (int)Math.round(x / 32.0);
+        int y_ = (int)Math.ceil(y / 32.0);
+        int y2 = (int)Math.floor(y / 32.0);
+        if (x_ == 0) {
+            x_++;
+        }
+        if (lvLoad.getMap(y_, x_ - 1) != ' ' && lvLoad.getMap(y_ , x_ - 1) != 'p' && (int)(x + 2) % 32 == 0) {
+            moveRight();
+        }
+        if (lvLoad.getMap(y2, x_ - 1) != ' ' && lvLoad.getMap(y2 , x_ - 1) != 'p' && (int)(x + 2) % 32 == 0) {
+            moveRight();
+        }
+    }
+
+    public void checkCollisionDown(LevelLoader lvLoad) {
+        int x_ = (int)Math.ceil(x / 32.0);
+        int x2 = (int)Math.floor(x / 32.0);
+        int y_ = (int)Math.round(y / 32.0);
+        if (lvLoad.getMap(y_ + 1, x_) != ' ' && lvLoad.getMap(y_ + 1, x_) != 'p' && (int)(y - 2) % 32 == 0) {
+            moveUp();
+        }
+        if (lvLoad.getMap(y_ + 1, x2) != ' ' && lvLoad.getMap(y_ + 1, x2) != 'p' && (int)(y - 2) % 32 == 0) {
+            moveUp();
+        }
+    }
+
+    public void checkCollisionRight(LevelLoader lvLoad) {
+        int x_ = (int)Math.round(x / 32.0);
+        int y_ = (int)Math.ceil(y / 32.0);
+        int y2 = (int)Math.floor(y / 32.0);
+        if (lvLoad.getMap(y_, x_ + 1) != ' ' && lvLoad.getMap(y_ , x_ + 1) != 'p' && (int)(x - 2) % 32 == 0) {
+            moveLeft();
+        }
+        if (lvLoad.getMap(y2, x_ + 1) != ' ' && lvLoad.getMap(y2 , x_ + 1) != 'p' && (int)(x - 2) % 32 == 0) {
+            moveLeft();
+        }
     }
 
     public void movingSprite(String _input) {
