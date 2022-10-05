@@ -33,9 +33,6 @@ public class BombermanGame extends Application {
     private boolean frameArrFilled = false;
     private double frameRate;
 
-//    Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-
-
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
