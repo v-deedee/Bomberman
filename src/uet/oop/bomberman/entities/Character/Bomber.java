@@ -1,6 +1,8 @@
 package uet.oop.bomberman.entities.Character;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Board;
+import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
@@ -8,10 +10,21 @@ import uet.oop.bomberman.levels.LevelLoader;
 public class Bomber extends Entity {
 
     public final double step = 2;
+    public boolean _moving = false;
+    public String _direction = "RIGHT";
     public int cntUpFrame = 0;
     public int cntDownFrame = 0;
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
+
+    int maxBomb = 1;
+
+    public void setAllFrameCnt() {
+        cntUpFrame = 0;
+        cntDownFrame = 0;
+        cntLeftFrame = 0;
+        cntRightFrame = 0;
+    }
 
     public Bomber(double x, double y, Image img) {
         super(x, y, img);
@@ -165,6 +178,32 @@ public class Bomber extends Entity {
                 }
                 cntDownFrame++;
                 break;
+        }
+    }
+
+    public void plantBomb(Board _board) {
+        int sw = 0;
+        double bombX = (int) (getX() / Sprite.SCALED_SIZE + 0.5);
+        double bombY = (int) (getY() / Sprite.SCALED_SIZE + 0.5);
+        Bomb tempBomb = new Bomb(bombX, bombY, Sprite.bomb.getFxImage());
+        for (int i = 0; i < _board.bombs.size(); i++) {
+            if (_board.bombs.get(i).getX() == bombX * Sprite.SCALED_SIZE
+                    && _board.bombs.get(i).getY() == bombY * Sprite.SCALED_SIZE) sw++;
+        }
+        for (int i = 0; i < _board.walls.size(); i++) {
+            if (_board.walls.get(i).getX() == bombX * Sprite.SCALED_SIZE
+                    && _board.walls.get(i).getY() == bombY * Sprite.SCALED_SIZE) sw++;
+        }
+        for (int i = 0; i < _board.bricks.size(); i++) {
+            if (_board.bricks.get(i).getX() == bombX * Sprite.SCALED_SIZE
+                    && _board.bricks.get(i).getY() == bombY * Sprite.SCALED_SIZE) sw++;
+        }
+        for (int i = 0; i < _board.enemies.size(); i++) {
+            if (_board.enemies.get(i).getX() == bombX * Sprite.SCALED_SIZE
+                    && _board.enemies.get(i).getY() == bombY * Sprite.SCALED_SIZE) sw++;
+        }
+        if (_board.bombs.size() < maxBomb && sw == 0) {
+            _board.addBomb(tempBomb);
         }
     }
 }

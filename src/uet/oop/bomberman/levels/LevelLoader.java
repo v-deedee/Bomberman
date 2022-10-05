@@ -64,7 +64,7 @@ public class LevelLoader {
         height = Integer.parseInt(levelInfo[1]);
         width = Integer.parseInt(levelInfo[2]);
         map = new char[height][width];
-        for(int i=0;i<height;i++) {
+        for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 map[i][j] = list.get(i + 1).charAt(j);
             }
@@ -72,42 +72,36 @@ public class LevelLoader {
         addEntity();
     }
 
-    public void addEntity()
-    {
-        for(int y=0;y<height;y++)
-        {
-            for(int x=0;x<width;x++)
-            {
+    public void addEntity() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 System.err.print(map[y][x]);
-                switch (map[y][x]){
-                    case ' ':
-                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
-                        break;
+                switch (map[y][x]) {
                     case '#':
-                        board.addEntity(new Wall(x, y, Sprite.wall.getFxImage()));
+                        board.addWall(new Wall(x, y, Sprite.wall.getFxImage()));
                         break;
                     case '*':
-                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
-                        board.addEntity(new Brick(x, y, Sprite.brick.getFxImage()));
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
+                        board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
                     case 'x':
-                        board.addEntity(new Portal(x, y, Sprite.portal.getFxImage()));
-                        board.addEntity(new Brick(x, y, Sprite.brick.getFxImage()));
+                        board.addPortal(new Portal(x, y, Sprite.portal.getFxImage()));
+                        board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
                     case 'p':
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addBomber(new Bomber(x, y, Sprite.player_right.getFxImage()));
-                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
                         break;
                     case '1':
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEnemy(new Balloon(x, y, Sprite.balloom_right1.getFxImage()));
-                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
                         break;
                     case '2':
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEnemy(new Oneal(x, y, Sprite.oneal_right1.getFxImage()));
-                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
                         break;
                     default:
-                        board.addEntity(new Grass(x, y, Sprite.grass.getFxImage()));
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         break;
                 }
             }
