@@ -7,6 +7,7 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Flame extends Entity {
     public boolean isRemoved = false;
     int cntFlameFrame = 10;
+
     public Flame(double xUnit, double yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
@@ -16,17 +17,12 @@ public class Flame extends Entity {
         flameSprite();
     }
 
-    public void flameSprite()
-    {
-        if(cntFlameFrame<=6 && cntFlameFrame>=4)
-        {
+    public void flameSprite() {
+        if (cntFlameFrame <= 6 && cntFlameFrame >= 4) {
             img = Sprite.bomb_exploded1.getFxImage();
-        }
-        else if(cntFlameFrame<=3 && cntFlameFrame>=0)
-        {
+        } else if (cntFlameFrame <= 3 && cntFlameFrame >= 0) {
             img = Sprite.bomb_exploded2.getFxImage();
-        }
-        else if (cntFlameFrame < 0) {
+        } else if (cntFlameFrame < 0) {
             isRemoved = true;
         }
         cntFlameFrame--;

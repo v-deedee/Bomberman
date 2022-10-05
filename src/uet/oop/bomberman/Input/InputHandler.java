@@ -32,8 +32,7 @@ public class InputHandler {
         bombPlantCD--;
         String[] activeKeysArr = currentlyActiveKeys.toArray(new String[0]);
         if (activeKeysArr.length != 0) {
-            if(movementKey.contains(activeKeysArr[activeKeysArr.length - 1]))
-            {
+            if (movementKey.contains(activeKeysArr[activeKeysArr.length - 1])) {
                 bomberman._direction = activeKeysArr[activeKeysArr.length - 1];
             }
             if (currentlyActiveKeys.contains("LEFT") || currentlyActiveKeys.contains("A")) {
@@ -53,14 +52,12 @@ public class InputHandler {
                 bomberman._moving = true;
             }
             bomberman.movingSprite(bomberman._direction);
-        }
-        else bomberman._moving = false;
-        if(!bomberman._moving)
-        {
+        } else bomberman._moving = false;
+        if (!bomberman._moving) {
             bomberman.setAllFrameCnt();
             bomberman.movingSprite(bomberman._direction);
         }
-        if(currentlyActiveKeys.contains("SPACE") && bombPlantCD <= 0) {
+        if (currentlyActiveKeys.contains("SPACE") && bombPlantCD <= 0) {
             bomberman.plantBomb(board);
             bombPlantCD = 15;
         }

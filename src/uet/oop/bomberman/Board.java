@@ -75,12 +75,37 @@ public class Board {
         enemies.forEach(Entity::update);
         bombs.forEach(Entity::update);
         flames.forEach(Entity::update);
+        flameSegments.forEach(Entity::update);
 
         for (int i = 0; i < bombs.size(); i++) {
             if (bombs.get(i).isRemoved) {
                 double posX = bombs.get(i).getX() / Sprite.SCALED_SIZE;
                 double posY = bombs.get(i).getY() / Sprite.SCALED_SIZE;
                 flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
+                for (int _direction = 0; _direction < 4; _direction++) {
+                    for (int j = 0; j < bombs.get(i).bombRadius; j++) {
+                        boolean _last = false;
+                        double segmentX = posX;
+                        double segmentY = posY;
+                        int diff = j + 1;
+                        if (j == bombs.get(i).bombRadius - 1) _last = true;
+                        switch (_direction) {
+                            case 0:
+                                segmentY -= diff;
+                                break;
+                            case 1:
+                                segmentX += diff;
+                                break;
+                            case 2:
+                                segmentY += diff;
+                                break;
+                            case 3:
+                                segmentX -= diff;
+                                break;
+                        }
+                        flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
+                    }
+                }
                 bombs.remove(i);
                 i--;
             }
@@ -88,6 +113,12 @@ public class Board {
         for (int i = 0; i < flames.size(); i++) {
             if (flames.get(i).isRemoved) {
                 flames.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < flameSegments.size(); i++) {
+            if (flameSegments.get(i).isRemoved) {
+                flameSegments.remove(i);
                 i--;
             }
         }
@@ -100,6 +131,7 @@ public class Board {
         bricks.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
         flames.forEach(g -> g.render(gc));
+        flameSegments.forEach(g -> g.render(gc));
         bombs.forEach(g -> g.render(gc));
         bombers.forEach(g -> g.render(gc));
     }

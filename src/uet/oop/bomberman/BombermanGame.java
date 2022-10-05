@@ -15,7 +15,7 @@ import uet.oop.bomberman.levels.LevelLoader;
 
 public class BombermanGame extends Application {
     private LevelLoader lvLoad = new LevelLoader(1);
-//    Board board = lvLoad.board;
+    //    Board board = lvLoad.board;
     static Group root = new Group();
 
     static Scene scene = new Scene(root);
@@ -61,7 +61,7 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long now) {
                 if (!lvLoad.board.bombers.isEmpty()) {
-                    _input.handleInput( lvLoad.board.bombers.get(0), lvLoad.board);
+                    _input.handleInput(lvLoad.board.bombers.get(0), lvLoad.board);
                 }
                 render();
                 update();

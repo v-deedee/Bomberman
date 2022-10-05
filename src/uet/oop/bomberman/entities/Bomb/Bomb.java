@@ -7,6 +7,8 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Bomb extends Entity {
     int cntBombFrame = 0;
     public boolean isRemoved = false;
+
+    public int bombRadius = 1;
     int explodeTime = 120;
 
     public Bomb(double xUnit, double yUnit, Image img) {
@@ -16,7 +18,7 @@ public class Bomb extends Entity {
     public void update() {
         bombSprite();
         explodeTime--;
-        if(explodeTime <= 0) isRemoved = true;
+        if (explodeTime <= 0) isRemoved = true;
     }
 
     public void bombSprite() {
