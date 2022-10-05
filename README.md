@@ -1,5 +1,9 @@
 # Bài tập lớn OOP - Bomberman Game
 
+BTL nhóm 15, thành viên nhóm:
+- Nguyễn Tuấn Đức, mã sinh viên 21020539
+- Nguyễn Việt Anh, mã sinh viên 21020277
+
 Trong bài tập lớn này, nhiệm vụ của bạn là viết một phiên bản Java mô phỏng lại trò chơi [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM) kinh điển của NES.
 
 <img src="res/demo.png" alt="drawing" width="400"/>
