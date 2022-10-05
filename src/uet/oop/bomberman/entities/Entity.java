@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.LevelLoader;
 
 public abstract class Entity {
     //Tọa độ X tính từ góc trái trên trong Canvas
@@ -43,5 +44,8 @@ public abstract class Entity {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public void move(LevelLoader lvLoad) {
     }
 }

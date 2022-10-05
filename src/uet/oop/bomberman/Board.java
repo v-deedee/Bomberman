@@ -3,6 +3,7 @@ package uet.oop.bomberman;
 import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.Enemy;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.levels.LevelLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,5 +28,10 @@ public class Board {
     public void addEnemy(Enemy enemy)
     {
         enemies.add(enemy);
+    }
+    public void setEnemiesMovement(LevelLoader lvLoad) {
+        for (Enemy e : enemies) {
+            e.move(lvLoad);
+        }
     }
 }

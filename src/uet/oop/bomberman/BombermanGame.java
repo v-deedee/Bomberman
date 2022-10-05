@@ -100,6 +100,7 @@ public class BombermanGame extends Application {
             board.bombers.get(0).update();
         }
         board.enemies.forEach(Entity::update);
+        board.setEnemiesMovement(lvLoad);
     }
 
     public void render() {
