@@ -58,7 +58,7 @@ public class BombermanGame extends Application {
             @Override
             public void handle(long now) {
                 if (!lvLoad.board.bombers.isEmpty()) {
-                    _input.handleInput(lvLoad.board.bombers.get(0), lvLoad.board);
+                    _input.handleInput(lvLoad.board.bombers.get(0), lvLoad.board, lvLoad);
                 }
                 render();
                 update();
@@ -79,7 +79,7 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        lvLoad.board.updateAllEntity();
+        lvLoad.board.updateAllEntity(lvLoad);
     }
 
     public void render() {

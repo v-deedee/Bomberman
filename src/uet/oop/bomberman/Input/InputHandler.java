@@ -3,6 +3,7 @@ package uet.oop.bomberman.Input;
 import javafx.scene.Scene;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Character.Bomber;
+import uet.oop.bomberman.levels.LevelLoader;
 
 import java.util.*;
 
@@ -28,7 +29,7 @@ public class InputHandler {
         movementKey.add("D");
     }
 
-    public void handleInput(Bomber bomberman, Board board) {
+    public void handleInput(Bomber bomberman, Board board, LevelLoader lvLoad) {
         bombPlantCD--;
         String[] activeKeysArr = currentlyActiveKeys.toArray(new String[0]);
         if (activeKeysArr.length != 0) {
@@ -38,18 +39,22 @@ public class InputHandler {
             if (currentlyActiveKeys.contains("LEFT") || currentlyActiveKeys.contains("A")) {
                 bomberman.moveLeft();
                 bomberman._moving = true;
+                bomberman.checkCollisionLeft(lvLoad);
             }
             if (currentlyActiveKeys.contains("RIGHT") || currentlyActiveKeys.contains("D")) {
                 bomberman.moveRight();
                 bomberman._moving = true;
+                bomberman.checkCollisionRight(lvLoad);
             }
             if (currentlyActiveKeys.contains("UP") || currentlyActiveKeys.contains("W")) {
                 bomberman.moveUp();
                 bomberman._moving = true;
+                bomberman.checkCollisionUp(lvLoad);
             }
             if (currentlyActiveKeys.contains("DOWN") || currentlyActiveKeys.contains("S")) {
                 bomberman.moveDown();
                 bomberman._moving = true;
+                bomberman.checkCollisionDown(lvLoad);
             }
             bomberman.movingSprite(bomberman._direction);
         } else bomberman._moving = false;

@@ -12,6 +12,8 @@ import uet.oop.bomberman.entities.Tile.Grass;
 import uet.oop.bomberman.entities.Tile.Portal;
 import uet.oop.bomberman.entities.Tile.Wall;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.LevelLoader;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,12 @@ public class Board {
         walls.add(wall);
     }
 
-    public void updateAllEntity() {
+    public void setEnemiesMovement(LevelLoader lvLoad) {
+        for (Enemy e : enemies) {
+            e.move(lvLoad);
+        }
+    }
+    public void updateAllEntity(LevelLoader lvLoad) {
         bricks.forEach(Entity::update);
         grasses.forEach(Entity::update);
         portals.forEach(Entity::update);
@@ -76,6 +83,7 @@ public class Board {
         bombs.forEach(Entity::update);
         flames.forEach(Entity::update);
         flameSegments.forEach(Entity::update);
+        setEnemiesMovement(lvLoad);
 
         for (int i = 0; i < bombs.size(); i++) {
             if (bombs.get(i).isRemoved) {
