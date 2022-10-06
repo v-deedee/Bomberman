@@ -20,6 +20,14 @@ public class Sprite {
     protected int _realHeight;
     private SpriteSheet _sheet;
 
+    public int get_realWidth() {
+        return _realWidth;
+    }
+
+    public int get_realHeight() {
+        return _realHeight;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Board sprites
