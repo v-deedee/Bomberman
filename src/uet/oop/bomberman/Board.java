@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
+    int bombRadius = 1;
     public List<Bomber> bombers = new ArrayList<>();
 
     public List<Enemy> enemies = new ArrayList<>();
@@ -91,12 +92,12 @@ public class Board {
                 double posY = bombs.get(i).getY() / Sprite.SCALED_SIZE;
                 flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
                 for (int _direction = 0; _direction < 4; _direction++) {
-                    for (int j = 0; j < bombs.get(i).bombRadius; j++) {
+                    for (int j = 0; j < bombRadius; j++) {
                         boolean _last = false;
                         double segmentX = posX;
                         double segmentY = posY;
                         int diff = j + 1;
-                        if (j == bombs.get(i).bombRadius - 1) _last = true;
+                        if (j == bombRadius - 1) _last = true;
                         switch (_direction) {
                             case 0:
                                 segmentY -= diff;
@@ -130,6 +131,7 @@ public class Board {
                 i--;
             }
         }
+        if(!bombers.isEmpty()) bombRadius = bombers.get(0).bomRadius;
     }
 
     public void renderAllEntity(GraphicsContext gc) {
