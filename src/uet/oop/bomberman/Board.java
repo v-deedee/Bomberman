@@ -93,8 +93,8 @@ public class Board {
                 for (int _direction = 0; _direction < 4; _direction++) {
                     for (int j = 0; j < bombs.get(i).bombRadius; j++) {
                         boolean _last = false;
-                        double segmentX = posX;
-                        double segmentY = posY;
+                        int segmentX = (int)posX;
+                        int segmentY = (int)posY;
                         int diff = j + 1;
                         if (j == bombs.get(i).bombRadius - 1) _last = true;
                         switch (_direction) {
@@ -111,7 +111,11 @@ public class Board {
                                 segmentX -= diff;
                                 break;
                         }
-                        flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
+                        char test = lvLoad.getMap(segmentY, segmentX);
+                        if (test != '#' && test != '*' && test != 'x') {
+                            flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
+                        }
+
                     }
                 }
                 bombs.remove(i);

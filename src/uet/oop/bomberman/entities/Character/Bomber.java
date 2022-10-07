@@ -19,7 +19,7 @@ public class Bomber extends Entity {
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
 
-    int maxBomb = 1;
+    int maxBomb = 100;
 
     public void setAllFrameCnt() {
         cntUpFrame = 0;
