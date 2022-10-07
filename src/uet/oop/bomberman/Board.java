@@ -115,7 +115,11 @@ public class Board {
                         if (test != '#' && test != '*' && test != 'x') {
                             flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
                         }
-
+                        for (int k = 0; k < bricks.size(); k++) {
+                            if (bricks.get(k).getX() / Sprite.SCALED_SIZE == segmentX && bricks.get(k).getY() / Sprite.SCALED_SIZE == segmentY) {
+                                bricks.get(k).isExploded = true;
+                            }
+                        }
                     }
                 }
                 bombs.remove(i);
@@ -131,6 +135,12 @@ public class Board {
         for (int i = 0; i < flameSegments.size(); i++) {
             if (flameSegments.get(i).isRemoved) {
                 flameSegments.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < bricks.size(); i++) {
+            if (bricks.get(i).isRemoved) {
+                bricks.remove(i);
                 i--;
             }
         }
