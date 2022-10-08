@@ -91,12 +91,13 @@ public class Board {
                 double posY = bombs.get(i).getY() / Sprite.SCALED_SIZE;
                 flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
                 for (int _direction = 0; _direction < 4; _direction++) {
-                    for (int j = 0; j < bombs.get(i).bombRadius; j++) {
+                    boolean checkWallEnd = false; // check wall end flame segment
+                    for (int j = 0; j < Bomber.bombRadius; j++) {
                         boolean _last = false;
                         int segmentX = (int)posX;
                         int segmentY = (int)posY;
                         int diff = j + 1;
-                        if (j == bombs.get(i).bombRadius - 1) _last = true;
+                        if (j == Bomber.bombRadius - 1) _last = true;
                         switch (_direction) {
                             case 0:
                                 segmentY -= diff;
@@ -115,11 +116,14 @@ public class Board {
                         if (test != '#' && test != '*' && test != 'x') {
                             flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
                         }
+                        else checkWallEnd = true ;
                         for (int k = 0; k < bricks.size(); k++) {
                             if (bricks.get(k).getX() / Sprite.SCALED_SIZE == segmentX && bricks.get(k).getY() / Sprite.SCALED_SIZE == segmentY) {
                                 bricks.get(k).isExploded = true;
+                                lvLoad.setMap(segmentY, segmentX, ' ');
                             }
                         }
+                        if(checkWallEnd) break;
                     }
                 }
                 bombs.remove(i);

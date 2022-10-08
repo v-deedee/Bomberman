@@ -46,6 +46,10 @@ public class LevelLoader {
         return map[i][j];
     }
 
+    public void setMap(int i, int j, char c) {
+        map[i][j] = c;
+    }
+
     public void loadLevel(int level) {
         List<String> list = new ArrayList<>();
         try {
