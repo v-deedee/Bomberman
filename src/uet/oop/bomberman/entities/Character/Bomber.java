@@ -13,6 +13,8 @@ public class Bomber extends Entity {
 
     public final double step = 2;
     public boolean _moving = false;
+
+    public int bombRadius = 1;
     public String _direction = "RIGHT";
     public int cntUpFrame = 0;
     public int cntDownFrame = 0;
