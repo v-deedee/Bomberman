@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    int bombRadius = 1;
     public List<Bomber> bombers = new ArrayList<>();
 
     public List<Enemy> enemies = new ArrayList<>();
@@ -92,12 +91,12 @@ public class Board {
                 double posY = bombs.get(i).getY() / Sprite.SCALED_SIZE;
                 flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
                 for (int _direction = 0; _direction < 4; _direction++) {
-                    for (int j = 0; j < bombRadius; j++) {
+                    for (int j = 0; j < bombs.get(i).bombRadius; j++) {
                         boolean _last = false;
-                        double segmentX = posX;
-                        double segmentY = posY;
+                        int segmentX = (int)posX;
+                        int segmentY = (int)posY;
                         int diff = j + 1;
-                        if (j == bombRadius - 1) _last = true;
+                        if (j == bombs.get(i).bombRadius - 1) _last = true;
                         switch (_direction) {
                             case 0:
                                 segmentY -= diff;
@@ -112,7 +111,15 @@ public class Board {
                                 segmentX -= diff;
                                 break;
                         }
-                        flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
+                        char test = lvLoad.getMap(segmentY, segmentX);
+                        if (test != '#' && test != '*' && test != 'x') {
+                            flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
+                        }
+                        for (int k = 0; k < bricks.size(); k++) {
+                            if (bricks.get(k).getX() / Sprite.SCALED_SIZE == segmentX && bricks.get(k).getY() / Sprite.SCALED_SIZE == segmentY) {
+                                bricks.get(k).isExploded = true;
+                            }
+                        }
                     }
                 }
                 bombs.remove(i);
@@ -131,7 +138,12 @@ public class Board {
                 i--;
             }
         }
-        if(!bombers.isEmpty()) bombRadius = bombers.get(0).bomRadius;
+        for (int i = 0; i < bricks.size(); i++) {
+            if (bricks.get(i).isRemoved) {
+                bricks.remove(i);
+                i--;
+            }
+        }
     }
 
     public void renderAllEntity(GraphicsContext gc) {
