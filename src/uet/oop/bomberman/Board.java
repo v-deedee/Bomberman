@@ -147,14 +147,23 @@ public class Board {
     }
 
     public void renderAllEntity(GraphicsContext gc) {
-        grasses.forEach(g -> g.render(gc));
-        portals.forEach(g -> g.render(gc));
-        walls.forEach(g -> g.render(gc));
-        bricks.forEach(g -> g.render(gc));
-        enemies.forEach(g -> g.render(gc));
-        flames.forEach(g -> g.render(gc));
-        flameSegments.forEach(g -> g.render(gc));
-        bombs.forEach(g -> g.render(gc));
-        bombers.forEach(g -> g.render(gc));
+        // variable distance to use Entity::render method
+        double distance = bombers.get(0).getX() - LevelLoader.getWidth() * Sprite.SCALED_SIZE / 4.0;
+        if (distance < 0) {
+            distance = 0;
+        }
+        if (distance > LevelLoader.getWidth() * Sprite.SCALED_SIZE / 2.0) {
+            distance = LevelLoader.getWidth() * Sprite.SCALED_SIZE / 2.0;
+        }
+        double finalDistance = distance;
+        grasses.forEach(g -> g.render(gc, finalDistance));
+        portals.forEach(g -> g.render(gc, finalDistance));
+        walls.forEach(g -> g.render(gc, finalDistance));
+        bricks.forEach(g -> g.render(gc, finalDistance));
+        enemies.forEach(g -> g.render(gc, finalDistance));
+        flames.forEach(g -> g.render(gc, finalDistance));
+        flameSegments.forEach(g -> g.render(gc, finalDistance));
+        bombs.forEach(g -> g.render(gc, finalDistance));
+        bombers.forEach(g -> g.render(gc, finalDistance));
     }
 }
