@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9c3ed04-6b16-4c08-891a-afe3c38edbca" name="Changes" comment="brick exploded and move through">
-      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Item/B_Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Item/F_Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Item/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/entities/Item/S_Item.java" afterDir="false" />
+    <list default="true" id="c9c3ed04-6b16-4c08-891a-afe3c38edbca" name="Changes" comment="fix move through enemy pos and portal sprite">
+      <change afterPath="$PROJECT_DIR$/res/textures/tile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/graphics/SpriteSheetFixPortal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/graphics/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/graphics/Sprite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/uet/oop/bomberman/levels/LevelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/uet/oop/bomberman/levels/LevelLoader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +43,7 @@
     </option>
   </component>
   <component name="ProjectId" id="2F2QccrsxAIChrYwIGf54n6Zzhz" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -176,14 +176,7 @@
       <option name="project" value="LOCAL" />
       <updated>1664624050601</updated>
     </task>
-    <task id="LOCAL-00012" summary="brick exploded and move through">
-      <created>1665219195700</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1665219195700</updated>
-    </task>
-    <option name="localTasksCounter" value="13" />
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -221,7 +214,7 @@
     <MESSAGE value="bomb in process 2 (can plant)" />
     <MESSAGE value="bomb in process 3" />
     <MESSAGE value="bomb in process" />
-    <MESSAGE value="brick exploded and move through" />
-    <option name="LAST_COMMIT_MESSAGE" value="brick exploded and move through" />
+    <MESSAGE value="fix move through enemy pos and portal sprite" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix move through enemy pos and portal sprite" />
   </component>
 </project>

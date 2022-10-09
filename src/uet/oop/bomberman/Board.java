@@ -90,6 +90,7 @@ public class Board {
         bombs.forEach(Entity::update);
         flames.forEach(Entity::update);
         flameSegments.forEach(Entity::update);
+        items.forEach(Entity::update);
         setEnemiesMovement(lvLoad);
 
         for (int i = 0; i < bombs.size(); i++) {
@@ -124,10 +125,11 @@ public class Board {
                             flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
                         }
                         else checkWallEnd = true ;
-                        for (int k = 0; k < bricks.size(); k++) {
-                            if (bricks.get(k).getX() / Sprite.SCALED_SIZE == segmentX && bricks.get(k).getY() / Sprite.SCALED_SIZE == segmentY) {
-                                bricks.get(k).isExploded = true;
-                                lvLoad.setMap(segmentY, segmentX, ' ');
+                        for (Brick brick : bricks) {
+                            if (brick.getX() / Sprite.SCALED_SIZE == segmentX
+                                    && brick.getY() / Sprite.SCALED_SIZE == segmentY) {
+                                brick.isExploded = true;
+                                if (test != 'x') lvLoad.setMap(segmentY, segmentX, ' ');
                             }
                         }
                         if(checkWallEnd) break;
@@ -159,6 +161,7 @@ public class Board {
 
     public void renderAllEntity(GraphicsContext gc) {
         grasses.forEach(g -> g.render(gc));
+        items.forEach(g -> g.render(gc));
         portals.forEach(g -> g.render(gc));
         walls.forEach(g -> g.render(gc));
         bricks.forEach(g -> g.render(gc));

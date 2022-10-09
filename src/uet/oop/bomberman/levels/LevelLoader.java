@@ -103,24 +103,29 @@ public class LevelLoader {
                         board.addBomber(new Bomber(x, y, Sprite.player_right.getFxImage()));
                         break;
                     case 'b':
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addItem(new B_Item(x, y, Sprite.powerup_bombs.getFxImage()));
                         board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
                     case 'f' :
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addItem(new F_Item(x, y, Sprite.powerup_flames.getFxImage()));
                         board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
                     case 's' :
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addItem(new S_Item(x, y, Sprite.powerup_speed.getFxImage()));
                         board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
                     case '1':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEnemy(new Balloon(x, y, Sprite.balloom_right1.getFxImage()));
+                        setMap(y, x, ' ');
                         break;
                     case '2':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEnemy(new Oneal(x, y, Sprite.oneal_right1.getFxImage()));
+                        setMap(y, x, ' ');
                         break;
                     default:
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
