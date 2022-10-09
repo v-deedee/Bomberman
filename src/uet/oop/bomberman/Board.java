@@ -7,6 +7,7 @@ import uet.oop.bomberman.entities.Bomb.FlameSegment;
 import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.Enemy;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.Item.Item;
 import uet.oop.bomberman.entities.Tile.Brick;
 import uet.oop.bomberman.entities.Tile.Grass;
 import uet.oop.bomberman.entities.Tile.Portal;
@@ -37,6 +38,8 @@ public class Board {
 
     public List<FlameSegment> flameSegments = new ArrayList<>();
 
+    public List<Item> items = new ArrayList<>();
+
     public Board() {
     }
 
@@ -66,6 +69,10 @@ public class Board {
 
     public void addWall(Wall wall) {
         walls.add(wall);
+    }
+
+    public void addItem(Item item)  {
+        items.add(item);
     }
 
     public void setEnemiesMovement(LevelLoader lvLoad) {

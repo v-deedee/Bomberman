@@ -4,6 +4,9 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.Balloon;
 import uet.oop.bomberman.entities.Enemy.Oneal;
+import uet.oop.bomberman.entities.Item.B_Item;
+import uet.oop.bomberman.entities.Item.F_Item;
+import uet.oop.bomberman.entities.Item.S_Item;
 import uet.oop.bomberman.entities.Tile.Brick;
 import uet.oop.bomberman.entities.Tile.Grass;
 import uet.oop.bomberman.entities.Tile.Portal;
@@ -98,6 +101,18 @@ public class LevelLoader {
                     case 'p':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addBomber(new Bomber(x, y, Sprite.player_right.getFxImage()));
+                        break;
+                    case 'b':
+                        board.addItem(new B_Item(x, y, Sprite.powerup_bombs.getFxImage()));
+                        board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
+                        break;
+                    case 'f' :
+                        board.addItem(new F_Item(x, y, Sprite.powerup_flames.getFxImage()));
+                        board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
+                        break;
+                    case 's' :
+                        board.addItem(new S_Item(x, y, Sprite.powerup_speed.getFxImage()));
+                        board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
                     case '1':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
