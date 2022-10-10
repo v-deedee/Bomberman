@@ -71,7 +71,7 @@ public class Board {
         walls.add(wall);
     }
 
-    public void addItem(Item item)  {
+    public void addItem(Item item) {
         items.add(item);
     }
 
@@ -80,6 +80,7 @@ public class Board {
             e.move(lvLoad);
         }
     }
+
     public void updateAllEntity(LevelLoader lvLoad) {
         bricks.forEach(Entity::update);
         grasses.forEach(Entity::update);
@@ -93,6 +94,51 @@ public class Board {
         items.forEach(Entity::update);
         setEnemiesMovement(lvLoad);
 
+        bombExplodeUpdate(lvLoad);
+        if(!bombers.isEmpty()) {
+            eatItemDetect(bombers.get(0).getX(), bombers.get(0).getY());
+        }
+
+        for (int i = 0; i < flames.size(); i++) {
+            if (flames.get(i).isRemoved) {
+                flames.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < flameSegments.size(); i++) {
+            if (flameSegments.get(i).isRemoved) {
+                flameSegments.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < bricks.size(); i++) {
+            if (bricks.get(i).isRemoved) {
+                bricks.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).isRemoved) {
+                items.remove(i);
+                i--;
+            }
+        }
+    }
+
+    public void renderAllEntity(GraphicsContext gc) {
+        grasses.forEach(g -> g.render(gc));
+        items.forEach(g -> g.render(gc));
+        portals.forEach(g -> g.render(gc));
+        walls.forEach(g -> g.render(gc));
+        bricks.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
+        flames.forEach(g -> g.render(gc));
+        flameSegments.forEach(g -> g.render(gc));
+        bombs.forEach(g -> g.render(gc));
+        bombers.forEach(g -> g.render(gc));
+    }
+
+    public void bombExplodeUpdate(LevelLoader lvLoad) {
         for (int i = 0; i < bombs.size(); i++) {
             if (bombs.get(i).isRemoved) {
                 double posX = bombs.get(i).getX() / Sprite.SCALED_SIZE;
@@ -102,8 +148,8 @@ public class Board {
                     boolean checkWallEnd = false; // check wall end flame segment
                     for (int j = 0; j < Bomber.bombRadius; j++) {
                         boolean _last = false;
-                        int segmentX = (int)posX;
-                        int segmentY = (int)posY;
+                        int segmentX = (int) posX;
+                        int segmentY = (int) posY;
                         int diff = j + 1;
                         if (j == Bomber.bombRadius - 1) _last = true;
                         switch (_direction) {
@@ -123,8 +169,7 @@ public class Board {
                         char test = lvLoad.getMap(segmentY, segmentX);
                         if (test != '#' && test != '*' && test != 'x') {
                             flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
-                        }
-                        else checkWallEnd = true ;
+                        } else checkWallEnd = true;
                         for (Brick brick : bricks) {
                             if (brick.getX() / Sprite.SCALED_SIZE == segmentX
                                     && brick.getY() / Sprite.SCALED_SIZE == segmentY) {
@@ -132,43 +177,24 @@ public class Board {
                                 if (test != 'x') lvLoad.setMap(segmentY, segmentX, ' ');
                             }
                         }
-                        if(checkWallEnd) break;
+                        if (checkWallEnd) break;
                     }
                 }
                 bombs.remove(i);
                 i--;
             }
         }
-        for (int i = 0; i < flames.size(); i++) {
-            if (flames.get(i).isRemoved) {
-                flames.remove(i);
-                i--;
-            }
-        }
-        for (int i = 0; i < flameSegments.size(); i++) {
-            if (flameSegments.get(i).isRemoved) {
-                flameSegments.remove(i);
-                i--;
-            }
-        }
-        for (int i = 0; i < bricks.size(); i++) {
-            if (bricks.get(i).isRemoved) {
-                bricks.remove(i);
-                i--;
-            }
-        }
     }
-
-    public void renderAllEntity(GraphicsContext gc) {
-        grasses.forEach(g -> g.render(gc));
-        items.forEach(g -> g.render(gc));
-        portals.forEach(g -> g.render(gc));
-        walls.forEach(g -> g.render(gc));
-        bricks.forEach(g -> g.render(gc));
-        enemies.forEach(g -> g.render(gc));
-        flames.forEach(g -> g.render(gc));
-        flameSegments.forEach(g -> g.render(gc));
-        bombs.forEach(g -> g.render(gc));
-        bombers.forEach(g -> g.render(gc));
+    public void eatItemDetect (double x, double y) {
+        double x1= x+Sprite.SCALED_SIZE;
+        double y1 = y+Sprite.SCALED_SIZE;
+        for (Item item : items) {
+            double x2 = item.getX() + Sprite.SCALED_SIZE/2;
+            double y2 = item.getY() + Sprite.SCALED_SIZE/2;
+            if(x2 >= x && x2 <= x1 && y2 >= y && y2 <= y1) {
+                item.eaten();
+                item.isRemoved = true;
+            }
+        }
     }
 }

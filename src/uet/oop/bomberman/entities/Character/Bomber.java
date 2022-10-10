@@ -11,16 +11,16 @@ import java.awt.*;
 
 public class Bomber extends Entity {
 
-    public static int bombRadius = 2;
-    public final double step = 2;
+    public static int bombRadius = 1;
+    public static double step = 2;
+
+    public static int maxBomb = 1;
     public boolean _moving = false;
     public String _direction = "RIGHT";
     public int cntUpFrame = 0;
     public int cntDownFrame = 0;
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
-
-    int maxBomb = 100;
 
     public void setAllFrameCnt() {
         cntUpFrame = 0;
