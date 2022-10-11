@@ -24,8 +24,12 @@ public abstract class Entity {
         this.img = img;
     }
 
-    public void render(GraphicsContext gc) {
-        gc.drawImage(img, x, y);
+    /**
+     * Render entities on screen, using parameter distance
+     * to keep the position of bomber in center of screen.
+     */
+    public void render(GraphicsContext gc, double distance) {
+        gc.drawImage(img, x - distance, y);
     }
 
     public abstract void update();

@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelLoader {
-    protected int width = 20;
-    protected int height = 15;
+    protected static int width;
+    protected static int height;
     protected int _level;
     public Board board = new Board();
     private static char map[][];
@@ -29,7 +29,7 @@ public class LevelLoader {
         loadLevel(level);
     }
 
-    public int getHeight() {
+    public static int getHeight() {
         return height;
     }
 
@@ -37,7 +37,7 @@ public class LevelLoader {
         this.height = height;
     }
 
-    public int getWidth() {
+    public static int getWidth() {
         return width;
     }
 

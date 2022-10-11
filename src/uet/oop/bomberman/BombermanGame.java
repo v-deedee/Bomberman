@@ -41,7 +41,7 @@ public class BombermanGame extends Application {
         stage.setTitle(TITLE + "| Current Frame Rate: " + frameRate);
         stage.getIcons().add(new Image("/textures/icon.jfif"));
         // Tao Canvas
-        canvas = new Canvas(lvLoad.getWidth() * Sprite.SCALED_SIZE, lvLoad.getHeight() * Sprite.SCALED_SIZE);
+        canvas = new Canvas(lvLoad.getWidth() * Sprite.SCALED_SIZE / 2.0, lvLoad.getHeight() * Sprite.SCALED_SIZE);
         gc = canvas.getGraphicsContext2D();
 
         // Tao root container

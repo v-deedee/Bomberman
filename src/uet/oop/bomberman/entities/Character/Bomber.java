@@ -57,12 +57,13 @@ public class Bomber extends Entity {
         // Get position in map
         int x1 = (int)x / Sprite.SCALED_SIZE;
         int y1 = (int)y / Sprite.SCALED_SIZE;
+        int scale = Sprite.SCALED_SIZE / Sprite.DEFAULT_SIZE;
         // Get rectangle of bomber
-        int bomberWidth = Sprite.player_down.get_realWidth() * 2;
-        int bomberHeight = Sprite.player_down.get_realHeight() * 2;
+        int bomberWidth = Sprite.player_down.get_realWidth() * scale;
+        int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 2;
+        int obstacleSize = Sprite.wall.get_realWidth() * 3;
         Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
         Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
@@ -80,12 +81,13 @@ public class Bomber extends Entity {
         // Get position in map
         int x1 = (int)x / Sprite.SCALED_SIZE;
         int y1 = (int)y / Sprite.SCALED_SIZE;
+        int scale = Sprite.SCALED_SIZE / Sprite.DEFAULT_SIZE;
         // Get rectangle of bomber
-        int bomberWidth = Sprite.player_down.get_realWidth() * 2;
-        int bomberHeight = Sprite.player_down.get_realHeight() * 2;
+        int bomberWidth = Sprite.player_down.get_realWidth() * scale;
+        int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 2;
+        int obstacleSize = Sprite.wall.get_realWidth() * 3;
         Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
         Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
@@ -103,12 +105,13 @@ public class Bomber extends Entity {
         // Get position in map
         int x1 = (int)x / Sprite.SCALED_SIZE;
         int y1 = (int)y / Sprite.SCALED_SIZE;
+        int scale = Sprite.SCALED_SIZE / Sprite.DEFAULT_SIZE;
         // Get rectangle of bomber
-        int bomberWidth = Sprite.player_down.get_realWidth() * 2;
-        int bomberHeight = Sprite.player_down.get_realHeight() * 2;
+        int bomberWidth = Sprite.player_down.get_realWidth() * scale;
+        int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 2;
+        int obstacleSize = Sprite.wall.get_realWidth() * 3;
         Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
@@ -126,12 +129,13 @@ public class Bomber extends Entity {
         // Get position in map
         int x1 = (int)x / Sprite.SCALED_SIZE;
         int y1 = (int)y / Sprite.SCALED_SIZE;
+        int scale = Sprite.SCALED_SIZE / Sprite.DEFAULT_SIZE;
         // Get rectangle of bomber
-        int bomberWidth = Sprite.player_down.get_realWidth() * 2;
-        int bomberHeight = Sprite.player_down.get_realHeight() * 2;
+        int bomberWidth = Sprite.player_down.get_realWidth() * scale;
+        int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 2;
+        int obstacleSize = Sprite.wall.get_realWidth() * 3;
         Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
@@ -142,7 +146,6 @@ public class Bomber extends Entity {
                 || (lvLoad.getMap(y1, (x1 + 1)) != ' '
                 && bomber.getBounds().intersects(obstacleTopRight.getBounds()))){
             moveLeft();
-            return;
         }
     }
 
