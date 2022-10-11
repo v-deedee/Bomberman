@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.Input.InputHandler;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
+import com.sun.javafx.perf.PerformanceTracker;
 
 public class BombermanGame extends Application {
     private LevelLoader lvLoad = new LevelLoader(1);
@@ -31,6 +32,8 @@ public class BombermanGame extends Application {
     private int frameTimeIndex = 0;
     private boolean frameArrFilled = false;
     private double frameRate;
+
+    private static PerformanceTracker tracker;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -53,6 +56,8 @@ public class BombermanGame extends Application {
 
         _input.prepareActionHandlers(scene);
 
+        tracker = PerformanceTracker.getSceneTracker(scene);
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -62,16 +67,17 @@ public class BombermanGame extends Application {
                 render();
                 update();
 
-                long oldFrameTime = frameTimes[frameTimeIndex];
-                frameTimes[frameTimeIndex] = now;
-                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
-                if (frameTimeIndex == 0) frameArrFilled = true;
-                if (frameArrFilled) {
-                    long elapsedNanos = now - oldFrameTime;
-                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
-                    frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
-                }
-                stage.setTitle(TITLE + "| " + (int) frameRate + " rates");
+//                long oldFrameTime = frameTimes[frameTimeIndex];
+//                frameTimes[frameTimeIndex] = now;
+//                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
+//                if (frameTimeIndex == 0) frameArrFilled = true;
+//                if (frameArrFilled) {
+//                    long elapsedNanos = now - oldFrameTime;
+//                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
+//                    frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
+//                }
+                stage.setTitle(TITLE + "| " + (int) getFPS() + " rates");
+                System.out.println((int)getFPS());
             }
         };
         timer.start();
@@ -84,5 +90,11 @@ public class BombermanGame extends Application {
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         lvLoad.board.renderAllEntity(gc);
+    }
+
+    private float getFPS () {
+        float fps = tracker.getAverageFPS();
+        tracker.resetAverageFPS();
+        return fps;
     }
 }

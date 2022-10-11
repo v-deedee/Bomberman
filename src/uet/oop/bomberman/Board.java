@@ -7,6 +7,7 @@ import uet.oop.bomberman.entities.Bomb.FlameSegment;
 import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.Enemy;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.Item.Item;
 import uet.oop.bomberman.entities.Tile.Brick;
 import uet.oop.bomberman.entities.Tile.Grass;
 import uet.oop.bomberman.entities.Tile.Portal;
@@ -36,6 +37,8 @@ public class Board {
     public List<Flame> flames = new ArrayList<>();
 
     public List<FlameSegment> flameSegments = new ArrayList<>();
+
+    public List<Item> items = new ArrayList<>();
 
     public Board() {
     }
@@ -68,11 +71,16 @@ public class Board {
         walls.add(wall);
     }
 
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
     public void setEnemiesMovement(LevelLoader lvLoad) {
         for (Enemy e : enemies) {
             e.move(lvLoad);
         }
     }
+
     public void updateAllEntity(LevelLoader lvLoad) {
         bricks.forEach(Entity::update);
         grasses.forEach(Entity::update);
@@ -84,48 +92,12 @@ public class Board {
         flames.forEach(Entity::update);
         flameSegments.forEach(Entity::update);
         setEnemiesMovement(lvLoad);
+        bombExplodeUpdate(lvLoad);
 
-        for (int i = 0; i < bombs.size(); i++) {
-            if (bombs.get(i).isRemoved) {
-                double posX = bombs.get(i).getX() / Sprite.SCALED_SIZE;
-                double posY = bombs.get(i).getY() / Sprite.SCALED_SIZE;
-                flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
-                for (int _direction = 0; _direction < 4; _direction++) {
-                    for (int j = 0; j < bombs.get(i).bombRadius; j++) {
-                        boolean _last = false;
-                        int segmentX = (int)posX;
-                        int segmentY = (int)posY;
-                        int diff = j + 1;
-                        if (j == bombs.get(i).bombRadius - 1) _last = true;
-                        switch (_direction) {
-                            case 0:
-                                segmentY -= diff;
-                                break;
-                            case 1:
-                                segmentX += diff;
-                                break;
-                            case 2:
-                                segmentY += diff;
-                                break;
-                            case 3:
-                                segmentX -= diff;
-                                break;
-                        }
-                        char test = lvLoad.getMap(segmentY, segmentX);
-                        if (test != '#' && test != '*' && test != 'x') {
-                            flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
-                        }
-                        for (int k = 0; k < bricks.size(); k++) {
-                            if (bricks.get(k).getX() / Sprite.SCALED_SIZE == segmentX && bricks.get(k).getY() / Sprite.SCALED_SIZE == segmentY) {
-                                bricks.get(k).isExploded = true;
-                            }
-                        }
-                    }
-                }
-                bombs.remove(i);
-                i--;
-            }
+        if (!bombers.isEmpty()) {
+            eatItemDetect(bombers.get(0).getX(), bombers.get(0).getY());
         }
+
         for (int i = 0; i < flames.size(); i++) {
             if (flames.get(i).isRemoved) {
                 flames.remove(i);
@@ -144,6 +116,13 @@ public class Board {
                 i--;
             }
         }
+
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).isRemoved) {
+                items.remove(i);
+                i--;
+            }
+        }
     }
 
     public void renderAllEntity(GraphicsContext gc) {
@@ -157,6 +136,7 @@ public class Board {
         }
         double finalDistance = distance;
         grasses.forEach(g -> g.render(gc, finalDistance));
+        items.forEach(g -> g.render(gc, finalDistance));
         portals.forEach(g -> g.render(gc, finalDistance));
         walls.forEach(g -> g.render(gc, finalDistance));
         bricks.forEach(g -> g.render(gc, finalDistance));
@@ -165,5 +145,66 @@ public class Board {
         flameSegments.forEach(g -> g.render(gc, finalDistance));
         bombs.forEach(g -> g.render(gc, finalDistance));
         bombers.forEach(g -> g.render(gc, finalDistance));
+    }
+
+    public void bombExplodeUpdate(LevelLoader lvLoad) {
+        for (int i = 0; i < bombs.size(); i++) {
+            if (bombs.get(i).isRemoved) {
+                double posX = bombs.get(i).getX() / Sprite.SCALED_SIZE;
+                double posY = bombs.get(i).getY() / Sprite.SCALED_SIZE;
+                flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
+                for (int _direction = 0; _direction < 4; _direction++) {
+                    boolean checkWallEnd = false; // check wall end flame segment
+                    for (int j = 0; j < Bomber.bombRadius; j++) {
+                        boolean _last = false;
+                        int segmentX = (int) posX;
+                        int segmentY = (int) posY;
+                        int diff = j + 1;
+                        if (j == Bomber.bombRadius - 1) _last = true;
+                        switch (_direction) {
+                            case 0:
+                                segmentY -= diff;
+                                break;
+                            case 1:
+                                segmentX += diff;
+                                break;
+                            case 2:
+                                segmentY += diff;
+                                break;
+                            case 3:
+                                segmentX -= diff;
+                                break;
+                        }
+                        char test = lvLoad.getMap(segmentY, segmentX);
+                        if (test != '#' && test != '*' && test != 'x') {
+                            flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
+                        } else checkWallEnd = true;
+                        for (Brick brick : bricks) {
+                            if (brick.getX() / Sprite.SCALED_SIZE == segmentX
+                                    && brick.getY() / Sprite.SCALED_SIZE == segmentY) {
+                                brick.isExploded = true;
+                                if (test != 'x') lvLoad.setMap(segmentY, segmentX, ' ');
+                            }
+                        }
+                        if (checkWallEnd) break;
+                    }
+                }
+                bombs.remove(i);
+                i--;
+            }
+        }
+    }
+
+    public void eatItemDetect(double x, double y) {
+        double x1 = x + Sprite.SCALED_SIZE;
+        double y1 = y + Sprite.SCALED_SIZE;
+        for (Item item : items) {
+            double x2 = item.getX() + Sprite.SCALED_SIZE / 2;
+            double y2 = item.getY() + Sprite.SCALED_SIZE / 2;
+            if (x2 >= x && x2 <= x1 && y2 >= y && y2 <= y1) {
+                item.eaten();
+                item.isRemoved = true;
+            }
+        }
     }
 }
