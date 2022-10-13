@@ -1,7 +1,6 @@
 package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 
@@ -14,7 +13,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void update() {
-
+        if(isExplode) onealDeadSprite();
     }
 
     public void setMovingSprite() {
@@ -47,5 +46,14 @@ public class Oneal extends Enemy {
     public void move(LevelLoader lvLoad) {
         enemyMove(lvLoad);
         setMovingSprite();
+    }
+
+    public void onealDeadSprite() {
+        if (cntEnemyFrame >= 0 && cntEnemyFrame <= 14) {
+            img = Sprite.oneal_dead.getFxImage();
+        } else {
+            isRemoved = true;
+        }
+        cntEnemyFrame++;
     }
 }

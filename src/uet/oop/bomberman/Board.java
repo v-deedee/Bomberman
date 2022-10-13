@@ -116,10 +116,15 @@ public class Board {
                 i--;
             }
         }
-
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).isRemoved) {
                 items.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).isRemoved) {
+                enemies.remove(i);
                 i--;
             }
         }
@@ -153,6 +158,7 @@ public class Board {
                 double posX = bombs.get(i).getX() / Sprite.SCALED_SIZE;
                 double posY = bombs.get(i).getY() / Sprite.SCALED_SIZE;
                 flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
+                killEnemyDetect(posX * Sprite.SCALED_SIZE, posY * Sprite.SCALED_SIZE);
                 for (int _direction = 0; _direction < 4; _direction++) {
                     boolean checkWallEnd = false; // check wall end flame segment
                     boolean checkAnotherBomb = false;
@@ -191,6 +197,7 @@ public class Board {
                                 checkAnotherBomb = true;
                                 canCreateFlameSeg = false;
                                 flames.add(new Flame(segmentX, segmentY, Sprite.bomb_exploded.getFxImage()));
+                                killEnemyDetect(segmentX * Sprite.SCALED_SIZE, segmentY*Sprite.SCALED_SIZE);
                             }
                         }
                         for(FlameSegment flameSegment : flameSegments) {
@@ -203,6 +210,7 @@ public class Board {
                         if (j == Bomber.bombRadius - 1 && !checkAnotherBomb) _last = true;
                         if (test != '#' && test != '*' && test != 'x' && canCreateFlameSeg) {
                             flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
+                            killEnemyDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
                         } else checkWallEnd = true;
                         if (checkWallEnd) break;
                     }
@@ -222,6 +230,20 @@ public class Board {
             if (x2 >= x && x2 <= x1 && y2 >= y && y2 <= y1) {
                 item.eaten();
                 item.isRemoved = true;
+            }
+        }
+    }
+
+    public void killEnemyDetect(double x, double y) {
+        for(Enemy enemy : enemies) {
+            double topLeftX = enemy.getX();
+            double topLeftY = enemy.getY();
+            double downRightX = enemy.getX() + Sprite.SCALED_SIZE;
+            double downRightY = enemy.getY() + Sprite.SCALED_SIZE;
+            double t = Sprite.SCALED_SIZE;
+            if((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
+                || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
+                enemy.isExplode = true;
             }
         }
     }
