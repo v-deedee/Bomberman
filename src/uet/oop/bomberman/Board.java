@@ -155,12 +155,13 @@ public class Board {
                 flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
                 for (int _direction = 0; _direction < 4; _direction++) {
                     boolean checkWallEnd = false; // check wall end flame segment
+                    boolean checkAnotherBomb = false;
                     for (int j = 0; j < Bomber.bombRadius; j++) {
+                        boolean canCreateFlameSeg = true;
                         boolean _last = false;
                         int segmentX = (int) posX;
                         int segmentY = (int) posY;
                         int diff = j + 1;
-                        if (j == Bomber.bombRadius - 1) _last = true;
                         switch (_direction) {
                             case 0:
                                 segmentY -= diff;
@@ -176,9 +177,6 @@ public class Board {
                                 break;
                         }
                         char test = lvLoad.getMap(segmentY, segmentX);
-                        if (test != '#' && test != '*' && test != 'x') {
-                            flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
-                        } else checkWallEnd = true;
                         for (Brick brick : bricks) {
                             if (brick.getX() / Sprite.SCALED_SIZE == segmentX
                                     && brick.getY() / Sprite.SCALED_SIZE == segmentY) {
@@ -186,6 +184,26 @@ public class Board {
                                 if (test != 'x') lvLoad.setMap(segmentY, segmentX, ' ');
                             }
                         }
+                        for(Bomb bomb : bombs) {
+                            if (bomb.getX() / Sprite.SCALED_SIZE == segmentX
+                                    && bomb.getY() / Sprite.SCALED_SIZE == segmentY) {
+                                bomb.isRemoved = true;
+                                checkAnotherBomb = true;
+                                canCreateFlameSeg = false;
+                                flames.add(new Flame(segmentX, segmentY, Sprite.bomb_exploded.getFxImage()));
+                            }
+                        }
+                        for(FlameSegment flameSegment : flameSegments) {
+                            if (flameSegment.getX() / Sprite.SCALED_SIZE == segmentX
+                                    && flameSegment.getY() / Sprite.SCALED_SIZE == segmentY) {
+                                canCreateFlameSeg = false;
+                                break;
+                            }
+                        }
+                        if (j == Bomber.bombRadius - 1 && !checkAnotherBomb) _last = true;
+                        if (test != '#' && test != '*' && test != 'x' && canCreateFlameSeg) {
+                            flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
+                        } else checkWallEnd = true;
                         if (checkWallEnd) break;
                     }
                 }

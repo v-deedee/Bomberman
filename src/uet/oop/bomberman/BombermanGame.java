@@ -77,7 +77,6 @@ public class BombermanGame extends Application {
 //                    frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
 //                }
                 stage.setTitle(TITLE + "| " + (int) getFPS() + " rates");
-                System.out.println((int)getFPS());
             }
         };
         timer.start();
