@@ -11,7 +11,7 @@ import java.util.List;
 public class Enemy extends Entity {
     public boolean isRemoved = false;
     int cntEnemyFrame = 0;
-    public boolean isExplode = false;
+    public boolean isExploded = false;
     protected int speedX = 1;
     protected int speedY = 1;
     List<Character> direction = new ArrayList<>();

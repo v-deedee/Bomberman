@@ -87,10 +87,10 @@ public class Board {
         portals.forEach(Entity::update);
         walls.forEach(Entity::update);
         bombers.forEach(Entity::update);
-        enemies.forEach(Entity::update);
         bombs.forEach(Entity::update);
         flames.forEach(Entity::update);
         flameSegments.forEach(Entity::update);
+        enemies.forEach(Entity::update);
         setEnemiesMovement(lvLoad);
         bombExplodeUpdate(lvLoad);
 
@@ -145,9 +145,9 @@ public class Board {
         portals.forEach(g -> g.render(gc, finalDistance));
         walls.forEach(g -> g.render(gc, finalDistance));
         bricks.forEach(g -> g.render(gc, finalDistance));
-        enemies.forEach(g -> g.render(gc, finalDistance));
         flames.forEach(g -> g.render(gc, finalDistance));
         flameSegments.forEach(g -> g.render(gc, finalDistance));
+        enemies.forEach(g -> g.render(gc, finalDistance));
         bombs.forEach(g -> g.render(gc, finalDistance));
         bombers.forEach(g -> g.render(gc, finalDistance));
     }
@@ -243,7 +243,7 @@ public class Board {
             double t = Sprite.SCALED_SIZE;
             if((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
                 || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
-                enemy.isExplode = true;
+                enemy.isExploded = true;
             }
         }
     }

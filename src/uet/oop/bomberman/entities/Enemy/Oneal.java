@@ -13,7 +13,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void update() {
-        if(isExplode) onealDeadSprite();
+        if(isExploded) onealDeadSprite();
     }
 
     public void setMovingSprite() {
@@ -44,13 +44,21 @@ public class Oneal extends Enemy {
     }
 
     public void move(LevelLoader lvLoad) {
-        enemyMove(lvLoad);
-        setMovingSprite();
+        if (!isExploded) {
+            enemyMove(lvLoad);
+            setMovingSprite();
+        }
     }
 
     public void onealDeadSprite() {
-        if (cntEnemyFrame >= 0 && cntEnemyFrame <= 14) {
+        if (cntEnemyFrame >= 0 && cntEnemyFrame <= 19) {
             img = Sprite.oneal_dead.getFxImage();
+        } else if (cntEnemyFrame >= 20 && cntEnemyFrame <= 39) {
+            img = Sprite.mob_dead1.getFxImage();
+        }else if (cntEnemyFrame >= 40 && cntEnemyFrame <= 59) {
+            img = Sprite.mob_dead2.getFxImage();
+        }else if (cntEnemyFrame >= 60 && cntEnemyFrame <= 79) {
+            img = Sprite.mob_dead3.getFxImage();
         } else {
             isRemoved = true;
         }
