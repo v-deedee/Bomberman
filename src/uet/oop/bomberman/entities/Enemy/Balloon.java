@@ -13,7 +13,7 @@ public class Balloon extends Enemy {
 
     @Override
     public void update() {
-        if(isExplode) balloonDeadSprite();
+        if(isExploded) balloonDeadSprite();
     }
 
     public void setMovingSprite() {

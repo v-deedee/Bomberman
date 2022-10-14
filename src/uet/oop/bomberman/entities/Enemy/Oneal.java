@@ -13,7 +13,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void update() {
-        if(isExplode) onealDeadSprite();
+        if(isExploded) onealDeadSprite();
     }
 
     public void setMovingSprite() {
