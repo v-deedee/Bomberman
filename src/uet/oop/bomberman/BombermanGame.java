@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import uet.oop.bomberman.Input.InputHandler;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.IntroLevel;
 import uet.oop.bomberman.levels.LevelLoader;
 
 public class BombermanGame extends Application {
@@ -32,6 +33,8 @@ public class BombermanGame extends Application {
     private int frameTimeIndex = 0;
     private boolean frameArrFilled = false;
     private double frameRate;
+
+    //
     private Menu menu;
 
     public static void main(String[] args) {
@@ -62,11 +65,14 @@ public class BombermanGame extends Application {
                 if (!lvLoad.board.bombers.isEmpty()) {
                     _input.handleInput(lvLoad.board.bombers.get(0), lvLoad.board, lvLoad);
                 }
-                if (menu.getIsStart()) {
+                if (Menu.getIsStart()) {
                     root.getChildren().clear();
                     root.getChildren().add(canvas);
-                    render();
-                    update();
+                    lvLoad.introLevel.show(gc, canvas.getWidth(), canvas.getHeight());
+                    if (!lvLoad.introLevel.getShowIntro()) {
+                        render();
+                        update();
+                    }
                 }
 
                 long oldFrameTime = frameTimes[frameTimeIndex];
