@@ -1,7 +1,9 @@
 package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.Tile.Brick;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 
@@ -26,19 +28,75 @@ public class Enemy extends Entity {
     }
 
     public boolean canMoveLeft(LevelLoader lvLoad, int x1, int y1) {
-        return lvLoad.getMap(y1, x1 - 1) != '#' && lvLoad.getMap(y1, x1 - 1) != '*';
+        if (!(lvLoad.getMap(y1, x1 - 1) != '#' && lvLoad.getMap(y1, x1 - 1) != '*'
+                && lvLoad.getMap(y1, x1 - 1) != 'x')) {
+            return false;
+        }
+        for (Bomb bomb : lvLoad.board.bombs) {
+            if ((x1 - 1) * Sprite.SCALED_SIZE == bomb.getX() && y1 * Sprite.SCALED_SIZE == bomb.getY()) {
+                return false;
+            }
+        }
+        for (Brick brick : lvLoad.board.bricks) {
+            if ((x1 - 1) * Sprite.SCALED_SIZE == brick.getX() && y1 * Sprite.SCALED_SIZE == brick.getY()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean canMoveRight(LevelLoader lvLoad, int x1, int y1) {
-        return lvLoad.getMap(y1, x1 + 1) != '#' && lvLoad.getMap(y1, x1 + 1) != '*';
+        if (!(lvLoad.getMap(y1, x1 + 1) != '#' && lvLoad.getMap(y1, x1 + 1) != '*'
+                && lvLoad.getMap(y1, x1 + 1) != 'x')) {
+            return false;
+        }
+        for (Bomb bomb : lvLoad.board.bombs) {
+            if ((x1 + 1) * Sprite.SCALED_SIZE == bomb.getX() && y1 * Sprite.SCALED_SIZE == bomb.getY()) {
+                return false;
+            }
+        }
+        for (Brick brick : lvLoad.board.bricks) {
+            if ((x1 + 1) * Sprite.SCALED_SIZE == brick.getX() && y1 * Sprite.SCALED_SIZE == brick.getY()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean canMoveUp(LevelLoader lvLoad, int x1, int y1) {
-        return lvLoad.getMap(y1 - 1, x1) != '#' && lvLoad.getMap(y1 - 1, x1) != '*';
+        if (!(lvLoad.getMap(y1 - 1, x1) != '#' && lvLoad.getMap(y1 - 1, x1) != '*'
+                && lvLoad.getMap(y1 - 1, x1) != 'x')) {
+            return false;
+        }
+        for (Bomb bomb : lvLoad.board.bombs) {
+            if (x1 * Sprite.SCALED_SIZE == bomb.getX() && (y1 - 1) * Sprite.SCALED_SIZE == bomb.getY()) {
+                return false;
+            }
+        }
+        for (Brick brick : lvLoad.board.bricks) {
+            if (x1 * Sprite.SCALED_SIZE == brick.getX() && (y1 - 1) * Sprite.SCALED_SIZE == brick.getY()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean canMoveDown(LevelLoader lvLoad, int x1, int y1) {
-        return lvLoad.getMap(y1 + 1, x1) != '#' && lvLoad.getMap(y1 + 1, x1) != '*';
+        if (!(lvLoad.getMap(y1 + 1, x1) != '#' && lvLoad.getMap(y1 + 1, x1) != '*'
+                && lvLoad.getMap(y1 + 1, x1) != 'x')) {
+            return false;
+        }
+        for (Bomb bomb : lvLoad.board.bombs) {
+            if (x1 * Sprite.SCALED_SIZE == bomb.getX() && (y1 + 1) * Sprite.SCALED_SIZE == bomb.getY()) {
+                return false;
+            }
+        }
+        for (Brick brick : lvLoad.board.bricks) {
+            if (x1 * Sprite.SCALED_SIZE == brick.getX() && (y1 + 1) * Sprite.SCALED_SIZE == brick.getY()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void enemyMove(LevelLoader lvLoad) {
