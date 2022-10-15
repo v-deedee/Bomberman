@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
+
+    int cnt = 0;
     public List<Bomber> bombers = new ArrayList<>();
 
     public List<Enemy> enemies = new ArrayList<>();
@@ -91,7 +93,10 @@ public class Board {
         bombs.forEach(Entity::update);
         flames.forEach(Entity::update);
         flameSegments.forEach(Entity::update);
-        enemies.forEach(Entity::update);
+        for(Enemy enemy : enemies) {
+            enemy.update();
+            collisionKillPlayerDetect(enemy.getX(), enemy.getY());
+        }
         setEnemiesMovement(lvLoad);
         bombExplodeUpdate(lvLoad);
 
@@ -150,7 +155,11 @@ public class Board {
         flameSegments.forEach(g -> g.render(gc, finalDistance));
         enemies.forEach(g -> g.render(gc, finalDistance));
         bombs.forEach(g -> g.render(gc, finalDistance));
-        bombers.forEach(g -> g.render(gc, finalDistance));
+        for (Bomber bomber : bombers) {
+            if (!bomber.isRemoved) {
+                bomber.render(gc, finalDistance);
+            }
+        }
     }
 
     public void bombExplodeUpdate(LevelLoader lvLoad) {
@@ -164,6 +173,7 @@ public class Board {
                 lvLoad.setMap((int)posY, (int)posX, ' ');
                 flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
                 killEnemyDetect(posX * Sprite.SCALED_SIZE, posY * Sprite.SCALED_SIZE);
+                collisionKillPlayerDetect(posX* Sprite.SCALED_SIZE, posY * Sprite.SCALED_SIZE);
                 for (int _direction = 0; _direction < 4; _direction++) {
                     boolean checkWallEnd = false; // check wall end flame segment
                     boolean checkAnotherBomb = false;
@@ -203,6 +213,7 @@ public class Board {
                                 canCreateFlameSeg = false;
                                 flames.add(new Flame(segmentX, segmentY, Sprite.bomb_exploded.getFxImage()));
                                 killEnemyDetect(segmentX * Sprite.SCALED_SIZE, segmentY*Sprite.SCALED_SIZE);
+                                collisionKillPlayerDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
                             }
                         }
                         for(FlameSegment flameSegment : flameSegments) {
@@ -216,6 +227,7 @@ public class Board {
                         if (test != '#' && test != '*' && test != 'x' && canCreateFlameSeg) {
                             flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
                             killEnemyDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
+                            collisionKillPlayerDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
                         } else checkWallEnd = true;
                         if (checkWallEnd) break;
                     }
@@ -260,5 +272,21 @@ public class Board {
         Rectangle bomber = new Rectangle((int)topLeftX, (int)topLeftY, t - 8, t);
         Rectangle bomb = new Rectangle((int)x, (int)y, t, t);
         return bomber.getBounds().intersects(bomb.getBounds());
+    }
+
+    public void collisionKillPlayerDetect(double x, double y) {
+        for(Bomber bomber : bombers) {
+            double topLeftX = bomber.getX();
+            double topLeftY = bomber.getY();
+            double downRightX = bomber.getX() + Sprite.SCALED_SIZE - 3;// fix hitbox
+            double downRightY = bomber.getY() + Sprite.SCALED_SIZE - 3;
+            double t = Sprite.SCALED_SIZE;
+            if((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
+                    || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
+//                bomber.isDead = true;
+                cnt++;
+                System.out.println("die" + cnt);
+            }
+        }
     }
 }
