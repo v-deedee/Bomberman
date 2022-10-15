@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
+    public boolean passLevel = false;
+    public boolean levelOver = false;
     public List<Bomber> bombers = new ArrayList<>();
 
     public List<Enemy> enemies = new ArrayList<>();
@@ -132,11 +134,22 @@ public class Board {
                 i--;
             }
         }
+        if(bombers.size() != 0 && bombers.get(0).isRemoved) {
+            levelOver = true;
+            passLevel = false;
+        }
+        if(enemies.size() == 0) {
+            levelOver = true;
+            passLevel = true;
+        }
     }
 
     public void renderAllEntity(GraphicsContext gc) {
         // variable distance to use Entity::render method
-        double distance = bombers.get(0).getX() - LevelLoader.getWidth() * Sprite.SCALED_SIZE / 4.0;
+        double distance = 0;
+        if(bombers.size() != 0) {
+            distance = bombers.get(0).getX() - LevelLoader.getWidth() * Sprite.SCALED_SIZE / 4.0;
+        }
         if (distance < 0) {
             distance = 0;
         }
@@ -285,4 +298,8 @@ public class Board {
             }
         }
     }
+
+//    public boolean portalDetect(double x, double y) {
+//
+//    }
 }

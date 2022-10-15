@@ -21,7 +21,6 @@ import java.util.List;
 public class LevelLoader {
     protected static int width;
     protected static int height;
-    protected int _level;
     public Board board = new Board();
     private static char map[][];
 
@@ -54,6 +53,10 @@ public class LevelLoader {
     }
 
     public void loadLevel(int level) {
+        board = new Board();
+        Bomber.bombRadius = 1;
+        Bomber.maxBomb = 1;
+        Bomber.step = 2;
         List<String> list = new ArrayList<>();
         try {
             FileReader fr = new FileReader("res\\levels\\Level" + level + ".txt");
@@ -67,7 +70,6 @@ public class LevelLoader {
             e.printStackTrace();
         }
         String[] levelInfo = list.get(0).trim().split(" ");
-        _level = Integer.parseInt(levelInfo[0]);
         height = Integer.parseInt(levelInfo[1]);
         width = Integer.parseInt(levelInfo[2]);
         map = new char[height][width];
