@@ -16,6 +16,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,9 +155,13 @@ public class Board {
 
     public void bombExplodeUpdate(LevelLoader lvLoad) {
         for (int i = 0; i < bombs.size(); i++) {
+            double posX = bombs.get(i).getX() / Sprite.SCALED_SIZE;
+            double posY = bombs.get(i).getY() / Sprite.SCALED_SIZE;
+            if (!checkBomberWithBombs(bombs.get(i).getX(), bombs.get(i).getY())) {
+                lvLoad.setMap((int)posY, (int)posX, '#');
+            }
             if (bombs.get(i).isRemoved) {
-                double posX = bombs.get(i).getX() / Sprite.SCALED_SIZE;
-                double posY = bombs.get(i).getY() / Sprite.SCALED_SIZE;
+                lvLoad.setMap((int)posY, (int)posX, ' ');
                 flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
                 killEnemyDetect(posX * Sprite.SCALED_SIZE, posY * Sprite.SCALED_SIZE);
                 for (int _direction = 0; _direction < 4; _direction++) {
@@ -225,8 +230,8 @@ public class Board {
         double x1 = x + Sprite.SCALED_SIZE;
         double y1 = y + Sprite.SCALED_SIZE;
         for (Item item : items) {
-            double x2 = item.getX() + Sprite.SCALED_SIZE / 2;
-            double y2 = item.getY() + Sprite.SCALED_SIZE / 2;
+            double x2 = item.getX() + Sprite.SCALED_SIZE / 2.0;
+            double y2 = item.getY() + Sprite.SCALED_SIZE / 2.0;
             if (x2 >= x && x2 <= x1 && y2 >= y && y2 <= y1) {
                 item.eaten();
                 item.isRemoved = true;
@@ -246,5 +251,14 @@ public class Board {
                 enemy.isExploded = true;
             }
         }
+    }
+
+    public boolean checkBomberWithBombs(double x, double y) {
+        double topLeftX = bombers.get(0).getX();
+        double topLeftY = bombers.get(0).getY();
+        int t = Sprite.SCALED_SIZE;
+        Rectangle bomber = new Rectangle((int)topLeftX, (int)topLeftY, t - 8, t);
+        Rectangle bomb = new Rectangle((int)x, (int)y, t, t);
+        return bomber.getBounds().intersects(bomb.getBounds());
     }
 }

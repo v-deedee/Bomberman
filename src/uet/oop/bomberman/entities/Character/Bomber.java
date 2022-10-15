@@ -63,7 +63,7 @@ public class Bomber extends Entity {
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 3;
+        int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
         Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
@@ -87,7 +87,7 @@ public class Bomber extends Entity {
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 3;
+        int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
         Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
@@ -111,7 +111,7 @@ public class Bomber extends Entity {
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 3;
+        int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
@@ -135,7 +135,7 @@ public class Bomber extends Entity {
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 3;
+        int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
