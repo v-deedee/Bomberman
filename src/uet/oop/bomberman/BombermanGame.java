@@ -15,8 +15,8 @@ import uet.oop.bomberman.levels.LevelLoader;
 import com.sun.javafx.perf.PerformanceTracker;
 
 public class BombermanGame extends Application {
-    private static int level = 2;
-    private LevelLoader lvLoad = new LevelLoader(level);
+    private static int level = 1;
+    private final LevelLoader lvLoad = new LevelLoader(level);
     static Group root = new Group();
 
     static Scene scene = new Scene(root);
@@ -27,7 +27,6 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
-    private double frameRate;
 
     private static PerformanceTracker tracker;
 
@@ -37,7 +36,6 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle(TITLE + "| Current Frame Rate: " + frameRate);
         stage.getIcons().add(new Image("/textures/icon.jfif"));
         // Tao Canvas
         canvas = new Canvas(lvLoad.getWidth() * Sprite.SCALED_SIZE / 2.0, lvLoad.getHeight() * Sprite.SCALED_SIZE);

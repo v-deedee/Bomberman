@@ -23,6 +23,8 @@ import java.util.List;
 public class Board {
     public boolean passLevel = false;
     public boolean levelOver = false;
+
+    public static int hitboxFix = 5;
     public List<Bomber> bombers = new ArrayList<>();
 
     public List<Enemy> enemies = new ArrayList<>();
@@ -138,7 +140,8 @@ public class Board {
             levelOver = true;
             passLevel = false;
         }
-        if(enemies.size() == 0) {
+        if(enemies.size() == 0 && bombers.size() != 0
+                &&  portalDetect(bombers.get(0).getX(), bombers.get(0).getY())) {
             levelOver = true;
             passLevel = true;
         }
@@ -264,10 +267,10 @@ public class Board {
 
     public void killEnemyDetect(double x, double y) {
         for (Enemy enemy : enemies) {
-            double topLeftX = enemy.getX();
-            double topLeftY = enemy.getY();
-            double downRightX = enemy.getX() + Sprite.SCALED_SIZE;
-            double downRightY = enemy.getY() + Sprite.SCALED_SIZE;
+            double topLeftX = enemy.getX() + hitboxFix;//fix hitbox
+            double topLeftY = enemy.getY() + hitboxFix;
+            double downRightX = enemy.getX() + Sprite.SCALED_SIZE - hitboxFix;//fix hitbox
+            double downRightY = enemy.getY() + Sprite.SCALED_SIZE - hitboxFix;
             double t = Sprite.SCALED_SIZE;
             if ((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
                     || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
@@ -287,10 +290,10 @@ public class Board {
 
     public void collisionKillPlayerDetect(double x, double y) {
         for (Bomber bomber : bombers) {
-            double topLeftX = bomber.getX();
-            double topLeftY = bomber.getY();
-            double downRightX = bomber.getX() + Sprite.SCALED_SIZE - 3;// fix hitbox
-            double downRightY = bomber.getY() + Sprite.SCALED_SIZE - 3;
+            double topLeftX = bomber.getX() + hitboxFix;//fix hitbox
+            double topLeftY = bomber.getY() + hitboxFix;
+            double downRightX = bomber.getX() + Sprite.SCALED_SIZE - hitboxFix;// fix hitbox
+            double downRightY = bomber.getY() + Sprite.SCALED_SIZE - hitboxFix;
             double t = Sprite.SCALED_SIZE;
             if ((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
                     || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
@@ -299,7 +302,26 @@ public class Board {
         }
     }
 
-//    public boolean portalDetect(double x, double y) {
-//
-//    }
+    public boolean portalDetect(double topLeftX, double topLeftY) {
+        double downRightX = topLeftX + Sprite.SCALED_SIZE;
+        double downRightY = topLeftY + Sprite.SCALED_SIZE;
+        double t = Sprite.SCALED_SIZE;
+        for(Portal portal : portals) {
+            boolean brickOn = false;
+            for(Brick brick : bricks) {
+                if (portal.getX() == brick.getX() && portal.getY() == brick.getY()) {
+                    brickOn = true;
+                    break;
+                }
+            }
+            if(!brickOn) {
+                return (topLeftX >= portal.getX() && topLeftX <= portal.getY() + t
+                        && topLeftY >= portal.getY() && topLeftY <= portal.getY() + t)
+                        || (downRightX >= portal.getX() && downRightX <= portal.getX() + t
+                        && downRightY >= portal.getY() && downRightY <= portal.getY() + t);
+            }
+            else return false;
+        }
+        return false;
+    }
 }
