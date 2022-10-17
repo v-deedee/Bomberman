@@ -23,7 +23,6 @@ import java.util.List;
 public class Board {
     public boolean passLevel = false;
     public boolean levelOver = false;
-
     public static int hitboxFix = 5;
     public List<Bomber> bombers = new ArrayList<>();
 
@@ -165,8 +164,8 @@ public class Board {
         portals.forEach(g -> g.render(gc, finalDistance));
         walls.forEach(g -> g.render(gc, finalDistance));
         bricks.forEach(g -> g.render(gc, finalDistance));
-        flames.forEach(g -> g.render(gc, finalDistance));
         flameSegments.forEach(g -> g.render(gc, finalDistance));
+        flames.forEach(g -> g.render(gc, finalDistance));
         enemies.forEach(g -> g.render(gc, finalDistance));
         bombs.forEach(g -> g.render(gc, finalDistance));
         for (Bomber bomber : bombers) {
