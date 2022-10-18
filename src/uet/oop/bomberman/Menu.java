@@ -1,11 +1,16 @@
 package uet.oop.bomberman;
 
 import javafx.scene.Parent;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import javafx.scene.shape.*;
 import uet.oop.bomberman.graphics.Sprite;
+
+import java.net.URISyntaxException;
 
 public class Menu extends Parent {
     private static boolean isStart = false;
@@ -19,19 +24,19 @@ public class Menu extends Parent {
     }
 
     public Menu(double scrW, double scrH) {
-        VBox menu0 = new VBox(10);
+        VBox menu0 = new VBox(20);
         //VBox menu1 = new VBox(10);
 
-        menu0.setTranslateX((scrW - MenuButton.BUTTON_WIDTH) / 2);
-        menu0.setTranslateY(scrH / 2);
+        menu0.setTranslateX((MenuButton.BUTTON_WIDTH) / 2.0);
+        menu0.setTranslateY((scrH + MenuButton.BUTTON_HEIGHT) / 2);
 
         MenuButton btnStart = new MenuButton("START");
         btnStart.setOnMouseClicked(event -> {
             startGame();
         });
 
-        MenuButton btnOptions = new MenuButton("OPTIONS");
-        btnOptions.setOnMouseClicked(event -> {
+        MenuButton btnStages = new MenuButton("STAGES");
+        btnStages.setOnMouseClicked(event -> {
 
         });
 
@@ -40,11 +45,21 @@ public class Menu extends Parent {
             System.exit(0);
         });
 
-        menu0.getChildren().addAll(btnStart, btnOptions, btnExit);
+        menu0.getChildren().addAll(btnStart, btnStages, btnExit);
         Rectangle bg = new Rectangle(scrW, scrH);
         bg.setFill(Color.GREY);
         bg.setOpacity(1);
 
-        getChildren().addAll(bg, menu0);
+        Image img = null;
+        try {
+            img = new Image(Menu.class.getResource("/GameBackground.png").toURI().toString(), true);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        ImageView imgView = new ImageView(img);
+        imgView.setFitHeight(scrH);
+        imgView.setFitWidth(scrW);
+
+        getChildren().addAll(imgView, menu0);
     }
 }

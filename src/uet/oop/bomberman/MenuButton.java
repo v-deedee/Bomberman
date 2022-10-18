@@ -14,43 +14,32 @@ import uet.oop.bomberman.graphics.Sprite;
 public class MenuButton extends StackPane {
     private Text text;
     private Font font;
-    public static int FONT_SIZE = 10 * Sprite.SCALE;
-    public static int BUTTON_WIDTH = 50 * Sprite.SCALE;
-    public static int BUTTON_HEIGHT = 15 * Sprite.SCALE;
+    public static int FONT_SIZE = 15 * Sprite.SCALE;
+    public static int BUTTON_WIDTH = 70 * Sprite.SCALE;
+    public static int BUTTON_HEIGHT = 18 * Sprite.SCALE;
 
 
     public MenuButton(String name) {
-        font = Font.getDefault().font(FONT_SIZE);
+        //font = new Font("Cooper Black", FONT_SIZE);
+        font = Font.loadFont(MenuButton.class.getResourceAsStream("/font/Font2.ttf"), FONT_SIZE);
 
         text = new Text(name);
         text.setFont(font);
-        text.setFill(Color.WHITE);
-
-        Rectangle bg = new Rectangle(BUTTON_WIDTH, BUTTON_HEIGHT);
-        bg.setOpacity(0.8);
-        bg.setFill(Color.BLACK);
-        bg.setEffect(new GaussianBlur(5));
-
-        bg.setTranslateX(0);
-        text.setTranslateX(10);
+        text.setFill(Color.BLACK);
 
         setAlignment(Pos.CENTER_LEFT);
         //setRotate(0);
 
-        getChildren().addAll(bg, text);
+        getChildren().add(text);
 
         setOnMouseEntered(event -> {
-            bg.setTranslateX(10);
-            text.setTranslateX(20);
-            bg.setFill(Color.WHITE);
-            text.setFill(Color.BLACK);
+            text.setTranslateX(10);
+            text.setFill(Color.rgb(227, 110, 45));
         });
 
         setOnMouseExited(event -> {
-            bg.setTranslateX(0);
-            text.setTranslateX(10);
-            bg.setFill(Color.BLACK);
-            text.setFill(Color.WHITE);
+            text.setTranslateX(0);
+            text.setFill(Color.BLACK);
         });
 
         DropShadow drop = new DropShadow(50, Color.WHITE);

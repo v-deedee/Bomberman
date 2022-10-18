@@ -30,13 +30,7 @@ public class IntroLevel {
     }
 
     public void load(String text) {
-        try {
-            font = Font.loadFont(IntroLevel.class.getResource("/font/Font1.ttf").toURI().toString(), FONT_SIZE);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } finally {
-            font = Font.getDefault().font(FONT_SIZE);
-        }
+        font = Font.loadFont(IntroLevel.class.getResourceAsStream("/font/Font1.ttf"), FONT_SIZE);
         this.text = text;
     }
 

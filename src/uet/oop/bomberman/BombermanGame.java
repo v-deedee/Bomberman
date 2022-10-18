@@ -14,6 +14,8 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.IntroLevel;
 import uet.oop.bomberman.levels.LevelLoader;
 
+import java.net.URISyntaxException;
+
 public class BombermanGame extends Application {
     private LevelLoader lvLoad = new LevelLoader(1);
     //    Board board = lvLoad.board;
