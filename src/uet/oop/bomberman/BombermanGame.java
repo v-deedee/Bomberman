@@ -13,6 +13,7 @@ import uet.oop.bomberman.Input.InputHandler;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 import com.sun.javafx.perf.PerformanceTracker;
+import uet.oop.bomberman.sound.Sound;
 
 public class BombermanGame extends Application {
     private static int level = 1;
@@ -36,6 +37,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        Sound.playBGM();
         stage.getIcons().add(new Image("/textures/icon.jfif"));
         // Tao Canvas
         canvas = new Canvas(lvLoad.getWidth() * Sprite.SCALED_SIZE / 2.0, lvLoad.getHeight() * Sprite.SCALED_SIZE);

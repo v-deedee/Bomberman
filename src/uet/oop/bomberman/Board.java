@@ -14,6 +14,7 @@ import uet.oop.bomberman.entities.Tile.Portal;
 import uet.oop.bomberman.entities.Tile.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
+import uet.oop.bomberman.sound.Sound;
 
 
 import java.awt.*;
@@ -21,6 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
+    protected void call() throws Exception { // test sleep thread
+        try { Thread.sleep(3000); }
+        catch (InterruptedException ignored) { }
+    }
+    public static boolean BGMusic = true;
+    public static boolean soundFX = true;
     public boolean passLevel = false;
     public boolean levelOver = false;
     public static int hitboxFix = 5;
@@ -45,6 +52,9 @@ public class Board {
     public List<Item> items = new ArrayList<>();
 
     public Board() {
+        if (soundFX) {
+            Sound.stageStartAudio.play();
+        }
     }
 
     public void addBomber(Bomber bomber) {
@@ -57,6 +67,9 @@ public class Board {
 
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
+        if (soundFX) {
+            Sound.setBombAudio.play();
+        }
     }
 
     public void addBrick(Brick brick) {
@@ -133,11 +146,22 @@ public class Board {
             if (enemies.get(i).isRemoved) {
                 enemies.remove(i);
                 i--;
+                if(enemies.size() == 0 && soundFX) {
+                    Sound.killAllEnemiesAudio.play();
+                }
             }
         }
         if(bombers.size() != 0 && bombers.get(0).isRemoved) {
             levelOver = true;
             passLevel = false;
+            if (soundFX) {
+                Sound.loseLevelAudio.play();
+                try {
+                    call();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
         if(enemies.size() == 0 && bombers.size() != 0
                 &&  portalDetect(bombers.get(0).getX(), bombers.get(0).getY())) {
@@ -237,7 +261,8 @@ public class Board {
                             }
                         }
                         if (j == Bomber.bombRadius - 1 && !checkAnotherBomb) _last = true;
-                        if (test != '#' && test != '*' && test != 'x' && canCreateFlameSeg) {
+                        if (test != '#' && test != '*' && test != 'x' && canCreateFlameSeg
+                        && test != 'b' && test != 'f' && test != 's') {
                             flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
                             killEnemyDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
                             collisionKillPlayerDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
@@ -247,6 +272,9 @@ public class Board {
                 }
                 bombs.remove(i);
                 i--;
+                if (soundFX) {
+                    Sound.bombExplodedAudio.play();
+                }
             }
         }
     }
@@ -260,6 +288,9 @@ public class Board {
             if (x2 >= x && x2 <= x1 && y2 >= y && y2 <= y1) {
                 item.eaten();
                 item.isRemoved = true;
+                if (soundFX) {
+                    Sound.eatItemAudio.play();
+                }
             }
         }
     }
@@ -274,6 +305,9 @@ public class Board {
             if ((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
                     || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
                 enemy.isExploded = true;
+                if (soundFX) {
+                    Sound.enemyDieAudio.play();
+                }
             }
         }
     }
@@ -297,6 +331,9 @@ public class Board {
             if ((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
                     || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
                 bomber.isDead = true;
+                if (soundFX) {
+                    Sound.charDieAudio.play();
+                }
             }
         }
     }
