@@ -67,7 +67,7 @@ public class BombermanGame extends Application {
                 if (!lvLoad.board.bombers.isEmpty()) {
                     _input.handleInput(lvLoad.board.bombers.get(0), lvLoad.board, lvLoad);
                 }
-                if (Menu.getIsStart()) {
+                if (Menu.getIsStart(1)) {
                     root.getChildren().clear();
                     root.getChildren().add(canvas);
                     lvLoad.introLevel.show(gc, canvas.getWidth(), canvas.getHeight());

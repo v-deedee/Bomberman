@@ -22,10 +22,12 @@ public class MenuButton extends StackPane {
     public static int FONT_SIZE = 10 * Sprite.SCALE;
     public static int BUTTON_WIDTH = 70 * Sprite.SCALE;
     public static int BUTTON_HEIGHT = 18 * Sprite.SCALE;
+    public static String URL_FONT2 = "/font/Font2.ttf";
+    public static String URL_FONT3 = "/font/Font3.ttf";
 
-    public MenuButton(String name, int btnW, int btnH) {
+    public MenuButton(String name, int btnW, int btnH, double fontSize, String fontUrl) {
         //font = new Font("Cooper Black", FONT_SIZE);
-        font = Font.loadFont(MenuButton.class.getResourceAsStream("/font/Font2.ttf"), FONT_SIZE);
+        font = Font.loadFont(MenuButton.class.getResourceAsStream(fontUrl), fontSize);
 
         text = new Text(name);
         text.setFont(font);
