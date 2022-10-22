@@ -36,11 +36,6 @@ public class MenuButton extends StackPane {
         setAlignment(Pos.CENTER);
         //setRotate(0);
 
-        Rectangle bg = new Rectangle(btnW, btnH);
-        bg.setOpacity(0.6);
-        bg.setFill(Color.BLACK);
-        bg.setEffect(new GaussianBlur(5));
-
         Image btnUp = null;
         Image btnDown = null;
         try {
