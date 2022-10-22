@@ -6,7 +6,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class Sound {
-    static final String MainBGM = "res/sounds/MainBGM.mp3";
     static final String eatItemSound = "res/sounds/eatItem.wav";
     static final String bombExplodedSound = "res/sounds/bombExploded2.wav";
     static final String enemyDieSound = "res/sounds/enemyDie.mp3";
@@ -23,6 +22,7 @@ public class Sound {
     public static AudioClip charDieAudio = new AudioClip((new File(charDieSound)).toURI().toString());
     public static AudioClip loseLevelAudio = new AudioClip((new File(loseLevelSound)).toURI().toString());
     public static AudioClip stageStartAudio = new AudioClip((new File(stageStartSound)).toURI().toString());
+    static final String MainBGM = "res/sounds/MainBGM.mp3";
     static Media sound = new Media((new File(MainBGM)).toURI().toString());
     static MediaPlayer mediaPlayer = new MediaPlayer(sound);
 

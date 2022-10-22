@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Bomb.Bomb;
+import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Tile.Brick;
 import uet.oop.bomberman.graphics.Sprite;
@@ -148,5 +149,19 @@ public class Enemy extends Entity {
         } catch (Exception e) {
             System.out.println(x + " " + y);
         }
+    }
+
+    public double calculateDistance(LevelLoader lvLoad) {
+            // Get position in map
+        if(lvLoad.board.bombers.size() != 0 && (int)x % Sprite.SCALED_SIZE == 0 && (int)y % Sprite.SCALED_SIZE == 0) {
+            Bomber bomber = lvLoad.board.bombers.get(0);
+            int enemyPosX = (int) (x / Sprite.SCALED_SIZE);
+            int enemyPosY = (int) (y / Sprite.SCALED_SIZE);
+            int bomberPosX = (int)(bomber.getX()/Sprite.SCALED_SIZE);
+            int bomberPosY = (int)(bomber.getY()/Sprite.SCALED_SIZE);
+            return Math.sqrt((bomberPosX - enemyPosX) * (bomberPosX - enemyPosX)
+                    + (bomberPosY - enemyPosY) * (bomberPosY - enemyPosY));
+        }
+        else return 1000;
     }
 }
