@@ -11,9 +11,12 @@ import javafx.stage.Stage;
 
 import uet.oop.bomberman.Input.InputHandler;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.IntroLevel;
 import uet.oop.bomberman.levels.LevelLoader;
 import com.sun.javafx.perf.PerformanceTracker;
 import uet.oop.bomberman.sound.Sound;
+
+import java.net.URISyntaxException;
 
 public class BombermanGame extends Application {
     private static int level = 1;
@@ -31,6 +34,9 @@ public class BombermanGame extends Application {
 
     private static PerformanceTracker tracker;
 
+    //
+    private Menu menu;
+
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -42,9 +48,10 @@ public class BombermanGame extends Application {
         // Tao Canvas
         canvas = new Canvas(lvLoad.getWidth() * Sprite.SCALED_SIZE / 2.0, lvLoad.getHeight() * Sprite.SCALED_SIZE);
         gc = canvas.getGraphicsContext2D();
+        menu = new Menu(canvas.getWidth(), canvas.getHeight());
 
         // Tao root container
-        root.getChildren().add(canvas);
+        root.getChildren().addAll(canvas, menu);
 
         // Them scene vao stage
         stage.setScene(scene);
@@ -70,6 +77,26 @@ public class BombermanGame extends Application {
                 render();
                 update();
                 stage.setTitle(TITLE + "| " + (int) getFPS() + " rates");
+                if (Menu.getIsStart(1)) {
+                    root.getChildren().clear();
+                    root.getChildren().add(canvas);
+                    lvLoad.introLevel.show(gc, canvas.getWidth(), canvas.getHeight());
+                    if (!lvLoad.introLevel.getShowIntro()) {
+                        render();
+                        update();
+                    }
+                }
+
+                long oldFrameTime = frameTimes[frameTimeIndex];
+                frameTimes[frameTimeIndex] = now;
+                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
+                if (frameTimeIndex == 0) frameArrFilled = true;
+                if (frameArrFilled) {
+                    long elapsedNanos = now - oldFrameTime;
+                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
+                    frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
+                }
+                stage.setTitle(TITLE + "| " + (int) frameRate + " rates");
             }
         };
         timer.start();

@@ -22,7 +22,9 @@ public class LevelLoader {
     protected static int width;
     protected static int height;
     public Board board = new Board();
-    private static char map[][];
+    public IntroLevel introLevel = new IntroLevel();
+    private static char[][] map;
+
 
     public LevelLoader(int level) {
         loadLevel(level);
@@ -57,6 +59,7 @@ public class LevelLoader {
         Bomber.bombRadius = 1;
         Bomber.maxBomb = 1;
         Bomber.step = 2;
+        introLevel.load("STAGE " + level);
         List<String> list = new ArrayList<>();
         try {
             FileReader fr = new FileReader("res\\levels\\Level" + level + ".txt");
