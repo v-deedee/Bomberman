@@ -14,6 +14,7 @@ public class Bomber extends Entity {
     public static int bombRadius = 1;
     public static double step = 2;
     public static int maxBomb = 1;
+    public static boolean flamePass = false;
 
     public boolean isDead = false;
 

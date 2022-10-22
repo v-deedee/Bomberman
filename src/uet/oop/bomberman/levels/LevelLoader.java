@@ -2,8 +2,7 @@ package uet.oop.bomberman.levels;
 
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Character.Bomber;
-import uet.oop.bomberman.entities.Enemy.Balloon;
-import uet.oop.bomberman.entities.Enemy.Oneal;
+import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.entities.Item.B_Item;
 import uet.oop.bomberman.entities.Item.F_Item;
 import uet.oop.bomberman.entities.Item.S_Item;
@@ -127,6 +126,21 @@ public class LevelLoader {
                     case '2':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEnemy(new Oneal(x, y, Sprite.oneal_right1.getFxImage()));
+                        setMap(y, x, ' ');
+                        break;
+                    case '3' :
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
+                        board.addEnemy(new Doll(x, y, Sprite.doll_right1.getFxImage()));
+                        setMap(y, x, ' ');
+                        break;
+                    case '4' :
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
+                        board.addEnemy(new Minvo(x, y, Sprite.doll_right1.getFxImage()));
+                        setMap(y, x, ' ');
+                        break;
+                    case '5' :
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
+                        board.addEnemy(new Kondoria(x, y, Sprite.doll_right1.getFxImage()));
                         setMap(y, x, ' ');
                         break;
                     default:

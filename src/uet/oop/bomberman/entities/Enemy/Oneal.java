@@ -7,8 +7,10 @@ import uet.oop.bomberman.levels.LevelLoader;
 public class Oneal extends Enemy {
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
-    double moveH = 0;
-    double moveV = 2;
+    protected int speedX = 2;
+    protected int speedY = 2;
+
+
 
     public Oneal(double x, double y, Image img) {
         super(x, y, img);
@@ -69,111 +71,53 @@ public class Oneal extends Enemy {
     }
 
     public void enemyMove(LevelLoader lvLoad) {
-//        if (calculateDistance(lvLoad) > 5) {
-//            try {
-//                if ((int) x % Sprite.SCALED_SIZE == 0 && (int) y % Sprite.SCALED_SIZE == 0) {
-//                    // Get position in map
-//                    int x1 = (int) x / Sprite.SCALED_SIZE;
-//                    int y1 = (int) y / Sprite.SCALED_SIZE;
-//
-//                    direction.clear();
-//                    if (canMoveLeft(lvLoad, x1, y1) || canMoveRight(lvLoad, x1, y1)) {
-//                        direction.add('h');
-//                    }
-//                    if (canMoveUp(lvLoad, x1, y1) || canMoveDown(lvLoad, x1, y1)) {
-//                        direction.add('v');
-//                    }
-//                    if (direction.isEmpty()) {
-//                        return;
-//                    }
-//                    rand = (int) (Math.random() * 100) % direction.size();
-//                    if (direction.get(rand) == 'h') {
-//                        if (speedX > 0) {
-//                            if (!canMoveRight(lvLoad, x1, y1)) {
-//                                speedX = -speedX;
-//                            }
-//                        } else {
-//                            if (!canMoveLeft(lvLoad, x1, y1)) {
-//                                speedX = -speedX;
-//                            }
-//                        }
-//                    } else {
-//                        if (speedY > 0) {
-//                            if (!canMoveDown(lvLoad, x1, y1)) {
-//                                speedY = -speedY;
-//                            }
-//                        } else {
-//                            if (!canMoveUp(lvLoad, x1, y1)) {
-//                                speedY = -speedY;
-//                            }
-//                        }
-//                    }
-//                }
-//                if (direction.get(rand) == 'h') {
-//                    x += speedX;
-//                } else {
-//                    y += speedY;
-//                }
-//            } catch (Exception e) {
-//                System.out.println(x + " " + y);
-//            }
-//        } else {
-            try {
+        try {
+            if ((int)x % Sprite.SCALED_SIZE == 0 && (int)y % Sprite.SCALED_SIZE == 0) {
+                // Get position in map
                 int x1 = (int)x / Sprite.SCALED_SIZE;
                 int y1 = (int)y / Sprite.SCALED_SIZE;
-                if ((int)x % Sprite.SCALED_SIZE == 0 && (int)y % Sprite.SCALED_SIZE == 0) {
-                    int xp = (int) (lvLoad.board.bombers.get(0).getX() + Sprite.DEFAULT_SIZE) / Sprite.SCALED_SIZE; // check bomber alive
-                    int yp = (int) (lvLoad.board.bombers.get(0).getY() + Sprite.DEFAULT_SIZE)/ Sprite.SCALED_SIZE;
-                    if (xp >= x1 && speedX < 0) {
-                        speedX = -speedX;
-                    }
-                    if (xp < x1 && speedX > 0) {
-                        speedX = -speedX;
-                    }
-                    if (y1 == yp) {
-                        moveH = 0;
-                    } else if (yp < y1 && canMoveUp(lvLoad, x1, y1)) {
-                        moveH = -1;
-                    } else if (yp > y1 && canMoveDown(lvLoad, x1, y1)) {
-                        moveH = 1;
-                    }
 
-                    if (x1 == xp) {
-                        moveV = 0;
-                    } else if (xp < x1 && canMoveLeft(lvLoad, x1, y1)) {
-                        moveV = -1;
-                    } else if (xp > x1 && canMoveRight(lvLoad, x1, y1)) {
-                        moveV = 1;
-                    }
-                    System.out.println(moveV + " " + moveH);
-                    if((moveV > 0 && !canMoveRight(lvLoad, x1, y1)) || (moveV < 0 && !canMoveLeft(lvLoad, x1, y1))) {
-                        moveV = 0;
-                    }
-                    if((moveH > 0 && !canMoveDown(lvLoad, x1, y1)) || (moveH < 0 && !canMoveUp(lvLoad, x1, y1))) {
-                        moveH = 0;
-                    }
-                    if (moveV != 0 || moveH != 0) {
-                        if (Math.abs(xp - x1) > Math.abs(yp - y1)) {
-                            moveH = 0;
-                        } else {
-                            moveV = 0;
+                direction.clear();
+                if (canMoveLeft(lvLoad, x1, y1) || canMoveRight(lvLoad, x1, y1)) {
+                    direction.add('h');
+                }
+                if (canMoveUp(lvLoad, x1, y1) || canMoveDown(lvLoad, x1, y1)) {
+                    direction.add('v');
+                }
+                if (direction.isEmpty()) {
+                    return;
+                }
+                rand = (int)(Math.random() * 100) % direction.size();
+
+                if (direction.get(rand) == 'h') {
+                    if (speedX > 0) {
+                        if (!canMoveRight(lvLoad, x1, y1)) {
+                            speedX = -speedX;
+                        }
+                    } else {
+                        if (!canMoveLeft(lvLoad, x1, y1)) {
+                            speedX = -speedX;
                         }
                     }
-
+                } else {
+                    if (speedY > 0) {
+                        if (!canMoveDown(lvLoad, x1, y1)) {
+                            speedY = -speedY;
+                        }
+                    } else {
+                        if (!canMoveUp(lvLoad, x1, y1)) {
+                            speedY = -speedY;
+                        }
+                    }
                 }
-                x += moveV;
-                y += moveH;
-            } catch (Exception e) {
-                System.out.println(x + " " + y);
             }
-//        }
-    }
-
-    double lamtron(double a) {
-        double num = (int) (a);
-        if (num + 0.5 <= a) {
-            num += 1;
+            if (direction.get(rand) == 'h') {
+                x += speedX;
+            } else {
+                y += speedY;
+            }
+        } catch (Exception e) {
+            System.out.println(x + " " + y);
         }
-        return num;
     }
 }

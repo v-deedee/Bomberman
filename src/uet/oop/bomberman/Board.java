@@ -109,7 +109,7 @@ public class Board {
         flameSegments.forEach(Entity::update);
         for (Enemy enemy : enemies) {
             enemy.update();
-            collisionKillPlayerDetect(enemy.getX(), enemy.getY());
+            if(!enemy.isExploded) collisionKillPlayerDetect(enemy.getX(), enemy.getY());
         }
         setEnemiesMovement(lvLoad);
         bombExplodeUpdate(lvLoad);
@@ -156,11 +156,11 @@ public class Board {
             passLevel = false;
             if (soundFX) {
                 Sound.loseLevelAudio.play();
-                try {
-                    call();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+//                try {
+//                    call();
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
             }
         }
         if(enemies.size() == 0 && bombers.size() != 0
@@ -210,7 +210,7 @@ public class Board {
                 lvLoad.setMap((int) posY, (int) posX, ' ');
                 flames.add(new Flame(posX, posY, Sprite.bomb_exploded.getFxImage()));
                 killEnemyDetect(posX * Sprite.SCALED_SIZE, posY * Sprite.SCALED_SIZE);
-                collisionKillPlayerDetect(posX * Sprite.SCALED_SIZE, posY * Sprite.SCALED_SIZE);
+                if(!Bomber.flamePass)collisionKillPlayerDetect(posX * Sprite.SCALED_SIZE, posY * Sprite.SCALED_SIZE);
                 for (int _direction = 0; _direction < 4; _direction++) {
                     boolean checkWallEnd = false; // check wall end flame segment
                     boolean checkAnotherBomb = false;
@@ -250,7 +250,7 @@ public class Board {
                                 canCreateFlameSeg = false;
                                 flames.add(new Flame(segmentX, segmentY, Sprite.bomb_exploded.getFxImage()));
                                 killEnemyDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
-                                collisionKillPlayerDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
+                                if(!Bomber.flamePass) collisionKillPlayerDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
                             }
                         }
                         for (FlameSegment flameSegment : flameSegments) {
@@ -265,7 +265,7 @@ public class Board {
                         && test != 'b' && test != 'f' && test != 's') {
                             flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
                             killEnemyDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
-                            collisionKillPlayerDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
+                            if(!Bomber.flamePass) collisionKillPlayerDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
                         } else checkWallEnd = true;
                         if (checkWallEnd) break;
                     }
