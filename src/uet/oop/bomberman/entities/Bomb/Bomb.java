@@ -7,8 +7,6 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Bomb extends Entity {
     int cntBombFrame = 0;
     public boolean isRemoved = false;
-
-    public int bombRadius = 1;
     int explodeTime = 120;
 
     public Bomb(double xUnit, double yUnit, Image img) {

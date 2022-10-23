@@ -11,7 +11,14 @@ import java.awt.*;
 
 public class Bomber extends Entity {
 
-    public final double step = 2;
+    public static int bombRadius = 1;
+    public static double step = 2;
+    public static int maxBomb = 1;
+    public static boolean flamePass = false;
+
+    public boolean isDead = false;
+
+    public boolean isRemoved = false;
     public boolean _moving = false;
     public String _direction = "RIGHT";
     public int cntUpFrame = 0;
@@ -19,7 +26,7 @@ public class Bomber extends Entity {
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
 
-    int maxBomb = 100;
+    public int cntDeadFrame = 0;
 
     public void setAllFrameCnt() {
         cntUpFrame = 0;
@@ -34,6 +41,7 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
+        if(isDead) bomberDeadSprite();
     }
 
     public void moveUp() {
@@ -62,7 +70,7 @@ public class Bomber extends Entity {
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 3;
+        int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
         Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
@@ -86,7 +94,7 @@ public class Bomber extends Entity {
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 3;
+        int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
         Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
@@ -110,7 +118,7 @@ public class Bomber extends Entity {
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 3;
+        int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
@@ -134,7 +142,7 @@ public class Bomber extends Entity {
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
         Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
-        int obstacleSize = Sprite.wall.get_realWidth() * 3;
+        int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
@@ -149,79 +157,81 @@ public class Bomber extends Entity {
     }
 
     public void movingSprite(String _input) {
-        switch (_input) {
-            case "LEFT":
-            case "A":
-                if (cntLeftFrame == 0) {
-                    cntDownFrame = 0;
-                    cntRightFrame = 0;
-                    cntUpFrame = 0;
-                }
-                if (cntLeftFrame >= 0 && cntLeftFrame <= 4) {
-                    img = Sprite.player_left.getFxImage();
-                } else if (cntLeftFrame >= 5 && cntLeftFrame <= 9) {
-                    img = Sprite.player_left_1.getFxImage();
-                } else if (cntLeftFrame >= 10 && cntLeftFrame <= 14) {
-                    img = Sprite.player_left_2.getFxImage();
-                } else {
-                    cntLeftFrame = -1;
-                }
-                cntLeftFrame++;
-                break;
-            case "RIGHT":
-            case "D":
-                if (cntRightFrame == 0) {
-                    cntDownFrame = 0;
-                    cntUpFrame = 0;
-                    cntLeftFrame = 0;
-                }
-                if (cntRightFrame >= 0 && cntRightFrame <= 4) {
-                    img = Sprite.player_right.getFxImage();
-                } else if (cntRightFrame >= 5 && cntRightFrame <= 9) {
-                    img = Sprite.player_right_1.getFxImage();
-                } else if (cntRightFrame >= 10 && cntRightFrame <= 14) {
-                    img = Sprite.player_right_2.getFxImage();
-                } else {
-                    cntRightFrame = -1;
-                }
-                cntRightFrame++;
-                break;
-            case "UP":
-            case "W":
-                if (cntUpFrame == 0) {
-                    cntDownFrame = 0;
-                    cntRightFrame = 0;
-                    cntLeftFrame = 0;
-                }
-                if (cntUpFrame >= 0 && cntUpFrame <= 4) {
-                    img = Sprite.player_up.getFxImage();
-                } else if (cntUpFrame >= 5 && cntUpFrame <= 9) {
-                    img = Sprite.player_up_1.getFxImage();
-                } else if (cntUpFrame >= 10 && cntUpFrame <= 14) {
-                    img = Sprite.player_up_2.getFxImage();
-                } else {
-                    cntUpFrame = -1;
-                }
-                cntUpFrame++;
-                break;
-            case "DOWN":
-            case "S":
-                if (cntDownFrame == 0) {
-                    cntUpFrame = 0;
-                    cntRightFrame = 0;
-                    cntLeftFrame = 0;
-                }
-                if (cntDownFrame >= 0 && cntDownFrame <= 4) {
-                    img = Sprite.player_down.getFxImage();
-                } else if (cntDownFrame >= 5 && cntDownFrame <= 9) {
-                    img = Sprite.player_down_1.getFxImage();
-                } else if (cntDownFrame >= 10 && cntDownFrame <= 14) {
-                    img = Sprite.player_down_2.getFxImage();
-                } else {
-                    cntDownFrame = -1;
-                }
-                cntDownFrame++;
-                break;
+        if(!isDead) {
+            switch (_input) {
+                case "LEFT":
+                case "A":
+                    if (cntLeftFrame == 0) {
+                        cntDownFrame = 0;
+                        cntRightFrame = 0;
+                        cntUpFrame = 0;
+                    }
+                    if (cntLeftFrame >= 0 && cntLeftFrame <= 4) {
+                        img = Sprite.player_left.getFxImage();
+                    } else if (cntLeftFrame >= 5 && cntLeftFrame <= 9) {
+                        img = Sprite.player_left_1.getFxImage();
+                    } else if (cntLeftFrame >= 10 && cntLeftFrame <= 14) {
+                        img = Sprite.player_left_2.getFxImage();
+                    } else {
+                        cntLeftFrame = -1;
+                    }
+                    cntLeftFrame++;
+                    break;
+                case "RIGHT":
+                case "D":
+                    if (cntRightFrame == 0) {
+                        cntDownFrame = 0;
+                        cntUpFrame = 0;
+                        cntLeftFrame = 0;
+                    }
+                    if (cntRightFrame >= 0 && cntRightFrame <= 4) {
+                        img = Sprite.player_right.getFxImage();
+                    } else if (cntRightFrame >= 5 && cntRightFrame <= 9) {
+                        img = Sprite.player_right_1.getFxImage();
+                    } else if (cntRightFrame >= 10 && cntRightFrame <= 14) {
+                        img = Sprite.player_right_2.getFxImage();
+                    } else {
+                        cntRightFrame = -1;
+                    }
+                    cntRightFrame++;
+                    break;
+                case "UP":
+                case "W":
+                    if (cntUpFrame == 0) {
+                        cntDownFrame = 0;
+                        cntRightFrame = 0;
+                        cntLeftFrame = 0;
+                    }
+                    if (cntUpFrame >= 0 && cntUpFrame <= 4) {
+                        img = Sprite.player_up.getFxImage();
+                    } else if (cntUpFrame >= 5 && cntUpFrame <= 9) {
+                        img = Sprite.player_up_1.getFxImage();
+                    } else if (cntUpFrame >= 10 && cntUpFrame <= 14) {
+                        img = Sprite.player_up_2.getFxImage();
+                    } else {
+                        cntUpFrame = -1;
+                    }
+                    cntUpFrame++;
+                    break;
+                case "DOWN":
+                case "S":
+                    if (cntDownFrame == 0) {
+                        cntUpFrame = 0;
+                        cntRightFrame = 0;
+                        cntLeftFrame = 0;
+                    }
+                    if (cntDownFrame >= 0 && cntDownFrame <= 4) {
+                        img = Sprite.player_down.getFxImage();
+                    } else if (cntDownFrame >= 5 && cntDownFrame <= 9) {
+                        img = Sprite.player_down_1.getFxImage();
+                    } else if (cntDownFrame >= 10 && cntDownFrame <= 14) {
+                        img = Sprite.player_down_2.getFxImage();
+                    } else {
+                        cntDownFrame = -1;
+                    }
+                    cntDownFrame++;
+                    break;
+            }
         }
     }
 
@@ -249,5 +259,18 @@ public class Bomber extends Entity {
         if (_board.bombs.size() < maxBomb && sw == 0) {
             _board.addBomb(tempBomb);
         }
+    }
+
+    public void bomberDeadSprite() {
+        if (cntDeadFrame >= 0 && cntDeadFrame <= 10) {
+            img = Sprite.player_dead1.getFxImage();
+        } else if (cntDeadFrame >= 11 && cntDeadFrame <= 20) {
+            img = Sprite.player_dead2.getFxImage();
+        } else if (cntDeadFrame >= 21 && cntDeadFrame <= 30) {
+            img = Sprite.player_dead3.getFxImage();
+        } else {
+            isRemoved = true;
+        }
+        cntDeadFrame++;
     }
 }
