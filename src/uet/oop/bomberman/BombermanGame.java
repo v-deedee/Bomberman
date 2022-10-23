@@ -31,6 +31,8 @@ public class BombermanGame extends Application {
 
     private static PerformanceTracker tracker;
 
+    private Menu menu;
+
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -42,9 +44,10 @@ public class BombermanGame extends Application {
         // Tao Canvas
         canvas = new Canvas(lvLoad.getWidth() * Sprite.SCALED_SIZE / 2.0, lvLoad.getHeight() * Sprite.SCALED_SIZE);
         gc = canvas.getGraphicsContext2D();
+        menu = new Menu(canvas.getWidth(), canvas.getHeight());
 
         // Tao root container
-        root.getChildren().add(canvas);
+        root.getChildren().addAll(canvas, menu);
 
         // Them scene vao stage
         stage.setScene(scene);
@@ -67,8 +70,15 @@ public class BombermanGame extends Application {
                 if (!lvLoad.board.bombers.isEmpty()) {
                     _input.handleInput(lvLoad.board.bombers.get(0), lvLoad.board, lvLoad);
                 }
-                render();
-                update();
+                if (Menu.getIsStart(1)) {
+                    root.getChildren().clear();
+                    root.getChildren().add(canvas);
+                    lvLoad.introLevel.show(gc, canvas.getWidth(), canvas.getHeight());
+                    if (!lvLoad.introLevel.getShowIntro()) {
+                        render();
+                        update();
+                    }
+                }
                 stage.setTitle(TITLE + "| " + (int) getFPS() + " rates");
             }
         };
