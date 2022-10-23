@@ -20,8 +20,6 @@ import java.net.URISyntaxException;
 public class Menu extends Parent {
     private static boolean[] stStart = new boolean[10];
     private boolean[] stageLocked = new boolean[10];
-    private boolean stopMusic = false;
-    private boolean stopSound = false;
     public static final int STAGE_BTN_W = MenuButton.BUTTON_WIDTH / 2;
     public static final int STAGE_BTN_H = MenuButton.BUTTON_HEIGHT * 2;
 
@@ -194,22 +192,22 @@ public class Menu extends Parent {
         btnOn1.setOnMouseClicked(event -> {
             musicBox.getChildren().remove(btnOn1);
             musicBox.getChildren().add(btnOff1);
-            stopMusic = true;
+            Board.BGMusic = false;
         });
         btnOff1.setOnMouseClicked(event -> {
             musicBox.getChildren().remove(btnOff1);
             musicBox.getChildren().add(btnOn1);
-            stopMusic = false;
+            Board.BGMusic = true;
         });
         btnOn2.setOnMouseClicked(event -> {
             soundBox.getChildren().remove(btnOn2);
             soundBox.getChildren().add(btnOff2);
-            stopSound = true;
+            Board.soundFX = false;
         });
         btnOff2.setOnMouseClicked(event -> {
             soundBox.getChildren().remove(btnOff2);
             soundBox.getChildren().add(btnOn2);
-            stopSound = false;
+            Board.soundFX = true;
         });
 
         return settingMenu;

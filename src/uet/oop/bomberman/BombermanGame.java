@@ -60,6 +60,12 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if(!Board.BGMusic) {
+                    Sound.mediaPlayer.pause();
+                }
+                else {
+                    Sound.mediaPlayer.play();
+                }
                 if(lvLoad.board.levelOver) {
                     if(lvLoad.board.passLevel) {
                         level++;

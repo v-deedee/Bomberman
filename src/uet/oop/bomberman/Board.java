@@ -338,7 +338,9 @@ public class Board {
         }
     }
 
-    public boolean portalDetect(double topLeftX, double topLeftY) {
+    public boolean portalDetect(double X, double Y) {
+        double topLeftX = X + 0;
+        double topLeftY = Y + 0;
         double downRightX = topLeftX + Sprite.SCALED_SIZE;
         double downRightY = topLeftY + Sprite.SCALED_SIZE;
         double t = Sprite.SCALED_SIZE;
@@ -351,12 +353,14 @@ public class Board {
                 }
             }
             if(!brickOn) {
-                return (topLeftX >= portal.getX() && topLeftX <= portal.getY() + t
+                if((topLeftX >= portal.getX() && topLeftX <= portal.getY() + t
                         && topLeftY >= portal.getY() && topLeftY <= portal.getY() + t)
                         || (downRightX >= portal.getX() && downRightX <= portal.getX() + t
-                        && downRightY >= portal.getY() && downRightY <= portal.getY() + t);
+                        && downRightY >= portal.getY() && downRightY <= portal.getY() + t)) {
+                    System.out.println("detect portal");
+                    return true;
+                }
             }
-            else return false;
         }
         return false;
     }
