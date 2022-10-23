@@ -4,6 +4,7 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.entities.Item.B_Item;
+import uet.oop.bomberman.entities.Item.FP_Item;
 import uet.oop.bomberman.entities.Item.F_Item;
 import uet.oop.bomberman.entities.Item.S_Item;
 import uet.oop.bomberman.entities.Tile.Brick;
@@ -118,6 +119,11 @@ public class LevelLoader {
                         board.addItem(new S_Item(x, y, Sprite.powerup_speed.getFxImage()));
                         board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
+                    case 'o' :
+                        board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
+                        board.addItem(new FP_Item(x, y, Sprite.powerup_flamepass.getFxImage()));
+                        board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
+                        break;
                     case '1':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEnemy(new Balloon(x, y, Sprite.balloom_right1.getFxImage()));
@@ -135,12 +141,12 @@ public class LevelLoader {
                         break;
                     case '4' :
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
-                        board.addEnemy(new Minvo(x, y, Sprite.doll_right1.getFxImage()));
+                        board.addEnemy(new Minvo(x, y, Sprite.minvo_right1.getFxImage()));
                         setMap(y, x, ' ');
                         break;
                     case '5' :
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
-                        board.addEnemy(new Kondoria(x, y, Sprite.doll_right1.getFxImage()));
+                        board.addEnemy(new Kondoria(x, y, Sprite.kondoria_right1.getFxImage()));
                         setMap(y, x, ' ');
                         break;
                     default:
