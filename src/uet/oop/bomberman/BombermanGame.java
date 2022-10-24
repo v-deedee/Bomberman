@@ -32,6 +32,7 @@ public class BombermanGame extends Application {
     private static PerformanceTracker tracker;
 
     private Menu menu;
+    public static CountDown countdown = new CountDown(200);
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -39,6 +40,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        countdown.Restart();
         Sound.playBGM();
         stage.getIcons().add(new Image("/textures/icon.jfif"));
         // Tao Canvas
@@ -85,7 +87,8 @@ public class BombermanGame extends Application {
                         update();
                     }
                 }
-                stage.setTitle(TITLE + "| " + (int) getFPS() + " rates");
+                stage.setTitle(TITLE + "| " + (int) getFPS() + " rates"
+                        + "| Timer" + countdown.timeLeftValue() + "s");
             }
         };
         timer.start();
