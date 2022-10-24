@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.Bomb;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -14,6 +15,7 @@ public class Bomb extends Entity {
     }
 
     public void update() {
+        if(Board.Pause) return;
         bombSprite();
         explodeTime--;
         if (explodeTime <= 0) isRemoved = true;

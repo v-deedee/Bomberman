@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
@@ -47,6 +48,7 @@ public class Kondoria extends Enemy{
     }
 
     public void move(LevelLoader lvLoad) {
+        if(Board.Pause) return;
         if (!isExploded) {
             enemyMove(lvLoad);
             setMovingSprite();

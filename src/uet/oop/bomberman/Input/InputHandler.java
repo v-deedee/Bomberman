@@ -11,6 +11,7 @@ public class InputHandler {
     public Set<String> currentlyActiveKeys;
     public List<String> movementKey = new ArrayList<>();
     int bombPlantCD = 15;
+    int pauseCD = 30;
 
     public void prepareActionHandlers(Scene scene) {
         // use a set so duplicates are not possible
@@ -30,6 +31,12 @@ public class InputHandler {
     }
 
     public void handleInput(Bomber bomberman, Board board, LevelLoader lvLoad) {
+        pauseCD--;
+        if(currentlyActiveKeys.contains("ESCAPE") && pauseCD <= 0) {
+            Board.Pause = !Board.Pause;
+            pauseCD = 30;
+        }
+        if(Board.Pause) return;
         bombPlantCD--;
         String[] activeKeysArr = currentlyActiveKeys.toArray(new String[0]);
         if (activeKeysArr.length != 0) {

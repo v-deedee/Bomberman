@@ -28,9 +28,10 @@ public class Board {
     }
     public static boolean BGMusic = true;
     public static boolean soundFX = true;
+    public static int hitboxFix = 5;
+    public static boolean Pause = false;
     public boolean passLevel = false;
     public boolean levelOver = false;
-    public static int hitboxFix = 5;
     public List<Bomber> bombers = new ArrayList<>();
 
     public List<Enemy> enemies = new ArrayList<>();
