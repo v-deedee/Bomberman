@@ -2,15 +2,11 @@ package uet.oop.bomberman.levels;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.net.URISyntaxException;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Timer;
 
 public class IntroLevel {
     public static final int FONT_SIZE = 10 * Sprite.SCALE;
@@ -27,6 +23,14 @@ public class IntroLevel {
 
     public boolean getShowIntro() {
         return showIntro;
+    }
+
+    public void setShowIntro(boolean showIntro) {
+        this.showIntro = showIntro;
+    }
+
+    public void resetTime() {
+        setStartTime = true;
     }
 
     public void load(String text) {
