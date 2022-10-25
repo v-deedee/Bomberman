@@ -177,13 +177,13 @@ public class Board {
         // variable distance to use Entity::render method
         double distance = 0;
         if (bombers.size() != 0) {
-            distance = bombers.get(0).getX() - LevelLoader.getWidth() * Sprite.SCALED_SIZE / 4.0;
+            distance = bombers.get(0).getX() - LevelLoader.SCREEN_WIDTH / 2.0;
         }
         if (distance < 0) {
             distance = 0;
         }
-        if (distance > LevelLoader.getWidth() * Sprite.SCALED_SIZE / 2.0) {
-            distance = LevelLoader.getWidth() * Sprite.SCALED_SIZE / 2.0;
+        if (distance > LevelLoader.SCREEN_WIDTH) {
+            distance = LevelLoader.SCREEN_WIDTH;
         }
         double finalDistance = distance;
         grasses.forEach(g -> g.render(gc, finalDistance));

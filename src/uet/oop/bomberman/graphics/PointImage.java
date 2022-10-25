@@ -1,7 +1,7 @@
 package uet.oop.bomberman.graphics;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Menu;
+import uet.oop.bomberman.menu.Menu;
 
 import java.net.URISyntaxException;
 
