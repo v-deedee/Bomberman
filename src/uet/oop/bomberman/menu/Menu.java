@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.menu;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.Parent;
@@ -9,26 +9,42 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import uet.oop.bomberman.Board;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.LevelLoader;
 
 import java.net.URISyntaxException;
 
 public class Menu extends Parent {
-    private static boolean[] stStart = new boolean[10];
+    private int currentStage = 1;
+    private boolean startGame = false;
     private boolean[] stageLocked = new boolean[10];
     public static final int STAGE_BTN_W = MenuButton.BUTTON_WIDTH / 2;
     public static final int STAGE_BTN_H = MenuButton.BUTTON_HEIGHT * 2;
 
-    public static boolean getIsStart(int level) {
-        return stStart[level];
+    public Menu() {
+        for (int i = 2; i < 10; i++) {
+            stageLocked[i] = true;
+        }
     }
 
-    public void startGame(int level) {
-        stStart[level] = true;
+    public void unlockStage(int index) {
+        stageLocked[index] = false;
+    }
+
+    public boolean isStartGame() {
+        return startGame;
+    }
+
+    public void setStartGame(boolean startGame) {
+        this.startGame = startGame;
+    }
+
+    public int getCurrentStage() {
+        return currentStage;
     }
 
     public ImageView setUpImageView(String url, double x, double y, double w, double h) {
@@ -47,14 +63,13 @@ public class Menu extends Parent {
         return imgView;
     }
 
-    public BorderPane setUpStageMenu(BorderPane mainMenu, int offset) {
+    public BorderPane setUpStageMenu(BorderPane mainMenu, int offset, LevelLoader lvLoad) {
         BorderPane stageMenu = new BorderPane();
         stageMenu.setTranslateX(offset);
         stageMenu.setTranslateY(0);
 
         ImageView[] lock = new ImageView[10];
         for (int i = 2; i < 10; i++) {
-            stageLocked[i] = true;
             lock[i] = setUpImageView("/menu/lock.png", 0, 0, STAGE_BTN_W, STAGE_BTN_H);
         }
 
@@ -86,25 +101,30 @@ public class Menu extends Parent {
                 if (stageLocked[i]) {
                     col1.getChildren().add(lock[i]);
                 } else {
-                    col1.getChildren().add(stageBtn[1]);
+                    col1.getChildren().add(stageBtn[i]);
                 }
             } else if (i % 3 == 2) {
                 if (stageLocked[i]) {
                     col2.getChildren().add(lock[i]);
                 } else {
-                    col2.getChildren().add(stageBtn[1]);
+                    col2.getChildren().add(stageBtn[i]);
                 }
             } else {
                 if (stageLocked[i]) {
                     col3.getChildren().add(lock[i]);
                 } else {
-                    col3.getChildren().add(stageBtn[1]);
+                    col3.getChildren().add(stageBtn[i]);
                 }
             }
         }
-        stageBtn[1].setOnMouseClicked(event -> {
-            startGame(1);
-        });
+        for (int i = 1; i < 10; i++) {
+            int finalI = i;
+            stageBtn[i].setOnMouseClicked(event -> {
+                startGame = true;
+                lvLoad.loadLevel(finalI);
+                currentStage = finalI;
+            });
+        }
 
         MenuButton btnBack = new MenuButton("BACK", MenuButton.BUTTON_WIDTH / 2, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
@@ -120,9 +140,7 @@ public class Menu extends Parent {
             tt.play();
             tt1.play();
 
-            tt.setOnFinished(event1 -> {
-                getChildren().remove(stageMenu);
-            });
+            tt.setOnFinished(event1 -> getChildren().remove(stageMenu));
         });
         VBox backBox = new VBox(10);
         backBox.setTranslateX(0);
@@ -158,9 +176,7 @@ public class Menu extends Parent {
             tt.play();
             tt1.play();
 
-            tt.setOnFinished(event1 -> {
-                getChildren().remove(settingMenu);
-            });
+            tt.setOnFinished(event1 -> getChildren().remove(settingMenu));
         });
 
         VBox backBox = new VBox();
@@ -213,17 +229,18 @@ public class Menu extends Parent {
         return settingMenu;
     }
 
-    public Menu(double scrW, double scrH) {
+    public void setUpMainMenu(double scrW, double scrH, LevelLoader lvLoad) {
         int offset = 200 * Sprite.SCALE;
 
         BorderPane mainMenu = new BorderPane();
-        BorderPane stageMenu = setUpStageMenu(mainMenu, offset);
+        BorderPane stageMenu = setUpStageMenu(mainMenu, offset, lvLoad);
         BorderPane settingMenu = setUpSettingMenu(mainMenu, offset);
 
-        MenuButton btnStart = new MenuButton("START", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
+        MenuButton btnStart = new MenuButton("NEW GAME", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
         btnStart.setOnMouseClicked(event -> {
-            startGame(1);
+            startGame = true;
+            lvLoad.loadLevel(1);
         });
 
         MenuButton btnStages = new MenuButton("STAGES", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
@@ -240,9 +257,7 @@ public class Menu extends Parent {
             tt.play();
             tt1.play();
 
-            tt.setOnFinished(event1 -> {
-                getChildren().remove(mainMenu);
-            });
+            tt.setOnFinished(event1 -> getChildren().remove(mainMenu));
         });
 
         MenuButton btnSetting = new MenuButton("SETTING", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
@@ -259,16 +274,12 @@ public class Menu extends Parent {
             tt.play();
             tt1.play();
 
-            tt.setOnFinished(event1 -> {
-                getChildren().remove(mainMenu);
-            });
+            tt.setOnFinished(event1 -> getChildren().remove(mainMenu));
         });
 
         MenuButton btnExit = new MenuButton("EXIT", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
-        btnExit.setOnMouseClicked(event -> {
-            System.exit(0);
-        });
+        btnExit.setOnMouseClicked(event -> System.exit(0));
 
         ImageView bgView = setUpImageView("/menu/new_bg.png", 0, 0, scrW, scrH);
         ImageView titleView = setUpImageView("/menu/title.png", 20 * Sprite.SCALE, 20 * Sprite.SCALE,

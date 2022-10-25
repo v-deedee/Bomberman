@@ -19,31 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelLoader {
-    protected static int width;
-    protected static int height;
+    protected int width;
+    protected int height;
+
+    public static final int SCREEN_WIDTH = 31 * Sprite.SCALED_SIZE / 2;
+    public static final int SCREEN_HEIGHT = 13 * Sprite.SCALED_SIZE;
+
     public Board board = new Board();
     public IntroLevel introLevel = new IntroLevel();
     private static char[][] map;
 
-
     public LevelLoader(int level) {
         loadLevel(level);
-    }
-
-    public static int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public static int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
     }
 
     public char getMap(int i, int j) {
