@@ -2,19 +2,19 @@ package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Board;
+import uet.oop.bomberman.graphics.PointImage;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 
 public class Oneal extends Enemy {
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
-    protected int speedX = 2;
-    protected int speedY = 2;
-
-
+    protected int speedX = Sprite.SCALED_SIZE / 16;
+    protected int speedY = Sprite.SCALED_SIZE / 16;
 
     public Oneal(double x, double y, Image img) {
         super(x, y, img);
+        point = 300;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Oneal extends Enemy {
     }
 
     public void move(LevelLoader lvLoad) {
-        if(Board.Pause) return;
+        if (Board.Pause) return;
         if (!isExploded) {
             enemyMove(lvLoad);
             setMovingSprite();
@@ -66,6 +66,8 @@ public class Oneal extends Enemy {
             img = Sprite.mob_dead2.getFxImage();
         } else if (cntEnemyFrame >= 60 && cntEnemyFrame <= 79) {
             img = Sprite.mob_dead3.getFxImage();
+        } else if (cntEnemyFrame >= 80 && cntEnemyFrame <= 120) {
+            img = PointImage.point300;
         } else {
             isRemoved = true;
         }
@@ -74,10 +76,10 @@ public class Oneal extends Enemy {
 
     public void enemyMove(LevelLoader lvLoad) {
         try {
-            if ((int)x % Sprite.SCALED_SIZE == 0 && (int)y % Sprite.SCALED_SIZE == 0) {
+            if ((int) x % Sprite.SCALED_SIZE == 0 && (int) y % Sprite.SCALED_SIZE == 0) {
                 // Get position in map
-                int x1 = (int)x / Sprite.SCALED_SIZE;
-                int y1 = (int)y / Sprite.SCALED_SIZE;
+                int x1 = (int) x / Sprite.SCALED_SIZE;
+                int y1 = (int) y / Sprite.SCALED_SIZE;
 
                 direction.clear();
                 if (canMoveLeft(lvLoad, x1, y1) || canMoveRight(lvLoad, x1, y1)) {
@@ -89,7 +91,7 @@ public class Oneal extends Enemy {
                 if (direction.isEmpty()) {
                     return;
                 }
-                rand = (int)(Math.random() * 100) % direction.size();
+                rand = (int) (Math.random() * 100) % direction.size();
 
                 if (direction.get(rand) == 'h') {
                     if (speedX > 0) {

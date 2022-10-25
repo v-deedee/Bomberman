@@ -13,10 +13,11 @@ import java.util.List;
 
 public class Enemy extends Entity {
     public boolean isRemoved = false;
+    protected int point;
     int cntEnemyFrame = 0;
     public boolean isExploded = false;
-    protected int speedX = 1;
-    protected int speedY = 1;
+    protected int speedX = Sprite.SCALED_SIZE/32;
+    protected int speedY = Sprite.SCALED_SIZE/32;
     List<Character> direction = new ArrayList<>();
     protected int rand;
     public Enemy(double x, double y, Image img) {

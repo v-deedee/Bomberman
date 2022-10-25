@@ -2,19 +2,22 @@ package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Board;
+import uet.oop.bomberman.graphics.PointImage;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 
 public class Balloon extends Enemy {
     public int cntLeftFrame = 0;
     public int cntRightFrame = 0;
+
     public Balloon(double x, double y, Image img) {
         super(x, y, img);
+        point = 100;
     }
 
     @Override
     public void update() {
-        if(isExploded) balloonDeadSprite();
+        if (isExploded) balloonDeadSprite();
     }
 
     public void setMovingSprite() {
@@ -45,7 +48,7 @@ public class Balloon extends Enemy {
     }
 
     public void move(LevelLoader lvLoad) {
-        if(Board.Pause) return;
+        if (Board.Pause) return;
         if (!isExploded) {
             enemyMove(lvLoad);
             setMovingSprite();
@@ -57,10 +60,12 @@ public class Balloon extends Enemy {
             img = Sprite.balloom_dead.getFxImage();
         } else if (cntEnemyFrame >= 20 && cntEnemyFrame <= 39) {
             img = Sprite.mob_dead1.getFxImage();
-        }else if (cntEnemyFrame >= 40 && cntEnemyFrame <= 59) {
+        } else if (cntEnemyFrame >= 40 && cntEnemyFrame <= 59) {
             img = Sprite.mob_dead2.getFxImage();
-        }else if (cntEnemyFrame >= 60 && cntEnemyFrame <= 79) {
+        } else if (cntEnemyFrame >= 60 && cntEnemyFrame <= 79) {
             img = Sprite.mob_dead3.getFxImage();
+        } else if (cntEnemyFrame >= 80 && cntEnemyFrame <= 120) {
+            img = PointImage.point100;
         } else {
             isRemoved = true;
         }

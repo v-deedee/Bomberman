@@ -12,7 +12,7 @@ import java.awt.*;
 public class Bomber extends Entity {
 
     public static int bombRadius = 1;
-    public static double step = 2;
+    public static double step = Sprite.SCALED_SIZE/16.0;
     public static int maxBomb = 1;
     public static boolean flamePass = false;
 

@@ -1,6 +1,9 @@
 package uet.oop.bomberman;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Bomb.Flame;
 import uet.oop.bomberman.entities.Bomb.FlameSegment;
@@ -22,17 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    protected void call() throws Exception { // test sleep thread
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ignored) {
-        }
-    }
-
+    public int score;
     public boolean hasTimer = false;
     public static boolean BGMusic = true;
     public static boolean soundFX = true;
-    public static int hitboxFix = 5;
+    public static int hitboxFix = Sprite.SCALED_SIZE/6;
     public static boolean Pause = false;
     public boolean passLevel = false;
     public boolean levelOver = false;
@@ -42,24 +39,25 @@ public class Board {
 
     public List<Bomb> bombs = new ArrayList<>();
 
-    public List<Grass> grasses = new ArrayList<>();
+    List<Grass> grasses = new ArrayList<>();
 
     public List<Wall> walls = new ArrayList<>();
 
     public List<Brick> bricks = new ArrayList<>();
 
-    public List<Portal> portals = new ArrayList<>();
+    List<Portal> portals = new ArrayList<>();
 
-    public List<Flame> flames = new ArrayList<>();
+    List<Flame> flames = new ArrayList<>();
 
-    public List<FlameSegment> flameSegments = new ArrayList<>();
+    List<FlameSegment> flameSegments = new ArrayList<>();
 
-    public List<Item> items = new ArrayList<>();
+    List<Item> items = new ArrayList<>();
 
     public Board() {
         if (soundFX) {
             Sound.stageStartAudio.play();
         }
+        score = 0;
         BombermanGame.countdown.Restart();
     }
 
@@ -166,11 +164,6 @@ public class Board {
             passLevel = false;
             if (soundFX) {
                 Sound.loseLevelAudio.play();
-//                try {
-//                    call();
-//                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-//                }
             }
         }
         if (enemies.size() == 0 && bombers.size() != 0
@@ -365,10 +358,10 @@ public class Board {
                 }
             }
             if (!brickOn) {
-                if ((topLeftX >= portal.getX() && topLeftX <= portal.getY() + t
-                        && topLeftY >= portal.getY() && topLeftY <= portal.getY() + t)
-                        || (downRightX >= portal.getX() && downRightX <= portal.getX() + t
-                        && downRightY >= portal.getY() && downRightY <= portal.getY() + t)) {
+                if ((topLeftX >= portal.getX() - hitboxFix && topLeftX <= portal.getY() + t + hitboxFix
+                        && topLeftY >= portal.getY() - hitboxFix && topLeftY <= portal.getY() + t + hitboxFix)
+                        || (downRightX >= portal.getX() - hitboxFix && downRightX <= portal.getX() + t + hitboxFix
+                        && downRightY >= portal.getY() - hitboxFix && downRightY <= portal.getY() + t + hitboxFix)) {
                     System.out.println("detect portal");
                     return true;
                 }
