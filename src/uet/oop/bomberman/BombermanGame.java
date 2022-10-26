@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import uet.oop.bomberman.Input.InputHandler;
-import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 import com.sun.javafx.perf.PerformanceTracker;
 import uet.oop.bomberman.menu.Menu;
@@ -66,13 +65,12 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if(!Board.BGMusic) {
+                if (!Board.BGMusic) {
                     Sound.mediaPlayer.pause();
-                }
-                else {
+                } else {
                     Sound.mediaPlayer.play();
                 }
-                if(lvLoad.board.levelOver) {
+                if (lvLoad.board.levelOver) {
                     if (lvLoad.board.passLevel) {
                         menu.setStartGame(false);
                         level = menu.getCurrentStage();
@@ -112,6 +110,10 @@ public class BombermanGame extends Application {
         timer.start();
     }
 
+    public void stop() {
+        Menu.writeStageStatus();
+    }
+
     public void update() {
         lvLoad.board.updateAllEntity(lvLoad);
     }
@@ -121,7 +123,7 @@ public class BombermanGame extends Application {
         lvLoad.board.renderAllEntity(gc);
     }
 
-    private float getFPS () {
+    private float getFPS() {
         float fps = tracker.getAverageFPS();
         tracker.resetAverageFPS();
         return fps;

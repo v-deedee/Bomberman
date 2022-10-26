@@ -1,9 +1,6 @@
 package uet.oop.bomberman;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Bomb.Flame;
 import uet.oop.bomberman.entities.Bomb.FlameSegment;
@@ -29,7 +26,7 @@ public class Board {
     public boolean hasTimer = false;
     public static boolean BGMusic = true;
     public static boolean soundFX = true;
-    public static int hitboxFix = Sprite.SCALED_SIZE/6;
+    public static int hitboxFix = Sprite.SCALED_SIZE / 6;
     public static boolean Pause = false;
     public boolean passLevel = false;
     public boolean levelOver = false;
@@ -358,11 +355,10 @@ public class Board {
                 }
             }
             if (!brickOn) {
-                if ((topLeftX >= portal.getX() - hitboxFix && topLeftX <= portal.getY() + t + hitboxFix
-                        && topLeftY >= portal.getY() - hitboxFix && topLeftY <= portal.getY() + t + hitboxFix)
-                        || (downRightX >= portal.getX() - hitboxFix && downRightX <= portal.getX() + t + hitboxFix
-                        && downRightY >= portal.getY() - hitboxFix && downRightY <= portal.getY() + t + hitboxFix)) {
-                    System.out.println("detect portal");
+                if ((topLeftX >= portal.getX() - 1.5 * hitboxFix && topLeftX <= portal.getX() + t + 1.5 * hitboxFix
+                        && topLeftY >= portal.getY() - 1.5 * hitboxFix && topLeftY <= portal.getY() + t + 1.5 * hitboxFix)
+                        || (downRightX >= portal.getX() - 1.5 * hitboxFix && downRightX <= portal.getX() + t + 1.5 * hitboxFix
+                        && downRightY >= portal.getY() - 1.5 * hitboxFix && downRightY <= portal.getY() + t + 1.5 * hitboxFix)) {
                     return true;
                 }
             }

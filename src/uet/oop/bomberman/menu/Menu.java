@@ -16,18 +16,53 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.net.URISyntaxException;
 
 public class Menu extends Parent {
     private int currentStage = 1;
     private boolean startGame = false;
-    private boolean[] stageLocked = new boolean[10];
+    public static boolean[] stageLocked = new boolean[10];
     public static final int STAGE_BTN_W = MenuButton.BUTTON_WIDTH / 2;
     public static final int STAGE_BTN_H = MenuButton.BUTTON_HEIGHT * 2;
 
     public Menu() {
         for (int i = 2; i < 10; i++) {
             stageLocked[i] = true;
+        }
+        readStageStatus();
+    }
+
+    void readStageStatus() {
+        try {
+            FileReader fr = new FileReader("res\\levels\\StageStatus.txt");
+            BufferedReader br = new BufferedReader(fr);
+            for (int i = 1; i <= 9; i++) {
+                String line = br.readLine();
+                int t = Integer.parseInt(line);
+                stageLocked[i] = t == 1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeStageStatus() {
+        try {
+            FileWriter fr = new FileWriter("res\\levels\\StageStatus.txt");
+            BufferedWriter bw = new BufferedWriter(fr);
+            for (int i = 1; i <= 9; i++) {
+                String t = "0";
+                if (stageLocked[i]) t = "1";
+                bw.write(t);
+                bw.newLine();
+            }
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -279,7 +314,10 @@ public class Menu extends Parent {
 
         MenuButton btnExit = new MenuButton("EXIT", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
-        btnExit.setOnMouseClicked(event -> System.exit(0));
+        btnExit.setOnMouseClicked(event -> {
+            Menu.writeStageStatus();
+            System.exit(0);
+        });
 
         ImageView bgView = setUpImageView("/menu/new_bg.png", 0, 0, scrW, scrH);
         ImageView titleView = setUpImageView("/menu/title.png", 20 * Sprite.SCALE, 20 * Sprite.SCALE,

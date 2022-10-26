@@ -12,7 +12,7 @@ import java.awt.*;
 public class Bomber extends Entity {
 
     public static int bombRadius = 1;
-    public static double step = Sprite.SCALED_SIZE/16.0;
+    public static double step = Sprite.SCALED_SIZE / 16.0;
     public static int maxBomb = 1;
     public static boolean flamePass = false;
 
@@ -41,7 +41,7 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
-        if(isDead) bomberDeadSprite();
+        if (isDead) bomberDeadSprite();
     }
 
     public void moveUp() {
@@ -62,61 +62,61 @@ public class Bomber extends Entity {
 
     public void checkCollisionUp(LevelLoader lvLoad) {
         // Get position in map
-        int x1 = (int)x / Sprite.SCALED_SIZE;
-        int y1 = (int)y / Sprite.SCALED_SIZE;
+        int x1 = (int) x / Sprite.SCALED_SIZE;
+        int y1 = (int) y / Sprite.SCALED_SIZE;
         int scale = Sprite.SCALED_SIZE / Sprite.DEFAULT_SIZE;
         // Get rectangle of bomber
         int bomberWidth = Sprite.player_down.get_realWidth() * scale;
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
-        Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
+        Rectangle bomber = new Rectangle((int) x, (int) y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
         int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
-                y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
+                y1 * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
                 y1 * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         // Check up collision
         if ((lvLoad.getMap(y1, x1) != ' ' && lvLoad.getMap(y1, x1) != 'p'
                 && bomber.getBounds().intersects(obstacleTopLeft.getBounds()))
                 || (lvLoad.getMap(y1, (x1 + 1)) != ' ' && lvLoad.getMap(y1, (x1 + 1)) != 'p'
-                && bomber.getBounds().intersects(obstacleTopRight.getBounds()))){
+                && bomber.getBounds().intersects(obstacleTopRight.getBounds()))) {
             moveDown();
         }
     }
 
     public void checkCollisionLeft(LevelLoader lvLoad) {
         // Get position in map
-        int x1 = (int)x / Sprite.SCALED_SIZE;
-        int y1 = (int)y / Sprite.SCALED_SIZE;
+        int x1 = (int) x / Sprite.SCALED_SIZE;
+        int y1 = (int) y / Sprite.SCALED_SIZE;
         int scale = Sprite.SCALED_SIZE / Sprite.DEFAULT_SIZE;
         // Get rectangle of bomber
         int bomberWidth = Sprite.player_down.get_realWidth() * scale;
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
-        Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
+        Rectangle bomber = new Rectangle((int) x, (int) y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
         int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleTopLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
-                y1 * Sprite.SCALED_SIZE,obstacleSize, obstacleSize);
+                y1 * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
                 (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         // Check left collision
         if ((lvLoad.getMap(y1, x1) != ' ' && lvLoad.getMap(y1, x1) != 'p'
                 && bomber.getBounds().intersects(obstacleTopLeft.getBounds()))
                 || (lvLoad.getMap((y1 + 1), x1) != ' ' && lvLoad.getMap((y1 + 1), x1) != 'p'
-                && bomber.getBounds().intersects(obstacleDownLeft.getBounds()))){
+                && bomber.getBounds().intersects(obstacleDownLeft.getBounds()))) {
             moveRight();
         }
     }
 
     public void checkCollisionDown(LevelLoader lvLoad) {
         // Get position in map
-        int x1 = (int)x / Sprite.SCALED_SIZE;
-        int y1 = (int)y / Sprite.SCALED_SIZE;
+        int x1 = (int) x / Sprite.SCALED_SIZE;
+        int y1 = (int) y / Sprite.SCALED_SIZE;
         int scale = Sprite.SCALED_SIZE / Sprite.DEFAULT_SIZE;
         // Get rectangle of bomber
         int bomberWidth = Sprite.player_down.get_realWidth() * scale;
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
-        Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
+        Rectangle bomber = new Rectangle((int) x, (int) y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
         int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleDownLeft = new Rectangle(x1 * Sprite.SCALED_SIZE,
@@ -124,23 +124,23 @@ public class Bomber extends Entity {
         Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
                 (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         // Check down collision
-        if ((lvLoad.getMap((y1 + 1), (x1 + 1)) != ' '
+        if ((lvLoad.getMap((y1 + 1), (x1 + 1)) != ' ' && lvLoad.getMap((y1 + 1), (x1 + 1)) != 'p'
                 && bomber.getBounds().intersects(obstacleDownRight.getBounds()))
-                || (lvLoad.getMap((y1 + 1), x1) != ' '
-                && bomber.getBounds().intersects(obstacleDownLeft.getBounds()))){
+                || (lvLoad.getMap((y1 + 1), x1) != ' ' && lvLoad.getMap((y1 + 1), x1) != 'p'
+                && bomber.getBounds().intersects(obstacleDownLeft.getBounds()))) {
             moveUp();
         }
     }
 
     public void checkCollisionRight(LevelLoader lvLoad) {
         // Get position in map
-        int x1 = (int)x / Sprite.SCALED_SIZE;
-        int y1 = (int)y / Sprite.SCALED_SIZE;
+        int x1 = (int) x / Sprite.SCALED_SIZE;
+        int y1 = (int) y / Sprite.SCALED_SIZE;
         int scale = Sprite.SCALED_SIZE / Sprite.DEFAULT_SIZE;
         // Get rectangle of bomber
         int bomberWidth = Sprite.player_down.get_realWidth() * scale;
         int bomberHeight = Sprite.player_down.get_realHeight() * scale;
-        Rectangle bomber = new Rectangle((int)x, (int)y, bomberWidth, bomberHeight);
+        Rectangle bomber = new Rectangle((int) x, (int) y, bomberWidth, bomberHeight);
         // Create rectangle of obstacle
         int obstacleSize = Sprite.SCALED_SIZE;
         Rectangle obstacleTopRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
@@ -148,16 +148,16 @@ public class Bomber extends Entity {
         Rectangle obstacleDownRight = new Rectangle((x1 + 1) * Sprite.SCALED_SIZE,
                 (y1 + 1) * Sprite.SCALED_SIZE, obstacleSize, obstacleSize);
         // Check right collision
-        if ((lvLoad.getMap((y1 + 1), (x1 + 1)) != ' '
+        if ((lvLoad.getMap((y1 + 1), (x1 + 1)) != ' ' && lvLoad.getMap((y1 + 1), (x1 + 1)) != 'p'
                 && bomber.getBounds().intersects(obstacleDownRight.getBounds()))
-                || (lvLoad.getMap(y1, (x1 + 1)) != ' '
-                && bomber.getBounds().intersects(obstacleTopRight.getBounds()))){
+                || (lvLoad.getMap(y1, (x1 + 1)) != ' ' && lvLoad.getMap(y1, (x1 + 1)) != 'p'
+                && bomber.getBounds().intersects(obstacleTopRight.getBounds()))) {
             moveLeft();
         }
     }
 
     public void movingSprite(String _input) {
-        if(!isDead) {
+        if (!isDead) {
             switch (_input) {
                 case "LEFT":
                 case "A":
