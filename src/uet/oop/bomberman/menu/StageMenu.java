@@ -10,7 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import uet.oop.bomberman.Board;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.net.URISyntaxException;
 
@@ -28,7 +30,7 @@ public class StageMenu extends Parent {
 
         VBox textBox = new VBox();
         textBox.setTranslateX((scrW - textWidth) / 2);
-        textBox.setTranslateY(80 * Sprite.SCALE);
+        textBox.setTranslateY(100 * Sprite.SCALE);
         textBox.getChildren().add(text);
 
         int btnWidth = (MenuButton.BUTTON_WIDTH / 3) * 2;
@@ -37,14 +39,24 @@ public class StageMenu extends Parent {
         MenuButton btnNext = new MenuButton("NEXT", btnWidth,
                 MenuButton.BUTTON_HEIGHT, MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
 
-        btnMenu.setOnMouseClicked(event -> returnMenu(root, menu, canvas));
+        btnMenu.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
+            returnMenu(root, menu, canvas);
+        });
 
-        btnNext.setOnMouseClicked(event -> nextLevel(root, menu, canvas));
+        btnNext.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
+            nextLevel(root, menu, canvas);
+        });
 
         HBox btnBox = new HBox(20);
         btnBox.getChildren().addAll(btnMenu, btnNext);
         btnBox.setTranslateX((scrW - (btnWidth * 2 + 20)) / 2);
-        btnBox.setTranslateY(110 * Sprite.SCALE);
+        btnBox.setTranslateY(130 * Sprite.SCALE);
 
         ImageView bgView = setUpImageView("/menu/win_menu_bg.png", 0, 0, scrW, scrH);
         getChildren().addAll(bgView, textBox, btnBox);

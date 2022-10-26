@@ -118,7 +118,7 @@ public class BombermanGame extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        lvLoad.board.renderAllEntity(gc);
+        lvLoad.board.renderAllEntity(gc, countdown);
     }
 
     private float getFPS () {

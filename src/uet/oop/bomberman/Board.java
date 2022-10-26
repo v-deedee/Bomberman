@@ -173,7 +173,7 @@ public class Board {
         }
     }
 
-    public void renderAllEntity(GraphicsContext gc) {
+    public void renderAllEntity(GraphicsContext gc, CountDown countdown) {
         // variable distance to use Entity::render method
         double distance = 0;
         if (bombers.size() != 0) {
@@ -185,6 +185,13 @@ public class Board {
         if (distance > LevelLoader.SCREEN_WIDTH) {
             distance = LevelLoader.SCREEN_WIDTH;
         }
+        gc.setFill(Color.GRAY);
+        gc.fillRect(0, 0, LevelLoader.SCREEN_WIDTH, 2 * Sprite.SCALED_SIZE);
+        gc.setFill(Color.WHITE);
+        gc.fillText("SCORE: ", 0, Sprite.SCALED_SIZE);
+        gc.fillText("TIME:" + countdown.timeLeftValue(), Sprite.SCALED_SIZE * 6, Sprite.SCALED_SIZE);
+        gc.fillText("LIVES:", Sprite.SCALED_SIZE * 12, Sprite.SCALED_SIZE);
+
         double finalDistance = distance;
         grasses.forEach(g -> g.render(gc, finalDistance));
         items.forEach(g -> g.render(gc, finalDistance));

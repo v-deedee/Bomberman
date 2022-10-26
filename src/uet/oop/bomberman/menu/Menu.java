@@ -15,6 +15,7 @@ import javafx.util.Duration;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
+import uet.oop.bomberman.sound.Sound;
 
 import java.net.URISyntaxException;
 
@@ -79,21 +80,21 @@ public class Menu extends Parent {
         stageBtn[4] = new MenuButton("4", STAGE_BTN_W, STAGE_BTN_H, MenuButton.FONT_SIZE * 1.5, MenuButton.URL_FONT3);
         stageBtn[7] = new MenuButton("7", STAGE_BTN_W, STAGE_BTN_H, MenuButton.FONT_SIZE * 1.5, MenuButton.URL_FONT3);
         col1.setTranslateX(100 * Sprite.SCALE);
-        col1.setTranslateY(60 * Sprite.SCALE);
+        col1.setTranslateY((60 + 16) * Sprite.SCALE);
 
         VBox col2 = new VBox(10 * Sprite.SCALE);
         stageBtn[2] = new MenuButton("2", STAGE_BTN_W, STAGE_BTN_H, MenuButton.FONT_SIZE * 1.5, MenuButton.URL_FONT3);
         stageBtn[5] = new MenuButton("5", STAGE_BTN_W, STAGE_BTN_H, MenuButton.FONT_SIZE * 1.5, MenuButton.URL_FONT3);
         stageBtn[8] = new MenuButton("8", STAGE_BTN_W, STAGE_BTN_H, MenuButton.FONT_SIZE * 1.5, MenuButton.URL_FONT3);
         col2.setTranslateX(150 * Sprite.SCALE);
-        col2.setTranslateY(60 * Sprite.SCALE);
+        col2.setTranslateY((60 + 16) * Sprite.SCALE);
 
         VBox col3 = new VBox(10 * Sprite.SCALE);
         stageBtn[3] = new MenuButton("3", STAGE_BTN_W, STAGE_BTN_H, MenuButton.FONT_SIZE * 1.5, MenuButton.URL_FONT3);
         stageBtn[6] = new MenuButton("6", STAGE_BTN_W, STAGE_BTN_H, MenuButton.FONT_SIZE * 1.5, MenuButton.URL_FONT3);
         stageBtn[9] = new MenuButton("9", STAGE_BTN_W, STAGE_BTN_H, MenuButton.FONT_SIZE * 1.5, MenuButton.URL_FONT3);
         col3.setTranslateX(200 * Sprite.SCALE);
-        col3.setTranslateY(60 * Sprite.SCALE);
+        col3.setTranslateY((60 + 16) * Sprite.SCALE);
 
         col1.getChildren().add(stageBtn[1]);
         for (int i = 2; i < 10; i++) {
@@ -120,6 +121,9 @@ public class Menu extends Parent {
         for (int i = 1; i < 10; i++) {
             int finalI = i;
             stageBtn[i].setOnMouseClicked(event -> {
+                if (Board.soundFX) {
+                    Sound.buttonClickAudio.play();
+                }
                 startGame = true;
                 lvLoad.loadLevel(finalI);
                 currentStage = finalI;
@@ -129,6 +133,9 @@ public class Menu extends Parent {
         MenuButton btnBack = new MenuButton("BACK", MenuButton.BUTTON_WIDTH / 2, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
         btnBack.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
             getChildren().add(mainMenu);
 
             TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), stageMenu);
@@ -147,9 +154,9 @@ public class Menu extends Parent {
         backBox.setTranslateY(15 * Sprite.SCALE);
         backBox.getChildren().add(btnBack);
 
-        ImageView stageTitleView = setUpImageView("/menu/stage_title.png", 75 * Sprite.SCALE, 30 * Sprite.SCALE,
+        ImageView stageTitleView = setUpImageView("/menu/stage_title.png", 75 * Sprite.SCALE, (30 + 8) * Sprite.SCALE,
                 108 * Sprite.SCALE, 21 * Sprite.SCALE);
-        ImageView deco2View = setUpImageView("/menu/deco2.png", 10 * Sprite.SCALE, 70 * Sprite.SCALE,
+        ImageView deco2View = setUpImageView("/menu/deco2.png", 10 * Sprite.SCALE, (70 + 16) * Sprite.SCALE,
                 68 * Sprite.SCALE, 76 * Sprite.SCALE);
 
         stageMenu.getChildren().addAll(backBox, stageTitleView, deco2View, col1, col2, col3);
@@ -165,6 +172,9 @@ public class Menu extends Parent {
         MenuButton btnBack = new MenuButton("BACK", MenuButton.BUTTON_WIDTH / 2, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
         btnBack.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
             getChildren().add(mainMenu);
 
             TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), settingMenu);
@@ -187,9 +197,9 @@ public class Menu extends Parent {
         HBox musicBox = new HBox(56 * Sprite.SCALE);
         HBox soundBox = new HBox(25 * Sprite.SCALE);
         musicBox.setTranslateX(50 * Sprite.SCALE);
-        musicBox.setTranslateY(50 * Sprite.SCALE);
+        musicBox.setTranslateY((50 + 32) * Sprite.SCALE);
         soundBox.setTranslateX(50 * Sprite.SCALE);
-        soundBox.setTranslateY((100 * Sprite.SCALE));
+        soundBox.setTranslateY(((100 + 32) * Sprite.SCALE));
         Font font = Font.loadFont(Menu.class.getResourceAsStream(MenuButton.URL_FONT2), MenuButton.FONT_SIZE * 2);
         Text mText = new Text("MUSIC");
         mText.setFont(font);
@@ -206,21 +216,33 @@ public class Menu extends Parent {
         settingMenu.getChildren().addAll(backBox, musicBox, soundBox);
 
         btnOn1.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
             musicBox.getChildren().remove(btnOn1);
             musicBox.getChildren().add(btnOff1);
             Board.BGMusic = false;
         });
         btnOff1.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
             musicBox.getChildren().remove(btnOff1);
             musicBox.getChildren().add(btnOn1);
             Board.BGMusic = true;
         });
         btnOn2.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
             soundBox.getChildren().remove(btnOn2);
             soundBox.getChildren().add(btnOff2);
             Board.soundFX = false;
         });
         btnOff2.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
             soundBox.getChildren().remove(btnOff2);
             soundBox.getChildren().add(btnOn2);
             Board.soundFX = true;
@@ -239,6 +261,9 @@ public class Menu extends Parent {
         MenuButton btnStart = new MenuButton("NEW GAME", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
         btnStart.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
             startGame = true;
             lvLoad.loadLevel(1);
         });
@@ -246,6 +271,9 @@ public class Menu extends Parent {
         MenuButton btnStages = new MenuButton("STAGES", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
         btnStages.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
             getChildren().add(stageMenu);
 
             TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), mainMenu);
@@ -263,6 +291,9 @@ public class Menu extends Parent {
         MenuButton btnSetting = new MenuButton("SETTING", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
         btnSetting.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
             getChildren().add(settingMenu);
 
             TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), mainMenu);
@@ -279,17 +310,22 @@ public class Menu extends Parent {
 
         MenuButton btnExit = new MenuButton("EXIT", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
-        btnExit.setOnMouseClicked(event -> System.exit(0));
+        btnExit.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
+            System.exit(0);
+        });
 
         ImageView bgView = setUpImageView("/menu/new_bg.png", 0, 0, scrW, scrH);
-        ImageView titleView = setUpImageView("/menu/title.png", 20 * Sprite.SCALE, 20 * Sprite.SCALE,
+        ImageView titleView = setUpImageView("/menu/title.png", 20 * Sprite.SCALE, (20 + 8) * Sprite.SCALE,
                 204 * Sprite.SCALE, 56 * Sprite.SCALE);
-        ImageView decoView = setUpImageView("/menu/deco.png", 15 * Sprite.SCALE, 80 * Sprite.SCALE,
+        ImageView decoView = setUpImageView("/menu/deco.png", 15 * Sprite.SCALE, (80 + 16) * Sprite.SCALE,
                 123 * Sprite.SCALE, 93 * Sprite.SCALE);
 
         VBox btnBox = new VBox(10);
         btnBox.setTranslateX((scrW + MenuButton.BUTTON_WIDTH) / 2);
-        btnBox.setTranslateY((scrH - MenuButton.BUTTON_HEIGHT * 2) / 2);
+        btnBox.setTranslateY((scrH - MenuButton.BUTTON_HEIGHT * 1.5) / 2);
         btnBox.getChildren().addAll(btnStart, btnStages, btnSetting, btnExit);
 
         mainMenu.getChildren().addAll(titleView, decoView, btnBox);

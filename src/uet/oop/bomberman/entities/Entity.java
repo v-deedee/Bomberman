@@ -29,7 +29,7 @@ public abstract class Entity {
      * to keep the position of bomber in center of screen.
      */
     public void render(GraphicsContext gc, double distance) {
-        gc.drawImage(img, x - distance, y);
+        gc.drawImage(img, x - distance, y + 2 * Sprite.SCALED_SIZE);
     }
 
     public abstract void update();
