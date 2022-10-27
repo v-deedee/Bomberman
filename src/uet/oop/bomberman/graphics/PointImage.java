@@ -19,7 +19,6 @@ public class PointImage {
             point300 = new Image(Menu.class.getResource("/sprites/300_point.png").toURI().toString(), true);
             point400 = new Image(Menu.class.getResource("/sprites/400_point.png").toURI().toString(), true);
             point500 = new Image(Menu.class.getResource("/sprites/500_point.png").toURI().toString(), true);
-
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

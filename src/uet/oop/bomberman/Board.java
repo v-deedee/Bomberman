@@ -206,8 +206,8 @@ public class Board {
         bricks.forEach(g -> g.render(gc, finalDistance));
         flameSegments.forEach(g -> g.render(gc, finalDistance));
         flames.forEach(g -> g.render(gc, finalDistance));
-        enemies.forEach(g -> g.render(gc, finalDistance));
         bombs.forEach(g -> g.render(gc, finalDistance));
+        enemies.forEach(g -> g.render(gc, finalDistance));
         for (Bomber bomber : bombers) {
             if (!bomber.isRemoved) {
                 bomber.render(gc, finalDistance);
@@ -279,7 +279,7 @@ public class Board {
                         }
                         if (j == Bomber.bombRadius - 1 && !checkAnotherBomb) _last = true;
                         if (test != '#' && test != '*' && test != 'x' && canCreateFlameSeg
-                                && test != 'b' && test != 'f' && test != 's') {
+                                && test != 'b' && test != 'f' && test != 's' && test != 'c' && test != 'o') {
                             flameSegments.add(new FlameSegment(segmentX, segmentY, _direction, _last));
                             killEnemyDetect(segmentX * Sprite.SCALED_SIZE, segmentY * Sprite.SCALED_SIZE);
                             if (!Bomber.flamePass)

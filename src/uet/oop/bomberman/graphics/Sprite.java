@@ -1,8 +1,10 @@
 package uet.oop.bomberman.graphics;
 
 import javafx.scene.image.*;
+import uet.oop.bomberman.menu.Menu;
 
 import java.awt.image.BufferedImage;
+import java.net.URISyntaxException;
 import java.nio.IntBuffer;
 
 /**
@@ -192,6 +194,17 @@ public class Sprite {
     public static Sprite powerup_wallpass = new Sprite(DEFAULT_SIZE, 3, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite powerup_detonator = new Sprite(DEFAULT_SIZE, 4, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite powerup_bombpass = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
+    public static Image powerup_clock;
+
+    static {
+        try {
+            powerup_clock = new Image(Menu .class.getResource("/sprites/powerup_clock.png").toURI().toString(), true);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    ;
     public static Sprite powerup_flamepass = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
