@@ -14,11 +14,13 @@ import uet.oop.bomberman.entities.Tile.Portal;
 import uet.oop.bomberman.entities.Tile.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
+import uet.oop.bomberman.score.Score;
 import uet.oop.bomberman.sound.Sound;
 
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Board {
@@ -149,6 +151,8 @@ public class Board {
         }
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).isRemoved) {
+                score += enemies.get(i).getPoint();
+                System.out.println(enemies.get(i).getPoint());
                 enemies.remove(i);
                 i--;
                 if (enemies.size() == 0 && soundFX) {
@@ -157,6 +161,12 @@ public class Board {
             }
         }
         if ((bombers.size() != 0 && bombers.get(0).isRemoved) || BombermanGame.countdown.timeLeftValue() == 0) {
+            Score.highScore.add(score);
+            Score.highScore.sort(Collections.reverseOrder());
+            while(Score.highScore.size() != 5) {
+                int index = Score.highScore.size() - 1;
+                Score.highScore.remove(index);
+            }
             levelOver = true;
             passLevel = false;
             if (soundFX) {
@@ -165,6 +175,12 @@ public class Board {
         }
         if (enemies.size() == 0 && bombers.size() != 0
                 && portalDetect(bombers.get(0).getX(), bombers.get(0).getY())) {
+            Score.highScore.add(score + BombermanGame.countdown.timeLeftValue()*10);
+            Score.highScore.sort(Collections.reverseOrder());
+            while(Score.highScore.size() != 5) {
+                int index = Score.highScore.size() - 1;
+                Score.highScore.remove(index);
+            }
             levelOver = true;
             passLevel = true;
         }

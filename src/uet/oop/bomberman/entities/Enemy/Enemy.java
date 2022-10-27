@@ -29,6 +29,10 @@ public class Enemy extends Entity {
 
     }
 
+    public int getPoint() {
+        return point;
+    }
+
     public boolean canMoveLeft(LevelLoader lvLoad, int x1, int y1) {
         if (!(lvLoad.getMap(y1, x1 - 1) != '#' && lvLoad.getMap(y1, x1 - 1) != '*'
                 && lvLoad.getMap(y1, x1 - 1) != 'x')) {

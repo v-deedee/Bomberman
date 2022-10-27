@@ -10,10 +10,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import uet.oop.bomberman.Input.InputHandler;
+import uet.oop.bomberman.countdown.CountDown;
 import uet.oop.bomberman.levels.LevelLoader;
 import com.sun.javafx.perf.PerformanceTracker;
 import uet.oop.bomberman.menu.Menu;
 import uet.oop.bomberman.menu.StageMenu;
+import uet.oop.bomberman.score.Score;
 import uet.oop.bomberman.sound.Sound;
 
 public class BombermanGame extends Application {
@@ -43,6 +45,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        Score.readHighScore();
         countdown.Restart();
         Sound.playBGM();
         stage.getIcons().add(new Image("/textures/icon.jfif"));
@@ -112,6 +115,7 @@ public class BombermanGame extends Application {
 
     public void stop() {
         Menu.writeStageStatus();
+        Score.writeHighScore();
     }
 
     public void update() {

@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.countdown;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

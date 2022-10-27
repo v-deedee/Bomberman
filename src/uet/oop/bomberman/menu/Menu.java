@@ -15,6 +15,7 @@ import javafx.util.Duration;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
+import uet.oop.bomberman.score.Score;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -316,6 +317,7 @@ public class Menu extends Parent {
                 MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
         btnExit.setOnMouseClicked(event -> {
             Menu.writeStageStatus();
+            Score.writeHighScore();
             System.exit(0);
         });
 
