@@ -1,6 +1,9 @@
 package uet.oop.bomberman.graphics;
 
 import javafx.scene.image.*;
+import uet.oop.bomberman.menu.Menu;
+
+import java.net.URISyntaxException;
 
 /**
  * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game)
@@ -191,13 +194,13 @@ public class Sprite {
     public static Sprite powerup_bombpass = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
     public static Image powerup_clock;
 
-//    static {
-//        try {
-//            powerup_clock = new Image(Menu .class.getResource("/sprites/powerup_clock.png").toURI().toString(), true);
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    static {
+        try {
+            powerup_clock = new Image(Menu.class.getResource("/sprites/powerup_clock.png").toURI().toString(), true);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static Sprite powerup_flamepass = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
 

@@ -21,6 +21,6 @@ public class C_Item extends Item{
     }
 
     public void render(GraphicsContext gc, double distance) {
-        gc.drawImage(img, x - distance, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+        gc.drawImage(img, x - distance, y + 2 * Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
 }
