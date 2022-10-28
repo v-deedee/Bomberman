@@ -20,7 +20,7 @@ public class LevelLoader {
     protected int height;
 
     public static final int SCREEN_WIDTH = 31 * Sprite.SCALED_SIZE / 2;
-    public static final int SCREEN_HEIGHT = 13 * Sprite.SCALED_SIZE;
+    public static final int SCREEN_HEIGHT = (13 + 2) * Sprite.SCALED_SIZE;
 
     public Board board = new Board();
     public IntroLevel introLevel = new IntroLevel();
