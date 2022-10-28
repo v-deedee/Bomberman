@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import uet.oop.bomberman.Board;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 import uet.oop.bomberman.sound.Sound;
@@ -125,8 +126,11 @@ public class Menu extends Parent {
                     Sound.buttonClickAudio.play();
                 }
                 startGame = true;
+                BombermanGame.canvasAdded = true;
                 lvLoad.loadLevel(finalI);
                 currentStage = finalI;
+                lvLoad.introLevel.setShowIntro(true);
+                lvLoad.introLevel.resetTime();
             });
         }
 
@@ -211,8 +215,18 @@ public class Menu extends Parent {
         ImageView btnOn2 = setUpImageView("/menu/button_on.png", 0, 0, 35 * Sprite.SCALE, 15 * Sprite.SCALE);
         ImageView btnOff1 = setUpImageView("/menu/button_off.png", 0, 0, 35 * Sprite.SCALE, 15 * Sprite.SCALE);
         ImageView btnOff2 = setUpImageView("/menu/button_off.png", 0, 0, 35 * Sprite.SCALE, 15 * Sprite.SCALE);
-        musicBox.getChildren().addAll(mText, btnOn1);
-        soundBox.getChildren().addAll(sText, btnOn2);
+
+        if (Board.BGMusic) {
+            musicBox.getChildren().addAll(mText, btnOn1);
+        } else {
+            musicBox.getChildren().addAll(mText, btnOff1);
+        }
+        if (Board.soundFX) {
+            soundBox.getChildren().addAll(sText, btnOn2);
+        } else {
+            soundBox.getChildren().addAll(sText, btnOff2);
+        }
+
         settingMenu.getChildren().addAll(backBox, musicBox, soundBox);
 
         btnOn1.setOnMouseClicked(event -> {
@@ -265,7 +279,10 @@ public class Menu extends Parent {
                 Sound.buttonClickAudio.play();
             }
             startGame = true;
+            BombermanGame.canvasAdded = true;
             lvLoad.loadLevel(1);
+            lvLoad.introLevel.setShowIntro(true);
+            lvLoad.introLevel.resetTime();
         });
 
         MenuButton btnStages = new MenuButton("STAGES", MenuButton.BUTTON_WIDTH, MenuButton.BUTTON_HEIGHT,

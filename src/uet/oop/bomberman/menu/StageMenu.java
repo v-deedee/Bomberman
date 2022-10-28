@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import uet.oop.bomberman.Board;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -85,6 +86,7 @@ public class StageMenu extends Parent {
 
     public void nextLevel(Group root, Menu menu, Canvas canvas) {
         menu.setStartGame(true);
+        BombermanGame.canvasAdded = true;
         root.getChildren().clear();
         root.getChildren().add(canvas);
     }
