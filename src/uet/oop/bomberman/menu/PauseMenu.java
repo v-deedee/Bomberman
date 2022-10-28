@@ -134,6 +134,7 @@ public class PauseMenu extends Parent {
     }
 
     public void returnMenu(double scrW, double scrH, Group root, Canvas canvas, Menu menu, LevelLoader lvLoad) {
+        lvLoad.board = new Board();
         menu = new Menu();
         menu.setUpMainMenu(scrW, scrH, lvLoad);
         root.getChildren().clear();

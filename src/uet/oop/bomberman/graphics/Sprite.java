@@ -1,11 +1,6 @@
 package uet.oop.bomberman.graphics;
 
 import javafx.scene.image.*;
-import uet.oop.bomberman.menu.Menu;
-
-import java.awt.image.BufferedImage;
-import java.net.URISyntaxException;
-import java.nio.IntBuffer;
 
 /**
  * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game)
@@ -13,7 +8,7 @@ import java.nio.IntBuffer;
 public class Sprite {
 
     public static final int DEFAULT_SIZE = 16;
-    public static final int SCALE = 3;
+    public static final int SCALE = 2;
     public static final int SCALED_SIZE = DEFAULT_SIZE * SCALE;
     private static final int TRANSPARENT_COLOR = 0xffff00ff;
     public final int SIZE;
@@ -196,15 +191,14 @@ public class Sprite {
     public static Sprite powerup_bombpass = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
     public static Image powerup_clock;
 
-    static {
-        try {
-            powerup_clock = new Image(Menu .class.getResource("/sprites/powerup_clock.png").toURI().toString(), true);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    static {
+//        try {
+//            powerup_clock = new Image(Menu .class.getResource("/sprites/powerup_clock.png").toURI().toString(), true);
+//        } catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-    ;
     public static Sprite powerup_flamepass = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
 
     public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
