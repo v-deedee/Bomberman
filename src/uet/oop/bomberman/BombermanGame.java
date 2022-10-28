@@ -20,8 +20,8 @@ import uet.oop.bomberman.score.Score;
 import uet.oop.bomberman.sound.Sound;
 
 public class BombermanGame extends Application {
-    private static int level = 1;
-    private final LevelLoader lvLoad = new LevelLoader(level);
+    public static int LEVEL = 1;
+    private final LevelLoader lvLoad = new LevelLoader(LEVEL);
     static Group root = new Group();
 
     static Scene scene = new Scene(root);
@@ -81,20 +81,17 @@ public class BombermanGame extends Application {
                 if (lvLoad.board.levelOver) {
                     if (lvLoad.board.passLevel) {
                         menu.setStartGame(false);
-                        level = menu.getCurrentStage();
-                        level++;
-                        lvLoad.introLevel.setShowIntro(true);
-                        lvLoad.introLevel.resetTime();
+                        menu.unlockStage(LEVEL + 1);
+                        Menu.writeStageStatus();
                         menu = new Menu();
-                        menu.unlockStage(level);
                         menu.setUpMainMenu(canvas.getWidth(), canvas.getHeight(), lvLoad);
                         stageMenu = new StageMenu();
-                        stageMenu.setUpStageMenu(canvas.getWidth(), canvas.getHeight(), level - 1, root, menu, canvas);
+                        stageMenu.setUpStageMenu(canvas.getWidth(), canvas.getHeight(), LEVEL, root, menu, canvas, lvLoad);
                         root.getChildren().clear();
-                        root.getChildren().addAll(canvas, stageMenu);
-                        lvLoad.loadLevel(level);
+                        root.getChildren().add(stageMenu);
+                        lvLoad.board.levelOver = false;
                     } else {
-                        lvLoad.loadLevel(level);
+                        lvLoad.loadLevel(LEVEL);
                         lvLoad.introLevel.setShowIntro(true);
                         lvLoad.introLevel.resetTime();
                     }

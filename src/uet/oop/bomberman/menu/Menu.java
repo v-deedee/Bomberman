@@ -27,7 +27,6 @@ import java.io.FileWriter;
 import java.net.URISyntaxException;
 
 public class Menu extends Parent {
-    private int currentStage = 1;
     private boolean startGame = false;
     public static boolean[] stageLocked = new boolean[10];
     public static final int STAGE_BTN_W = MenuButton.BUTTON_WIDTH / 2;
@@ -80,10 +79,6 @@ public class Menu extends Parent {
 
     public void setStartGame(boolean startGame) {
         this.startGame = startGame;
-    }
-
-    public int getCurrentStage() {
-        return currentStage;
     }
 
     public ImageView setUpImageView(String url, double x, double y, double w, double h) {
@@ -164,8 +159,8 @@ public class Menu extends Parent {
                 }
                 startGame = true;
                 BombermanGame.canvasAdded = true;
+                BombermanGame.LEVEL = finalI;
                 lvLoad.loadLevel(finalI);
-                currentStage = finalI;
                 lvLoad.introLevel.setShowIntro(true);
                 lvLoad.introLevel.resetTime();
             });
@@ -317,6 +312,7 @@ public class Menu extends Parent {
             }
             startGame = true;
             BombermanGame.canvasAdded = true;
+            BombermanGame.LEVEL = 1;
             lvLoad.loadLevel(1);
             lvLoad.introLevel.setShowIntro(true);
             lvLoad.introLevel.resetTime();

@@ -138,7 +138,7 @@ public class PauseMenu extends Parent {
         menu = new Menu();
         menu.setUpMainMenu(scrW, scrH, lvLoad);
         root.getChildren().clear();
-        root.getChildren().addAll(canvas, menu);
+        root.getChildren().add(menu);
         Board.Pause = false;
     }
 }

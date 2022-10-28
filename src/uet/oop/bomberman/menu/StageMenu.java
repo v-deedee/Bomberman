@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.levels.LevelLoader;
 import uet.oop.bomberman.sound.Sound;
 
 import java.net.URISyntaxException;
@@ -21,7 +22,7 @@ public class StageMenu extends Parent {
     public StageMenu() {
     }
 
-    public void setUpStageMenu(double scrW, double scrH, int stage, Group root, Menu menu, Canvas canvas) {
+    public void setUpStageMenu(double scrW, double scrH, int stage, Group root, Menu menu, Canvas canvas, LevelLoader lvLoad) {
         Font font = Font.loadFont(MenuButton.class.getResourceAsStream(MenuButton.URL_FONT3), MenuButton.FONT_SIZE * 1.2);
 
         Text text = new Text("Stage " + stage);
@@ -51,7 +52,7 @@ public class StageMenu extends Parent {
             if (Board.soundFX) {
                 Sound.buttonClickAudio.play();
             }
-            nextLevel(root, menu, canvas);
+            nextLevel(root, menu, canvas, lvLoad);
         });
 
         HBox btnBox = new HBox(20);
@@ -84,10 +85,12 @@ public class StageMenu extends Parent {
         root.getChildren().addAll(canvas, menu);
     }
 
-    public void nextLevel(Group root, Menu menu, Canvas canvas) {
+    public void nextLevel(Group root, Menu menu, Canvas canvas, LevelLoader lvLoad) {
         menu.setStartGame(true);
         BombermanGame.canvasAdded = true;
-        root.getChildren().clear();
-        root.getChildren().add(canvas);
+        BombermanGame.LEVEL ++;
+        lvLoad.loadLevel(BombermanGame.LEVEL);
+        lvLoad.introLevel.setShowIntro(true);
+        lvLoad.introLevel.resetTime();
     }
 }
