@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Board {
-    public int score;
+    private int score;
     public boolean hasTimer = false;
     public static boolean BGMusic = true;
     public static boolean soundFX = true;
@@ -202,9 +202,9 @@ public class Board {
         gc.setFill(Color.GRAY);
         gc.fillRect(0, 0, LevelLoader.SCREEN_WIDTH, 2 * Sprite.SCALED_SIZE);
         gc.setFill(Color.WHITE);
-        gc.fillText("SCORE: ", 0, Sprite.SCALED_SIZE);
-        gc.fillText("TIME:" + countdown.timeLeftValue(), Sprite.SCALED_SIZE * 6, Sprite.SCALED_SIZE);
-        gc.fillText("LIVES:", Sprite.SCALED_SIZE * 12, Sprite.SCALED_SIZE);
+        gc.fillText("SCORE  " + score, 0, Sprite.SCALED_SIZE);
+        gc.fillText("TIME  " + countdown.timeLeftValue(), Sprite.SCALED_SIZE * 6, Sprite.SCALED_SIZE);
+        gc.fillText("LEFT  " + BombermanGame.LIVES, Sprite.SCALED_SIZE * 12, Sprite.SCALED_SIZE);
 
         double finalDistance = distance;
         grasses.forEach(g -> g.render(gc, finalDistance));

@@ -1,9 +1,7 @@
 package uet.oop.bomberman.menu;
 
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -15,26 +13,8 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 import uet.oop.bomberman.sound.Sound;
 
-import java.net.URISyntaxException;
-
-public class PauseMenu extends Parent {
-    public ImageView setUpImageView(String url, double x, double y, double w, double h) {
-        Image img = null;
-        try {
-            img = new Image(Menu.class.getResource(url).toURI().toString(), true);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        ImageView imgView = new ImageView(img);
-        imgView.setFitHeight(h);
-        imgView.setFitWidth(w);
-        imgView.setX(x);
-        imgView.setY(y);
-
-        return imgView;
-    }
-
-    public void setUpPauseMenu(double scrW, double scrH, Group root, Canvas canvas, Menu menu, LevelLoader lvLoad) {
+public class PauseMenu extends Menu {
+    public void setUpPauseMenu(double scrW, double scrH, Group root, Canvas canvas, MainMenu mainMenu, LevelLoader lvLoad) {
         Rectangle bg = new Rectangle(0, 0, (int) scrW, (int) scrH);
         bg.setOpacity(0.5);
         bg.setFill(Color.BLACK);
@@ -49,7 +29,7 @@ public class PauseMenu extends Parent {
         musicBox.setTranslateY((60 + 32) * Sprite.SCALE);
         soundBox.setTranslateX(80 * Sprite.SCALE);
         soundBox.setTranslateY(((90 + 32) * Sprite.SCALE));
-        Font font = Font.loadFont(Menu.class.getResourceAsStream(MenuButton.URL_FONT2), (MenuButton.FONT_SIZE + Sprite.SCALE));
+        Font font = Font.loadFont(MainMenu.class.getResourceAsStream(URL_FONT2), (FONT_SIZE + Sprite.SCALE));
         Text mText = new Text("MUSIC");
         mText.setFont(font);
         mText.setFill(Color.BROWN);
@@ -105,17 +85,17 @@ public class PauseMenu extends Parent {
             Board.soundFX = true;
         });
 
-        int btnWidth = (MenuButton.BUTTON_WIDTH / 3) * 2;
+        int btnWidth = (BUTTON_WIDTH / 3) * 2;
         MenuButton btnExit = new MenuButton("EXIT", btnWidth,
-                MenuButton.BUTTON_HEIGHT, MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
+                BUTTON_HEIGHT, FONT_SIZE, URL_FONT2);
         MenuButton btnResume = new MenuButton("RESUME", btnWidth,
-                MenuButton.BUTTON_HEIGHT, MenuButton.FONT_SIZE, MenuButton.URL_FONT2);
+                BUTTON_HEIGHT, FONT_SIZE, URL_FONT2);
 
         btnExit.setOnMouseClicked(event -> {
             if (Board.soundFX) {
                 Sound.buttonClickAudio.play();
             }
-            returnMenu(scrW, scrH,root, canvas, menu, lvLoad);
+            returnMenu(scrW, scrH,root, canvas, mainMenu, lvLoad);
         });
 
         btnResume.setOnMouseClicked(event -> {
@@ -133,12 +113,12 @@ public class PauseMenu extends Parent {
         getChildren().addAll(bg, menuView, musicBox, soundBox, btnBox);
     }
 
-    public void returnMenu(double scrW, double scrH, Group root, Canvas canvas, Menu menu, LevelLoader lvLoad) {
+    public void returnMenu(double scrW, double scrH, Group root, Canvas canvas, MainMenu mainMenu, LevelLoader lvLoad) {
         lvLoad.board = new Board();
-        menu = new Menu();
-        menu.setUpMainMenu(scrW, scrH, lvLoad);
+        mainMenu = new MainMenu();
+        mainMenu.setUpMainMenu(scrW, scrH, lvLoad);
         root.getChildren().clear();
-        root.getChildren().add(menu);
+        root.getChildren().add(mainMenu);
         Board.Pause = false;
     }
 }
