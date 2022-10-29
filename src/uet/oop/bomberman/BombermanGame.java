@@ -13,7 +13,7 @@ import uet.oop.bomberman.Input.InputHandler;
 import uet.oop.bomberman.countdown.CountDown;
 import uet.oop.bomberman.levels.LevelLoader;
 import com.sun.javafx.perf.PerformanceTracker;
-import uet.oop.bomberman.menu.MainMenu;
+import uet.oop.bomberman.menu.Menu;
 import uet.oop.bomberman.menu.PauseMenu;
 import uet.oop.bomberman.menu.StageMenu;
 import uet.oop.bomberman.score.Score;
@@ -21,18 +21,25 @@ import uet.oop.bomberman.sound.Sound;
 
 public class BombermanGame extends Application {
     public static int LEVEL = 1;
-    public static int LIVES = 2;
     private final LevelLoader lvLoad = new LevelLoader(LEVEL);
     static Group root = new Group();
+
     static Scene scene = new Scene(root);
+
     private final String TITLE = "BombermanGame";
+
     private final InputHandler _input = new InputHandler();
+
     private GraphicsContext gc;
     private Canvas canvas;
     private static PerformanceTracker tracker;
+
     public static boolean canvasAdded = true;
-    private MainMenu mainMenu = new MainMenu();
+
+    private Menu menu = new Menu();
+
     private StageMenu stageMenu = new StageMenu();
+
     private PauseMenu pauseMenu = new PauseMenu();
     public static CountDown countdown = new CountDown(200);
 
@@ -49,10 +56,11 @@ public class BombermanGame extends Application {
         // Tao Canvas
         canvas = new Canvas(LevelLoader.SCREEN_WIDTH, LevelLoader.SCREEN_HEIGHT);
         gc = canvas.getGraphicsContext2D();
-        mainMenu.setUpMainMenu(canvas.getWidth(), canvas.getHeight(), lvLoad);
+        menu.setUpMainMenu(canvas.getWidth(), canvas.getHeight(), lvLoad);
+        //pauseMenu.setUpPauseMenu(canvas.getWidth(), canvas.getHeight());
 
         // Tao root container
-        root.getChildren().addAll(canvas, mainMenu);
+        root.getChildren().addAll(canvas, menu);
 
         // Them scene vao stage
         stage.setScene(scene);
@@ -72,13 +80,13 @@ public class BombermanGame extends Application {
                 }
                 if (lvLoad.board.levelOver) {
                     if (lvLoad.board.passLevel) {
-                        mainMenu.setStartGame(false);
-                        mainMenu.unlockStage(LEVEL + 1);
-                        MainMenu.writeStageStatus();
-                        mainMenu = new MainMenu();
-                        mainMenu.setUpMainMenu(canvas.getWidth(), canvas.getHeight(), lvLoad);
+                        menu.setStartGame(false);
+                        menu.unlockStage(LEVEL + 1);
+                        Menu.writeStageStatus();
+                        menu = new Menu();
+                        menu.setUpMainMenu(canvas.getWidth(), canvas.getHeight(), lvLoad);
                         stageMenu = new StageMenu();
-                        stageMenu.setUpStageMenu(canvas.getWidth(), canvas.getHeight(), LEVEL, root, mainMenu, canvas, lvLoad);
+                        stageMenu.setUpStageMenu(canvas.getWidth(), canvas.getHeight(), LEVEL, root, menu, canvas, lvLoad);
                         root.getChildren().clear();
                         root.getChildren().add(stageMenu);
                         lvLoad.board.levelOver = false;
@@ -86,13 +94,12 @@ public class BombermanGame extends Application {
                         lvLoad.loadLevel(LEVEL);
                         lvLoad.introLevel.setShowIntro(true);
                         lvLoad.introLevel.resetTime();
-                        LIVES--;
                     }
                 }
                 if (!lvLoad.board.bombers.isEmpty()) {
                     _input.handleInput(lvLoad.board.bombers.get(0), lvLoad.board, lvLoad);
                 }
-                if (mainMenu.isStartGame()) {
+                if (menu.isStartGame()) {
                     if (canvasAdded) {
                         root.getChildren().clear();
                         root.getChildren().add(canvas);
@@ -101,7 +108,7 @@ public class BombermanGame extends Application {
                     if (Board.Pause) {
                         if (!root.getChildren().contains(pauseMenu)) {
                             pauseMenu = new PauseMenu();
-                            pauseMenu.setUpPauseMenu(canvas.getWidth(), canvas.getHeight(), root, canvas, mainMenu, lvLoad);
+                            pauseMenu.setUpPauseMenu(canvas.getWidth(), canvas.getHeight(), root, canvas, menu, lvLoad);
                             root.getChildren().add(pauseMenu);
                         }
                     } else {
@@ -123,7 +130,7 @@ public class BombermanGame extends Application {
     }
 
     public void stop() {
-        MainMenu.writeStageStatus();
+        Menu.writeStageStatus();
         Score.writeHighScore();
     }
 

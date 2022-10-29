@@ -26,6 +26,8 @@ public class LevelLoader {
     public IntroLevel introLevel = new IntroLevel();
     private static char[][] map;
 
+    public LevelLoader() {}
+
     public LevelLoader(int level) {
         loadLevel(level);
     }
@@ -43,6 +45,7 @@ public class LevelLoader {
         Bomber.bombRadius = 1;
         Bomber.maxBomb = 1;
         Bomber.step = 2;
+        Bomber.flamePass = false;
         introLevel.load("STAGE " + level);
         List<String> list = new ArrayList<>();
         try {
