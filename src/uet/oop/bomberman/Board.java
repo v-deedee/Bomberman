@@ -27,7 +27,8 @@ import java.util.List;
 
 public class Board {
     private int score;
-    public boolean hasTimer = false;
+    private static int deadCD = 180;
+    private static boolean isDeadCDCnt = false;
     public static boolean BGMusic = true;
     public static boolean soundFX = true;
     public static int hitboxFix = Sprite.SCALED_SIZE / 6;
@@ -59,6 +60,7 @@ public class Board {
             Sound.stageStartAudio.play();
         }
         score = 0;
+        BombermanGame.LIVES = 2;
         BombermanGame.countdown.Restart();
     }
 
@@ -104,6 +106,13 @@ public class Board {
     }
 
     public void updateAllEntity(LevelLoader lvLoad) {
+        if (isDeadCDCnt) {
+            deadCD--;
+        }
+        if (deadCD == 0) {
+            isDeadCDCnt = false;
+            deadCD = 180;
+        }
         if (Board.Pause) BombermanGame.countdown.pause();
         else {
             BombermanGame.countdown.Continue();
@@ -177,7 +186,7 @@ public class Board {
         }
         if (enemies.size() == 0 && bombers.size() != 0
                 && portalDetect(bombers.get(0).getX(), bombers.get(0).getY())) {
-            Score.highScore.add(score + BombermanGame.countdown.timeLeftValue() * 10);
+            Score.highScore.add(score + BombermanGame.countdown.timeLeftValue() * 10 + BombermanGame.LIVES * 1000);
             Score.highScore.sort(Collections.reverseOrder());
             while (Score.highScore.size() != 5) {
                 int index = Score.highScore.size() - 1;
@@ -349,17 +358,29 @@ public class Board {
     }
 
     public void collisionKillPlayerDetect(double x, double y) {
-        for (Bomber bomber : bombers) {
-            double topLeftX = bomber.getX() + hitboxFix;//fix hitbox
-            double topLeftY = bomber.getY() + hitboxFix;
-            double downRightX = bomber.getX() + Sprite.SCALED_SIZE - hitboxFix;// fix hitbox
-            double downRightY = bomber.getY() + Sprite.SCALED_SIZE - hitboxFix;
-            double t = Sprite.SCALED_SIZE;
-            if ((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
-                    || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
-                bomber.isDead = true;
-                if (soundFX) {
-                    Sound.charDieAudio.play();
+        if (deadCD == 180) {
+            for (Bomber bomber : bombers) {
+                double topLeftX = bomber.getX() + hitboxFix;//fix hitbox
+                double topLeftY = bomber.getY() + hitboxFix;
+                double downRightX = bomber.getX() + Sprite.SCALED_SIZE - hitboxFix;// fix hitbox
+                double downRightY = bomber.getY() + Sprite.SCALED_SIZE - hitboxFix;
+                double t = Sprite.SCALED_SIZE;
+                if ((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
+                        || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
+                    if (BombermanGame.LIVES > 0) {
+                        System.out.println("Res");
+                        BombermanGame.LIVES--;
+                        bomber.isDR = true;
+                        isDeadCDCnt = true;
+                        if (soundFX) {
+                            Sound.reviveAudio.play();
+                        }
+                    } else {
+                        bomber.isDead = true;
+                        if (soundFX) {
+                            Sound.charDieAudio.play();
+                        }
+                    }
                 }
             }
         }

@@ -19,6 +19,7 @@ public class Bomber extends Entity {
     public boolean isDead = false;
 
     public boolean isRemoved = false;
+    public boolean isDR = false;
     public boolean _moving = false;
     public String _direction = "RIGHT";
     public int cntUpFrame = 0;
@@ -27,6 +28,7 @@ public class Bomber extends Entity {
     public int cntRightFrame = 0;
 
     public int cntDeadFrame = 0;
+    public int cntDRFrame = 0;
 
     public void setAllFrameCnt() {
         cntUpFrame = 0;
@@ -42,22 +44,31 @@ public class Bomber extends Entity {
     @Override
     public void update() {
         if (isDead) bomberDeadSprite();
+        if (isDR) bomberDeadAndReviveSprite();
     }
 
     public void moveUp() {
-        y = y - step;
+        if (!isDead && !isDR) {
+            y = y - step;
+        }
     }
 
     public void moveDown() {
-        y = y + step;
+        if (!isDead && !isDR) {
+            y = y + step;
+        }
     }
 
     public void moveRight() {
-        x = x + step;
+        if (!isDead && !isDR) {
+            x = x + step;
+        }
     }
 
     public void moveLeft() {
-        x = x - step;
+        if (!isDead && !isDR) {
+            x = x - step;
+        }
     }
 
     public void checkCollisionUp(LevelLoader lvLoad) {
@@ -157,7 +168,7 @@ public class Bomber extends Entity {
     }
 
     public void movingSprite(String _input) {
-        if (!isDead) {
+        if (!isDead && !isDR) {
             switch (_input) {
                 case "LEFT":
                 case "A":
@@ -272,5 +283,27 @@ public class Bomber extends Entity {
             isRemoved = true;
         }
         cntDeadFrame++;
+    }
+
+    public void bomberDeadAndReviveSprite() {
+        if (cntDRFrame >= 0 && cntDRFrame <= 10) {
+            img = Sprite.player_dead1.getFxImage();
+        } else if (cntDRFrame >= 11 && cntDRFrame <= 20) {
+            img = Sprite.player_dead2.getFxImage();
+        } else if (cntDRFrame >= 21 && cntDRFrame <= 30) {
+            img = Sprite.player_dead3.getFxImage();
+        } else if (cntDRFrame >= 31 && cntDRFrame <= 40) {
+            img = Sprite.player_dead3.getFxImage();
+        } else if (cntDRFrame >= 41 && cntDRFrame <= 50) {
+            img = Sprite.player_dead2.getFxImage();
+        } else if (cntDRFrame >= 51 && cntDRFrame <= 60) {
+            img = Sprite.player_dead2.getFxImage();
+        } else if (cntDRFrame >= 61 && cntDRFrame <= 70) {
+            img = Sprite.player_right.getFxImage();
+        } else {
+            cntDRFrame = 0;
+            isDR = false;
+        }
+        cntDRFrame++;
     }
 }

@@ -16,6 +16,7 @@ public class Sound {
     static final String charDieSound = "res/sounds/charDie.mp3";
     static final String loseLevelSound = "res/sounds/loseLevel.wav";
     static final String stageStartSound = "res/sounds/stageStart.mp3";
+    static final String reviveSound = "res/sounds/revive.mp3";
     public static AudioClip eatItemAudio = new AudioClip((new File(eatItemSound)).toURI().toString());
     public static AudioClip bombExplodedAudio = new AudioClip((new File(bombExplodedSound)).toURI().toString());
     public static AudioClip buttonClickAudio = new AudioClip((new File(buttonClickSound)).toURI().toString());
@@ -25,6 +26,7 @@ public class Sound {
     public static AudioClip charDieAudio = new AudioClip((new File(charDieSound)).toURI().toString());
     public static AudioClip loseLevelAudio = new AudioClip((new File(loseLevelSound)).toURI().toString());
     public static AudioClip stageStartAudio = new AudioClip((new File(stageStartSound)).toURI().toString());
+    public static AudioClip reviveAudio = new AudioClip((new File(reviveSound)).toURI().toString());
     static final String MainBGM = "res/sounds/MainBGM.mp3";
     static Media sound = new Media((new File(MainBGM)).toURI().toString());
     public static MediaPlayer mediaPlayer = new MediaPlayer(sound);

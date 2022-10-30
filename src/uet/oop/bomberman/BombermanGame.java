@@ -82,7 +82,6 @@ public class BombermanGame extends Application {
                         lvLoad.loadLevel(LEVEL);
                         lvLoad.introLevel.setShowIntro(true);
                         lvLoad.introLevel.resetTime();
-                        LIVES--;
                     }
                 }
                 if (!lvLoad.board.bombers.isEmpty()) {

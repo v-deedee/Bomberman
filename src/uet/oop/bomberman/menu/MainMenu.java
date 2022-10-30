@@ -255,20 +255,20 @@ public class MainMenu extends Menu {
             Board.BGMusic = true;
         });
         btnOn2.setOnMouseClicked(event -> {
+            Board.soundFX = false;
             if (Board.soundFX) {
                 Sound.buttonClickAudio.play();
             }
             soundBox.getChildren().remove(btnOn2);
             soundBox.getChildren().add(btnOff2);
-            Board.soundFX = false;
         });
         btnOff2.setOnMouseClicked(event -> {
+            Board.soundFX = true;
             if (Board.soundFX) {
                 Sound.buttonClickAudio.play();
             }
             soundBox.getChildren().remove(btnOff2);
             soundBox.getChildren().add(btnOn2);
-            Board.soundFX = true;
         });
 
         return settingMenu;
