@@ -32,11 +32,11 @@ public class InputHandler {
 
     public void handleInput(Bomber bomberman, Board board, LevelLoader lvLoad) {
         pauseCD--;
-        if(currentlyActiveKeys.contains("ESCAPE") && pauseCD <= 0) {
+        if (currentlyActiveKeys.contains("ESCAPE") && pauseCD <= 0) {
             Board.Pause = !Board.Pause;
             pauseCD = 30;
         }
-        if(Board.Pause) return;
+        if (Board.Pause) return;
         bombPlantCD--;
         String[] activeKeysArr = currentlyActiveKeys.toArray(new String[0]);
         if (activeKeysArr.length != 0) {

@@ -14,6 +14,7 @@ public class Menu extends Parent {
     public static String URL_FONT3 = "/font/Font3.ttf";
     public static int BUTTON_WIDTH = 70 * Sprite.SCALE;
     public static int BUTTON_HEIGHT = 18 * Sprite.SCALE;
+
     public ImageView setUpImageView(String url, double x, double y, double w, double h) {
         Image img = null;
         try {

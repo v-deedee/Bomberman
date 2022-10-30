@@ -15,7 +15,7 @@ public class Bomb extends Entity {
     }
 
     public void update() {
-        if(Board.Pause) return;
+        if (Board.Pause) return;
         bombSprite();
         explodeTime--;
         if (explodeTime <= 0) isRemoved = true;

@@ -5,8 +5,10 @@ import uet.oop.bomberman.entities.Entity;
 
 public abstract class Item extends Entity {
     public boolean isRemoved = false;
+
     public Item(double xUnit, double yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
+
     public abstract void eaten();
 }

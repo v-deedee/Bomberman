@@ -8,6 +8,7 @@ public class Brick extends Entity {
     public int cntBrickFrame = 0;
     public boolean isRemoved = false;
     public boolean isExploded = false;
+
     public Brick(double x, double y, Image img) {
         super(x, y, img);
     }

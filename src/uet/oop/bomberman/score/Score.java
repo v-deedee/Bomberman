@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Score {
     public static List<Integer> highScore = new ArrayList<>();
+
     public static void readHighScore() {
         highScore.clear();
         try {
@@ -27,7 +28,7 @@ public class Score {
 
     public static void writeHighScore() {
         highScore.sort(Collections.reverseOrder());
-        while(highScore.size() != 5) {
+        while (highScore.size() != 5) {
             int index = highScore.size() - 1;
             highScore.remove(index);
         }

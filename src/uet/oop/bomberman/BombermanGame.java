@@ -36,10 +36,6 @@ public class BombermanGame extends Application {
     private PauseMenu pauseMenu = new PauseMenu();
     public static CountDown countdown = new CountDown(200);
 
-    public static void main(String[] args) {
-        Application.launch(BombermanGame.class);
-    }
-
     @Override
     public void start(Stage stage) {
         Score.readHighScore();

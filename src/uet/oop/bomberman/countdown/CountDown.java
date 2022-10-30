@@ -53,6 +53,7 @@ public class CountDown {
     public void pause() {
         timeline.pause();
     }
+
     public void addTime() {
         timeline.playFrom(Duration.seconds(200 - timeLeft.getReadOnlyProperty().getValue() - 30));
     }

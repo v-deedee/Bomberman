@@ -26,7 +26,8 @@ public class LevelLoader {
     public IntroLevel introLevel = new IntroLevel();
     private static char[][] map;
 
-    public LevelLoader() {}
+    public LevelLoader() {
+    }
 
     public LevelLoader(int level) {
         loadLevel(level);
@@ -63,7 +64,7 @@ public class LevelLoader {
         height = Integer.parseInt(levelInfo[1]);
         width = Integer.parseInt(levelInfo[2]);
         map = new char[height][width];
-        for(int i=0;i<height;i++) {
+        for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 map[i][j] = list.get(i + 1).charAt(j);
             }
@@ -71,14 +72,11 @@ public class LevelLoader {
         addEntity();
     }
 
-    public void addEntity()
-    {
-        for(int y=0;y<height;y++)
-        {
-            for(int x=0;x<width;x++)
-            {
+    public void addEntity() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 System.err.print(map[y][x]);
-                switch (map[y][x]){
+                switch (map[y][x]) {
                     case '#':
                         board.addWall(new Wall(x, y, Sprite.wall.getFxImage()));
                         break;
@@ -99,22 +97,22 @@ public class LevelLoader {
                         board.addItem(new B_Item(x, y, Sprite.powerup_bombs.getFxImage()));
                         board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
-                    case 'f' :
+                    case 'f':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addItem(new F_Item(x, y, Sprite.powerup_flames.getFxImage()));
                         board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
-                    case 's' :
+                    case 's':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addItem(new S_Item(x, y, Sprite.powerup_speed.getFxImage()));
                         board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
-                    case 'o' :
+                    case 'o':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addItem(new FP_Item(x, y, Sprite.powerup_flamepass.getFxImage()));
                         board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
                         break;
-                    case 'c' :
+                    case 'c':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addItem(new C_Item(x, y, Sprite.powerup_clock));
                         board.addBrick(new Brick(x, y, Sprite.brick.getFxImage()));
@@ -129,17 +127,17 @@ public class LevelLoader {
                         board.addEnemy(new Oneal(x, y, Sprite.oneal_right1.getFxImage()));
                         setMap(y, x, ' ');
                         break;
-                    case '3' :
+                    case '3':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEnemy(new Doll(x, y, Sprite.doll_right1.getFxImage()));
                         setMap(y, x, ' ');
                         break;
-                    case '4' :
+                    case '4':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEnemy(new Minvo(x, y, Sprite.minvo_right1.getFxImage()));
                         setMap(y, x, ' ');
                         break;
-                    case '5' :
+                    case '5':
                         board.addGrass(new Grass(x, y, Sprite.grass.getFxImage()));
                         board.addEnemy(new Kondoria(x, y, Sprite.kondoria_right1.getFxImage()));
                         setMap(y, x, ' ');

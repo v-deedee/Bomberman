@@ -95,7 +95,7 @@ public class PauseMenu extends Menu {
             if (Board.soundFX) {
                 Sound.buttonClickAudio.play();
             }
-            returnMenu(scrW, scrH,root, canvas, mainMenu, lvLoad);
+            returnMenu(scrW, scrH, root, canvas, mainMenu, lvLoad);
         });
 
         btnResume.setOnMouseClicked(event -> {

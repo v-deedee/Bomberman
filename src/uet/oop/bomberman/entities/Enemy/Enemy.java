@@ -16,10 +16,11 @@ public class Enemy extends Entity {
     protected int point;
     int cntEnemyFrame = 0;
     public boolean isExploded = false;
-    protected int speedX = Sprite.SCALED_SIZE/32;
-    protected int speedY = Sprite.SCALED_SIZE/32;
+    protected int speedX = Sprite.SCALED_SIZE / 32;
+    protected int speedY = Sprite.SCALED_SIZE / 32;
     List<Character> direction = new ArrayList<>();
     protected int rand;
+
     public Enemy(double x, double y, Image img) {
         super(x, y, img);
     }
@@ -107,10 +108,10 @@ public class Enemy extends Entity {
 
     public void enemyMove(LevelLoader lvLoad) {
         try {
-            if ((int)x % Sprite.SCALED_SIZE == 0 && (int)y % Sprite.SCALED_SIZE == 0) {
+            if ((int) x % Sprite.SCALED_SIZE == 0 && (int) y % Sprite.SCALED_SIZE == 0) {
                 // Get position in map
-                int x1 = (int)x / Sprite.SCALED_SIZE;
-                int y1 = (int)y / Sprite.SCALED_SIZE;
+                int x1 = (int) x / Sprite.SCALED_SIZE;
+                int y1 = (int) y / Sprite.SCALED_SIZE;
 
                 direction.clear();
                 if (canMoveLeft(lvLoad, x1, y1) || canMoveRight(lvLoad, x1, y1)) {
@@ -122,7 +123,7 @@ public class Enemy extends Entity {
                 if (direction.isEmpty()) {
                     return;
                 }
-                rand = (int)(Math.random() * 100) % direction.size();
+                rand = (int) (Math.random() * 100) % direction.size();
 
                 if (direction.get(rand) == 'h') {
                     if (speedX > 0) {
@@ -157,16 +158,15 @@ public class Enemy extends Entity {
     }
 
     public double calculateDistance(LevelLoader lvLoad) {
-            // Get position in map
-        if(lvLoad.board.bombers.size() != 0 && (int)x % Sprite.SCALED_SIZE == 0 && (int)y % Sprite.SCALED_SIZE == 0) {
+        // Get position in map
+        if (lvLoad.board.bombers.size() != 0 && (int) x % Sprite.SCALED_SIZE == 0 && (int) y % Sprite.SCALED_SIZE == 0) {
             Bomber bomber = lvLoad.board.bombers.get(0);
             int enemyPosX = (int) (x / Sprite.SCALED_SIZE);
             int enemyPosY = (int) (y / Sprite.SCALED_SIZE);
-            int bomberPosX = (int)(bomber.getX()/Sprite.SCALED_SIZE);
-            int bomberPosY = (int)(bomber.getY()/Sprite.SCALED_SIZE);
+            int bomberPosX = (int) (bomber.getX() / Sprite.SCALED_SIZE);
+            int bomberPosY = (int) (bomber.getY() / Sprite.SCALED_SIZE);
             return Math.sqrt((bomberPosX - enemyPosX) * (bomberPosX - enemyPosX)
                     + (bomberPosY - enemyPosY) * (bomberPosY - enemyPosY));
-        }
-        else return 1000;
+        } else return 1000;
     }
 }

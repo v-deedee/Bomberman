@@ -19,6 +19,7 @@ import uet.oop.bomberman.countdown.CountDown;
 
 import javafx.scene.paint.Color;
 import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -164,7 +165,7 @@ public class Board {
         if ((bombers.size() != 0 && bombers.get(0).isRemoved) || BombermanGame.countdown.timeLeftValue() == 0) {
             Score.highScore.add(score);
             Score.highScore.sort(Collections.reverseOrder());
-            while(Score.highScore.size() != 5) {
+            while (Score.highScore.size() != 5) {
                 int index = Score.highScore.size() - 1;
                 Score.highScore.remove(index);
             }
@@ -176,9 +177,9 @@ public class Board {
         }
         if (enemies.size() == 0 && bombers.size() != 0
                 && portalDetect(bombers.get(0).getX(), bombers.get(0).getY())) {
-            Score.highScore.add(score + BombermanGame.countdown.timeLeftValue()*10);
+            Score.highScore.add(score + BombermanGame.countdown.timeLeftValue() * 10);
             Score.highScore.sort(Collections.reverseOrder());
-            while(Score.highScore.size() != 5) {
+            while (Score.highScore.size() != 5) {
                 int index = Score.highScore.size() - 1;
                 Score.highScore.remove(index);
             }
