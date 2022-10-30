@@ -22,7 +22,7 @@ import uet.oop.bomberman.sound.Sound;
 public class BombermanGame extends Application {
     public static int LEVEL = 1;
     public static int LIVES = 2;
-    private final LevelLoader lvLoad = new LevelLoader(LEVEL);
+    private final LevelLoader lvLoad = new LevelLoader();
     static Group root = new Group();
     static Scene scene = new Scene(root);
     private final String TITLE = "BombermanGame";
@@ -43,7 +43,7 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage stage) {
         Score.readHighScore();
-        countdown.Restart();
+        countdown.pause();
         Sound.playBGM();
         stage.getIcons().add(new Image("/textures/icon.jfif"));
         // Tao Canvas
@@ -115,8 +115,7 @@ public class BombermanGame extends Application {
                         update();
                     }
                 }
-                stage.setTitle(TITLE + "| " + (int) getFPS() + " rates"
-                        + "| Timer" + countdown.timeLeftValue() + "s");
+                stage.setTitle(TITLE + "| " + (int) getFPS() + " rates");
             }
         };
         timer.start();
