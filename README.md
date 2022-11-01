@@ -5,21 +5,21 @@
 2. Giới thiệu
 3. Mô tả về các đối tượng trong trò chơi
 4. Điều khiển và cài đặt
-5. Chức năng đã làm theo yêu cầu
-6. Chức năng làm thêm
-7. UML Diagram
+5. Chức năng bắt buộc và tuỳ chọn đã cài đặt
+6. Chức năng bổ sung
+7. Cây thừa kế
 8. Demo
 
 ## **1. Thành viên** 
-###**BTL nhóm 15, thành viên nhóm:**
-###**- Nguyễn Tuấn Đức, mã sinh viên 21020539**
-###**- Nguyễn Việt Anh, mã sinh viên 21020277**
+BTL nhóm 15, thành viên nhóm:
+- Nguyễn Tuấn Đức, mã sinh viên 21020539
+- Nguyễn Việt Anh, mã sinh viên 21020277
 
 ## **2. Giới thiệu**
 Phiên bản làm lại bằng Java của tựa game Bomberman trên máy NES [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM)
 
 ## **3.Mô tả về các đối tượng trong trò chơi**
-Nếu bạn đã từng chơi Bomberman, bạn sẽ cảm thấy quen thuộc với những đối tượng này. Chúng được được chia làm hai loại chính là nhóm đối tượng động (*Bomber*, *Enemy*, *Bomb*) và nhóm đối tượng tĩnh (*Grass*, *Wall*, *Brick*, *Door*, *Item*).
+Nếu bạn đã từng chơi Bomberman, bạn sẽ cảm thấy quen thuộc với những đối tượng này. Chúng được được chia làm hai loại chính là nhóm đối tượng động (*Bomber*, *Enemy*, *Bomb*) và nhóm đối tượng tĩnh (*Grass*, *Wall*, *Brick*, *Portal*, *Item*).
 
 *Hãy thiết kế hệ thống các đối tượng một cách phù hợp để tận dụng tối đa sức mạnh của OOP: tái sử dụng code, dễ dàng maintain.*
 
@@ -71,21 +71,33 @@ Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này ch�
 |---------       |-----|
 | Pause Game     | ESC |
 
+## **5. Chức năng bắt buộc đã cài đặt**
+# **Chức năng bắt buộc**
+- Thiết kế cây thừa kế cho các đối tượng game.
+- Xây dựng bản đồ màn chơi từ tệp cấu hình.
+- Di chuyển Bomber theo sự điều khiển từ người chơi.
+- Tự động di chuyển các enemies.
+- Xử lý va chạm cho các đối tượng Bomber, Enemy, Wall, Brick, Bomb.
+- Xử lí bom nổ.
+- Xử lý khi Bomber sử dụng các Item và khi đi vào vị trí Portal.
+# **Chức năng tuỳ chọn**
+- Sử dụng Git trong nhóm (branch, commit, pull request, contribution, ...).
+- "Nâng cấp thuật toán tìm đường cho Enemy.
+- Cài đặt các loại Enemy khác.
+- Xử lý hiệu ứng âm thanh.
 
-## Nhiệm vụ của bạn
-- Gói bắt buộc (+8đ)
-1. Thiết kế cây thừa kế cho các đối tượng game +2đ
-2. Xây dựng bản đồ màn chơi từ tệp cấu hình (có mẫu tệp cấu hình, xem [tại đây](https://raw.githubusercontent.com/bqcuong/bomberman-starter/starter-2/res/levels/Level1.txt)) +1đ
-3. Di chuyển Bomber theo sự điều khiển từ người chơi +1đ
-4. Tự động di chuyển các Enemy +1đ
-5. Xử lý va chạm cho các đối tượng Bomber, Enemy, Wall, Brick, Bomb +1đ
-6. Xử lý bom nổ +1đ
-7. Xử lý khi Bomber sử dụng các Item và khi đi vào vị trí Portal +1đ
+## **6. Chức năng bổ sung**
+- Có menu với các chức năng cần thiết.
+- Có thể chọn level tuỳ thích khi đã mở khoá kể cả khi đóng game (sử dụng đọc ghi file).
+- Tính điểm cho mỗi màn chơi.
+- Lưu và hiển thị điểm cao (sử dụng đọc ghi file).
+- Tuỳ chỉnh tắt bật BackgroundMusic và soundFx.
+- Bộ đếm fps cho game.
+- Có menu phụ và tuỳ chọn dừng trò chơi.
+- Có bộ đếm giờ trong trò chơi.
+- Có mạng trong mỗi lần chơi.
+- Bổ sung thêm các Item và Enemy mới.
 
-- Gói tùy chọn (tối đa +2đ)
-1. Nâng cấp thuật toán tìm đường cho Enemy +0.5đ
-   Cài đặt thêm các loại Enemy khác: +0.25đ cho mỗi loại enemy
-2. Cài đặt thuật toán AI cho Bomber (tự chơi) +1đ
-3. Xử lý hiệu ứng âm thanh (thêm music & sound effects) +1đ
-4. Phát triển hệ thống server-client để nhiều người có thể cùng chơi qua mạng LAN hoặc Internet +1đ
-5. Những ý tưởng khác sẽ được đánh giá và cộng điểm theo mức tương ứng
+## **7 Cây thừa kế**
+
+## **8 Demo video**
