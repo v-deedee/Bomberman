@@ -4,13 +4,25 @@ BTL nhóm 15, thành viên nhóm:
 - Nguyễn Tuấn Đức, mã sinh viên 21020539
 - Nguyễn Việt Anh, mã sinh viên 21020277
 
-Trong bài tập lớn này, nhiệm vụ của bạn là viết một phiên bản Java mô phỏng lại trò chơi [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM) kinh điển của NES.
+## **Mục lục**
+1. [Thành viên]
+2. [Giới thiệu]
+3. [Mô tả về các đối tượng trong trò chơi]
+4. [Controls and Options]
+5. [Chức năng đã làm theo yêu cầu]
+6. [Chức năng làm thêm]
+7. [UML Diagram]
+8. [Demo]
 
-<img src="res/demo.png" alt="drawing" width="400"/>
+## **1. Thành viên** 
+### BTL nhóm 15, thành viên nhóm:
+###- Nguyễn Tuấn Đức, mã sinh viên 21020539
+###- Nguyễn Việt Anh, mã sinh viên 21020277
 
-Bạn có thể sử dụng mã nguồn tại repository này để phát triển hoặc tự phát triển từ đầu.
+## **2. Giới thiệu**
+Phiên bản làm lại bằng Java của tựa game Bomberman trên máy NES [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM)
 
-## Mô tả về các đối tượng trong trò chơi
+## **3.Mô tả về các đối tượng trong trò chơi**
 Nếu bạn đã từng chơi Bomberman, bạn sẽ cảm thấy quen thuộc với những đối tượng này. Chúng được được chia làm hai loại chính là nhóm đối tượng động (*Bomber*, *Enemy*, *Bomb*) và nhóm đối tượng tĩnh (*Grass*, *Wall*, *Brick*, *Door*, *Item*).
 
 *Hãy thiết kế hệ thống các đối tượng một cách phù hợp để tận dụng tối đa sức mạnh của OOP: tái sử dụng code, dễ dàng maintain.*
@@ -28,13 +40,18 @@ Nếu bạn đã từng chơi Bomberman, bạn sẽ cảm thấy quen thuộc v�
 - ![](res/sprites/portal.png) *Portal* là đối tượng được giấu phía sau một đối tượng Brick. Khi Brick đó bị phá hủy, Portal sẽ hiện ra và nếu tất cả Enemy đã bị tiêu diệt thì người chơi có thể qua Level khác bằng cách di chuyển vào vị trí của Portal.
 
 Các *Item* cũng được giấu phía sau Brick và chỉ hiện ra khi Brick bị phá hủy. Bomber có thể sử dụng Item bằng cách di chuyển vào vị trí của Item. Thông tin về chức năng của các Item được liệt kê như dưới đây:
-- ![](res/sprites/powerup_speed.png) *SpeedItem* Khi sử dụng Item này, Bomber sẽ được tăng vận tốc di chuyển thêm một giá trị thích hợp
-- ![](res/sprites/powerup_flames.png) *FlameItem* Item này giúp tăng phạm vi ảnh hưởng của Bomb khi nổ (độ dài các Flame lớn hơn)
+- ![](res/sprites/powerup_speed.png) *SpeedItem* Khi sử dụng Item này, Bomber sẽ được tăng vận tốc di chuyển thêm một giá trị thích hợp.
+- ![](res/sprites/powerup_flames.png) *FlameItem* Item này giúp tăng phạm vi ảnh hưởng của Bomb khi nổ (độ dài các Flame lớn hơn).
 - ![](res/sprites/powerup_bombs.png) *BombItem* Thông thường, nếu không có đối tượng Bomb nào đang trong trạng thái kích hoạt, Bomber sẽ được đặt và kích hoạt duy nhất một đối tượng Bomb. Item này giúp tăng số lượng Bomb có thể đặt thêm một.
+- ![](res/sprites/powerup_flamepass.png) *FlamepassItem* sử dụng item này thì thì Bomber có thể đi xuyên qua và không bị ảnh hưởng bởi lửa từ Bom.
+- ![](res/sprites/powerup_clock.png) *ClockItem* sử dụng item này thì thời gian mỗi màn chơi sẽ được tăng tối đa 30 giây giúp người chơi có thêm thời gian hoàn thành màn chơi và tăng thêm số điểm cửa mình.
 
-Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này chỉ yêu cầu cài đặt hai loại Enemy dưới đây (nếu cài đặt thêm các loại khác sẽ được cộng thêm điểm):
+Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này chỉ yêu cầu cài đặt hai loại Enemy dưới đây:
 - ![](res/sprites/balloom_left1.png) *Balloom* là Enemy đơn giản nhất, di chuyển ngẫu nhiên với vận tốc cố định
-- ![](res/sprites/oneal_left1.png) *Oneal* có tốc độ di chuyển thay đổi, lúc nhanh, lúc chậm và di chuyển "thông minh" hơn so với Balloom (biết đuổi theo Bomber)
+- ![](res/sprites/oneal_left1.png) *Oneal* di chuyển ngẫu nhiên với vận tốc lớn hơn Balloom
+- ![](res/sprites/doll_left1.png) *Doll* là Enemy di chuyển phức tạp hơn Oneal (biết đuổi theo Bomber)
+- ![](res/sprites/minvo_left1.png) *Minvo* là Enemy di chuyển biết đuổi theo Bomber như Doll nhưng với tốc độ lớn hơn
+- ![](res/sprites/kondoria_left1.png) *Kondoria* là Enemy di chuyển biết đuổi theo Bomber với vận tốc chậm nhất nhưng có thể đi xuyên qua soft block
 
 ## Mô tả game play, xử lý va chạm và xử lý bom nổ
 - Trong một màn chơi, Bomber sẽ được người chơi di chuyển, đặt và kích hoạt Bomb với mục tiêu chính là tiêu diệt tất cả Enemy và tìm ra vị trí Portal để có thể qua màn mới
