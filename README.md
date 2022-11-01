@@ -1,17 +1,25 @@
 # Bài tập lớn OOP - Bomberman Game
 
+## **Mục lục**
+1. Thành viên
+2. Giới thiệu
+3. Mô tả về các đối tượng trong trò chơi
+4. Điều khiển và cài đặt
+5. Chức năng bắt buộc và tuỳ chọn đã cài đặt
+6. Chức năng bổ sung
+7. Cây thừa kế
+8. Demo
+
+## **1. Thành viên** 
 BTL nhóm 15, thành viên nhóm:
 - Nguyễn Tuấn Đức, mã sinh viên 21020539
 - Nguyễn Việt Anh, mã sinh viên 21020277
 
-Trong bài tập lớn này, nhiệm vụ của bạn là viết một phiên bản Java mô phỏng lại trò chơi [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM) kinh điển của NES.
+## **2. Giới thiệu**
+Phiên bản làm lại bằng Java của tựa game Bomberman trên máy NES [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM)
 
-<img src="res/demo.png" alt="drawing" width="400"/>
-
-Bạn có thể sử dụng mã nguồn tại repository này để phát triển hoặc tự phát triển từ đầu.
-
-## Mô tả về các đối tượng trong trò chơi
-Nếu bạn đã từng chơi Bomberman, bạn sẽ cảm thấy quen thuộc với những đối tượng này. Chúng được được chia làm hai loại chính là nhóm đối tượng động (*Bomber*, *Enemy*, *Bomb*) và nhóm đối tượng tĩnh (*Grass*, *Wall*, *Brick*, *Door*, *Item*).
+## **3.Mô tả về các đối tượng trong trò chơi**
+Nếu bạn đã từng chơi Bomberman, bạn sẽ cảm thấy quen thuộc với những đối tượng này. Chúng được được chia làm hai loại chính là nhóm đối tượng động (*Bomber*, *Enemy*, *Bomb*) và nhóm đối tượng tĩnh (*Grass*, *Wall*, *Brick*, *Portal*, *Item*).
 
 *Hãy thiết kế hệ thống các đối tượng một cách phù hợp để tận dụng tối đa sức mạnh của OOP: tái sử dụng code, dễ dàng maintain.*
 
@@ -28,13 +36,18 @@ Nếu bạn đã từng chơi Bomberman, bạn sẽ cảm thấy quen thuộc v�
 - ![](res/sprites/portal.png) *Portal* là đối tượng được giấu phía sau một đối tượng Brick. Khi Brick đó bị phá hủy, Portal sẽ hiện ra và nếu tất cả Enemy đã bị tiêu diệt thì người chơi có thể qua Level khác bằng cách di chuyển vào vị trí của Portal.
 
 Các *Item* cũng được giấu phía sau Brick và chỉ hiện ra khi Brick bị phá hủy. Bomber có thể sử dụng Item bằng cách di chuyển vào vị trí của Item. Thông tin về chức năng của các Item được liệt kê như dưới đây:
-- ![](res/sprites/powerup_speed.png) *SpeedItem* Khi sử dụng Item này, Bomber sẽ được tăng vận tốc di chuyển thêm một giá trị thích hợp
-- ![](res/sprites/powerup_flames.png) *FlameItem* Item này giúp tăng phạm vi ảnh hưởng của Bomb khi nổ (độ dài các Flame lớn hơn)
+- ![](res/sprites/powerup_speed.png) *SpeedItem* Khi sử dụng Item này, Bomber sẽ được tăng vận tốc di chuyển thêm một giá trị thích hợp.
+- ![](res/sprites/powerup_flames.png) *FlameItem* Item này giúp tăng phạm vi ảnh hưởng của Bomb khi nổ (độ dài các Flame lớn hơn).
 - ![](res/sprites/powerup_bombs.png) *BombItem* Thông thường, nếu không có đối tượng Bomb nào đang trong trạng thái kích hoạt, Bomber sẽ được đặt và kích hoạt duy nhất một đối tượng Bomb. Item này giúp tăng số lượng Bomb có thể đặt thêm một.
+- ![](res/sprites/powerup_flamepass.png) *FlamepassItem* sử dụng item này thì thì Bomber có thể đi xuyên qua và không bị ảnh hưởng bởi lửa từ Bom.
+- ![](res/sprites/powerup_clock.png) *ClockItem* sử dụng item này thì thời gian mỗi màn chơi sẽ được tăng tối đa 30 giây giúp người chơi có thêm thời gian hoàn thành màn chơi và tăng thêm số điểm cửa mình.
 
-Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này chỉ yêu cầu cài đặt hai loại Enemy dưới đây (nếu cài đặt thêm các loại khác sẽ được cộng thêm điểm):
+Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này chỉ yêu cầu cài đặt hai loại Enemy dưới đây:
 - ![](res/sprites/balloom_left1.png) *Balloom* là Enemy đơn giản nhất, di chuyển ngẫu nhiên với vận tốc cố định
-- ![](res/sprites/oneal_left1.png) *Oneal* có tốc độ di chuyển thay đổi, lúc nhanh, lúc chậm và di chuyển "thông minh" hơn so với Balloom (biết đuổi theo Bomber)
+- ![](res/sprites/oneal_left1.png) *Oneal* di chuyển ngẫu nhiên với vận tốc lớn hơn Balloom
+- ![](res/sprites/doll_left1.png) *Doll* là Enemy di chuyển phức tạp hơn Oneal (biết đuổi theo Bomber)
+- ![](res/sprites/minvo_left1.png) *Minvo* là Enemy di chuyển biết đuổi theo Bomber như Doll nhưng với tốc độ lớn hơn
+- ![](res/sprites/kondoria_left1.png) *Kondoria* là Enemy di chuyển biết đuổi theo Bomber với vận tốc chậm nhất nhưng có thể đi xuyên qua soft block
 
 ## Mô tả game play, xử lý va chạm và xử lý bom nổ
 - Trong một màn chơi, Bomber sẽ được người chơi di chuyển, đặt và kích hoạt Bomb với mục tiêu chính là tiêu diệt tất cả Enemy và tìm ra vị trí Portal để có thể qua màn mới
@@ -45,27 +58,46 @@ Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này ch�
 - Khi Bomb nổ, một Flame trung tâm![](res/sprites/bomb_exploded.png) tại vị trí Bomb nổ và bốn Flame tại bốn vị trí ô đơn vị xung quanh vị trí của Bomb xuất hiện theo bốn hướng trên![](res/sprites/explosion_vertical.png)/dưới![](res/sprites/explosion_vertical.png)/trái![](res/sprites/explosion_horizontal.png)/phải![](res/sprites/explosion_horizontal.png). Độ dài bốn Flame xung quanh mặc định là 1 đơn vị, được tăng lên khi Bomber sử dụng các FlameItem.
 - Khi các Flame xuất hiện, nếu có một đối tượng thuộc loại Brick/Wall nằm trên vị trí một trong các Flame thì độ dài Flame đó sẽ được giảm đi để sao cho Flame chỉ xuất hiện đến vị trí đối tượng Brick/Wall theo hướng xuất hiện. Lúc đó chỉ có đối tượng Brick/Wall bị ảnh hưởng bởi Flame, các đối tượng tiếp theo không bị ảnh hưởng. Còn nếu vật cản Flame là một đối tượng Bomb khác thì đối tượng Bomb đó cũng sẽ nổ ngay lập tức.
 
-## Mô tả starter project
-Xem comment ở starter project
+## **4. Điều khiển và cài đặt**
+| Control | Key   |
+|---------|-------|
+| UP      | ↑, w  |
+| DOWN    | ↓, s  |
+| LEFT    | ←,a   |
+| RIGHT   | → ,d  |
+| BOMB    |SPACE  |
 
-## Yêu cầu chung
-- Có thể chơi được ít nhất cho một màn chơi (chiến thắng một màn chơi)
-- Có thể thay đổi được tệp cấu hình khác cho màn chơi (tương tự mẫu cho trước)
+|Menu            | Key |
+|---------       |-----|
+| Pause Game     | ESC |
 
-## Nhiệm vụ của bạn
-- Gói bắt buộc (+8đ)
-1. Thiết kế cây thừa kế cho các đối tượng game +2đ
-2. Xây dựng bản đồ màn chơi từ tệp cấu hình (có mẫu tệp cấu hình, xem [tại đây](https://raw.githubusercontent.com/bqcuong/bomberman-starter/starter-2/res/levels/Level1.txt)) +1đ
-3. Di chuyển Bomber theo sự điều khiển từ người chơi +1đ
-4. Tự động di chuyển các Enemy +1đ
-5. Xử lý va chạm cho các đối tượng Bomber, Enemy, Wall, Brick, Bomb +1đ
-6. Xử lý bom nổ +1đ
-7. Xử lý khi Bomber sử dụng các Item và khi đi vào vị trí Portal +1đ
+## **5. Chức năng bắt buộc đã cài đặt**
+# **Chức năng bắt buộc**
+- Thiết kế cây thừa kế cho các đối tượng game.
+- Xây dựng bản đồ màn chơi từ tệp cấu hình.
+- Di chuyển Bomber theo sự điều khiển từ người chơi.
+- Tự động di chuyển các enemies.
+- Xử lý va chạm cho các đối tượng Bomber, Enemy, Wall, Brick, Bomb.
+- Xử lí bom nổ.
+- Xử lý khi Bomber sử dụng các Item và khi đi vào vị trí Portal.
+# **Chức năng tuỳ chọn**
+- Sử dụng Git trong nhóm (branch, commit, pull request, contribution, ...).
+- "Nâng cấp thuật toán tìm đường cho Enemy.
+- Cài đặt các loại Enemy khác.
+- Xử lý hiệu ứng âm thanh.
 
-- Gói tùy chọn (tối đa +2đ)
-1. Nâng cấp thuật toán tìm đường cho Enemy +0.5đ
-   Cài đặt thêm các loại Enemy khác: +0.25đ cho mỗi loại enemy
-2. Cài đặt thuật toán AI cho Bomber (tự chơi) +1đ
-3. Xử lý hiệu ứng âm thanh (thêm music & sound effects) +1đ
-4. Phát triển hệ thống server-client để nhiều người có thể cùng chơi qua mạng LAN hoặc Internet +1đ
-5. Những ý tưởng khác sẽ được đánh giá và cộng điểm theo mức tương ứng
+## **6. Chức năng bổ sung**
+- Có menu với các chức năng cần thiết.
+- Có thể chọn level tuỳ thích khi đã mở khoá kể cả khi đóng game (sử dụng đọc ghi file).
+- Tính điểm cho mỗi màn chơi.
+- Lưu và hiển thị điểm cao (sử dụng đọc ghi file).
+- Tuỳ chỉnh tắt bật BackgroundMusic và soundFx.
+- Bộ đếm fps cho game.
+- Có menu phụ và tuỳ chọn dừng trò chơi.
+- Có bộ đếm giờ trong trò chơi.
+- Có mạng trong mỗi lần chơi.
+- Bổ sung thêm các Item và Enemy mới.
+
+## **7 Cây thừa kế**
+
+## **8 Demo video**
