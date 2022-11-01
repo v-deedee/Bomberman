@@ -22,7 +22,6 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Board {
@@ -62,6 +61,10 @@ public class Board {
         score = 0;
         BombermanGame.LIVES = 2;
         BombermanGame.countdown.Restart();
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public void addBomber(Bomber bomber) {
@@ -172,9 +175,11 @@ public class Board {
             }
         }
         if ((bombers.size() != 0 && bombers.get(0).isRemoved) || BombermanGame.countdown.timeLeftValue() == 0) {
-            Score.highScore.add(score);
-            Score.highScore.sort(Collections.reverseOrder());
-            while (Score.highScore.size() != 5) {
+            if (score > Score.highScore.get(BombermanGame.LEVEL - 1)) {
+                Score.highScore.set(BombermanGame.LEVEL - 1, score);
+            }
+            //Score.highScore.sort(Collections.reverseOrder());
+            while (Score.highScore.size() != 9) {
                 int index = Score.highScore.size() - 1;
                 Score.highScore.remove(index);
             }
@@ -186,9 +191,12 @@ public class Board {
         }
         if (enemies.size() == 0 && bombers.size() != 0
                 && portalDetect(bombers.get(0).getX(), bombers.get(0).getY())) {
-            Score.highScore.add(score + BombermanGame.countdown.timeLeftValue() * 10 + BombermanGame.LIVES * 1000);
-            Score.highScore.sort(Collections.reverseOrder());
-            while (Score.highScore.size() != 5) {
+            int newScore = score + BombermanGame.countdown.timeLeftValue() * 10 + BombermanGame.LIVES * 1000;
+            if (newScore > Score.highScore.get(BombermanGame.LEVEL - 1)) {
+                Score.highScore.set(BombermanGame.LEVEL - 1, newScore);
+            }
+            //Score.highScore.sort(Collections.reverseOrder());
+            while (Score.highScore.size() != 9) {
                 int index = Score.highScore.size() - 1;
                 Score.highScore.remove(index);
             }

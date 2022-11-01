@@ -16,7 +16,7 @@ public class Score {
         try {
             FileReader fr = new FileReader("res\\highscore\\Highscore.txt");
             BufferedReader br = new BufferedReader(fr);
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 9; i++) {
                 String line = br.readLine();
                 int score = Integer.parseInt(line);
                 highScore.add(score);
@@ -27,15 +27,15 @@ public class Score {
     }
 
     public static void writeHighScore() {
-        highScore.sort(Collections.reverseOrder());
-        while (highScore.size() != 5) {
+        //highScore.sort(Collections.reverseOrder());
+        while (highScore.size() != 9) {
             int index = highScore.size() - 1;
             highScore.remove(index);
         }
         try {
             FileWriter fr = new FileWriter("res\\highscore\\Highscore.txt");
             BufferedWriter bw = new BufferedWriter(fr);
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 9; i++) {
                 String temp = highScore.get(i).toString();
                 bw.write(temp);
                 bw.newLine();

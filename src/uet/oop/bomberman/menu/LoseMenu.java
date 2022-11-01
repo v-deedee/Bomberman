@@ -15,20 +15,20 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 import uet.oop.bomberman.sound.Sound;
 
-public class StageMenu extends Menu {
-    public void setUpStageMenu(double scrW, double scrH, int stage, Group root,
+public class LoseMenu extends Menu{
+    public void setUpLoseMenu(double scrW, double scrH, int stage, Group root,
                                MainMenu mainMenu, Canvas canvas, LevelLoader lvLoad) {
-        Font stFont = Font.loadFont(MenuButton.class.getResourceAsStream(URL_FONT3), FONT_SIZE * 1.5);
+        Font stFont = Font.loadFont(MenuButton.class.getResourceAsStream(URL_FONT3), FONT_SIZE * 1.2);
         Font scFont = Font.loadFont(MenuButton.class.getResourceAsStream(URL_FONT2), FONT_SIZE * 1.2);
 
         Text stText = new Text("Stage " + stage);
-        int score = lvLoad.board.getScore() + BombermanGame.countdown.timeLeftValue() * 10 + BombermanGame.LIVES * 1000;
+        int score = lvLoad.board.getScore();
         Text scText = new Text("Score: " + score);
         stText.setFont(stFont);
         scText.setFont(scFont);
-        stText.setFill(Color.LAVENDER);
-        scText.setFill(Color.YELLOW);
-        double textWidth = FONT_SIZE * 5.5;
+        stText.setFill(Color.LIGHTGRAY);
+        scText.setFill(Color.BEIGE);
+        double textWidth = score == 0 ? FONT_SIZE * 4 : FONT_SIZE * 5.5;
 
         VBox textBox = new VBox(15);
         textBox.setAlignment(Pos.CENTER);
@@ -39,7 +39,7 @@ public class StageMenu extends Menu {
         int btnWidth = (BUTTON_WIDTH / 3) * 2;
         MenuButton btnMenu = new MenuButton("MENU", btnWidth,
                 BUTTON_HEIGHT, FONT_SIZE, URL_FONT2);
-        MenuButton btnNext = new MenuButton("NEXT", btnWidth,
+        MenuButton btnRetry = new MenuButton("RETRY", btnWidth,
                 BUTTON_HEIGHT, FONT_SIZE, URL_FONT2);
 
         btnMenu.setOnMouseClicked(event -> {
@@ -49,19 +49,19 @@ public class StageMenu extends Menu {
             returnMenu(root, mainMenu, canvas);
         });
 
-        btnNext.setOnMouseClicked(event -> {
+        btnRetry.setOnMouseClicked(event -> {
             if (Board.soundFX) {
                 Sound.buttonClickAudio.play();
             }
-            nextLevel(mainMenu, lvLoad);
+            resetLevel(mainMenu, lvLoad);
         });
 
         HBox btnBox = new HBox(20);
-        btnBox.getChildren().addAll(btnMenu, btnNext);
+        btnBox.getChildren().addAll(btnMenu, btnRetry);
         btnBox.setTranslateX((scrW - (btnWidth * 2 + 20)) / 2);
         btnBox.setTranslateY(140 * Sprite.SCALE);
 
-        ImageView bgView = setUpImageView("/menu/win_menu_bg.png", 0, 0, scrW, scrH);
+        ImageView bgView = setUpImageView("/menu/lose_menu_bg.png", 0, 0, scrW, scrH);
         getChildren().addAll(bgView, textBox, btnBox);
     }
 
@@ -70,10 +70,9 @@ public class StageMenu extends Menu {
         root.getChildren().addAll(canvas, mainMenu);
     }
 
-    public void nextLevel(MainMenu mainMenu, LevelLoader lvLoad) {
+    public void resetLevel(MainMenu mainMenu, LevelLoader lvLoad) {
         mainMenu.setStartGame(true);
         BombermanGame.canvasAdded = true;
-        BombermanGame.LEVEL++;
         BombermanGame.LIVES = 2;
         lvLoad.loadLevel(BombermanGame.LEVEL);
         lvLoad.introLevel.setShowIntro(true);

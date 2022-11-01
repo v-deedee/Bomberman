@@ -13,6 +13,7 @@ import uet.oop.bomberman.Input.InputHandler;
 import uet.oop.bomberman.countdown.CountDown;
 import uet.oop.bomberman.levels.LevelLoader;
 import com.sun.javafx.perf.PerformanceTracker;
+import uet.oop.bomberman.menu.LoseMenu;
 import uet.oop.bomberman.menu.MainMenu;
 import uet.oop.bomberman.menu.PauseMenu;
 import uet.oop.bomberman.menu.StageMenu;
@@ -34,6 +35,7 @@ public class BombermanGame extends Application {
     private MainMenu mainMenu = new MainMenu();
     private StageMenu stageMenu = new StageMenu();
     private PauseMenu pauseMenu = new PauseMenu();
+    private LoseMenu loseMenu = new LoseMenu();
     public static CountDown countdown = new CountDown(200);
 
     @Override
@@ -68,7 +70,6 @@ public class BombermanGame extends Application {
                 }
                 if (lvLoad.board.levelOver) {
                     if (lvLoad.board.passLevel) {
-                        mainMenu.setStartGame(false);
                         mainMenu.unlockStage(LEVEL + 1);
                         MainMenu.writeStageStatus();
                         mainMenu = new MainMenu();
@@ -79,9 +80,13 @@ public class BombermanGame extends Application {
                         root.getChildren().add(stageMenu);
                         lvLoad.board.levelOver = false;
                     } else {
-                        lvLoad.loadLevel(LEVEL);
-                        lvLoad.introLevel.setShowIntro(true);
-                        lvLoad.introLevel.resetTime();
+                        mainMenu = new MainMenu();
+                        mainMenu.setUpMainMenu(canvas.getWidth(), canvas.getHeight(), lvLoad);
+                        loseMenu = new LoseMenu();
+                        loseMenu.setUpLoseMenu(canvas.getWidth(), canvas.getHeight(), LEVEL, root, mainMenu, canvas, lvLoad);
+                        root.getChildren().clear();
+                        root.getChildren().add(loseMenu);
+                        lvLoad.board.levelOver = false;
                     }
                 }
                 if (!lvLoad.board.bombers.isEmpty()) {

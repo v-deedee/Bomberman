@@ -1,6 +1,7 @@
 package uet.oop.bomberman.menu;
 
 import javafx.animation.TranslateTransition;
+import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -255,23 +256,70 @@ public class MainMenu extends Menu {
             Board.BGMusic = true;
         });
         btnOn2.setOnMouseClicked(event -> {
+            Sound.buttonClickAudio.play();
             Board.soundFX = false;
-            if (Board.soundFX) {
-                Sound.buttonClickAudio.play();
-            }
             soundBox.getChildren().remove(btnOn2);
             soundBox.getChildren().add(btnOff2);
         });
         btnOff2.setOnMouseClicked(event -> {
             Board.soundFX = true;
-            if (Board.soundFX) {
-                Sound.buttonClickAudio.play();
-            }
             soundBox.getChildren().remove(btnOff2);
             soundBox.getChildren().add(btnOn2);
         });
 
         return settingMenu;
+    }
+
+    public BorderPane setUpHighScoreMenu(BorderPane mainMenu, int offset, double scrW, double scrH) {
+        BorderPane highScoreMenu = new BorderPane();
+        highScoreMenu.setTranslateX(offset);
+        highScoreMenu.setTranslateY(0);
+
+        MenuButton btnBack = new MenuButton("BACK", BUTTON_WIDTH / 2, BUTTON_HEIGHT,
+                FONT_SIZE, URL_FONT2);
+        btnBack.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
+            getChildren().add(mainMenu);
+
+            TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), highScoreMenu);
+            tt.setToX(offset * 2);
+
+            TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), mainMenu);
+            tt1.setToX(0);
+
+            tt.play();
+            tt1.play();
+
+            tt.setOnFinished(event1 -> getChildren().remove(highScoreMenu));
+        });
+
+        VBox backBox = new VBox();
+        backBox.setTranslateX(0);
+        backBox.setTranslateY(15 * Sprite.SCALE);
+        backBox.getChildren().add(btnBack);
+
+        double tableW = 128 * Sprite.SCALE;
+        double tableH = 116 * Sprite.SCALE;
+        ImageView scoreTable = setUpImageView("/menu/score_table.png", (scrW - tableW) / 2, (scrH - tableH) / 2, tableW, tableH);
+
+        VBox score = new VBox(1.5 * Sprite.SCALE);
+        score.setAlignment(Pos.CENTER);
+        score.setTranslateX(scrW / 2 + 32 * Sprite.SCALE);
+        score.setTranslateY(scrH / 2 + 5 * Sprite.SCALE);
+        Font font = new Font("Cooper Black", FONT_SIZE / 1.2);
+        Text[] scoreText = new Text[9];
+        for (int i = 0; i < 9; i++) {
+            scoreText[i] = new Text(Score.highScore.get(i).toString());
+            scoreText[i].setFont(font);
+            scoreText[i].setFill(Color.BLACK);
+            score.getChildren().add(scoreText[i]);
+        }
+
+        highScoreMenu.getChildren().addAll(backBox, scoreTable, score);
+
+        return highScoreMenu;
     }
 
     public void setUpMainMenu(double scrW, double scrH, LevelLoader lvLoad) {
@@ -280,6 +328,7 @@ public class MainMenu extends Menu {
         BorderPane mainMenu = new BorderPane();
         BorderPane stageMenu = setUpStageMenu(mainMenu, offset, lvLoad);
         BorderPane settingMenu = setUpSettingMenu(mainMenu, offset);
+        BorderPane highScoreMenu = setUpHighScoreMenu(mainMenu, offset, scrW, scrH);
 
         MenuButton btnStart = new MenuButton("NEW GAME", BUTTON_WIDTH, BUTTON_HEIGHT,
                 FONT_SIZE, URL_FONT2);
@@ -336,6 +385,26 @@ public class MainMenu extends Menu {
             tt.setOnFinished(event1 -> getChildren().remove(mainMenu));
         });
 
+        MenuButton btnHighScore = new MenuButton("HIGH SCORE", BUTTON_WIDTH, BUTTON_HEIGHT,
+                FONT_SIZE, URL_FONT2);
+        btnHighScore.setOnMouseClicked(event -> {
+            if (Board.soundFX) {
+                Sound.buttonClickAudio.play();
+            }
+            getChildren().add(highScoreMenu);
+
+            TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), mainMenu);
+            tt.setToX(-offset);
+
+            TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), highScoreMenu);
+            tt1.setToX(0);
+
+            tt.play();
+            tt1.play();
+
+            tt.setOnFinished(event1 -> getChildren().remove(mainMenu));
+        });
+
         MenuButton btnExit = new MenuButton("EXIT", BUTTON_WIDTH, BUTTON_HEIGHT,
                 FONT_SIZE, URL_FONT2);
         btnExit.setOnMouseClicked(event -> {
@@ -355,8 +424,8 @@ public class MainMenu extends Menu {
 
         VBox btnBox = new VBox(10);
         btnBox.setTranslateX((scrW + BUTTON_WIDTH) / 2);
-        btnBox.setTranslateY((scrH - BUTTON_HEIGHT * 1.5) / 2);
-        btnBox.getChildren().addAll(btnStart, btnStages, btnSetting, btnExit);
+        btnBox.setTranslateY((scrH - BUTTON_HEIGHT * 2.5) / 2);
+        btnBox.getChildren().addAll(btnStart, btnStages, btnSetting, btnHighScore, btnExit);
 
         mainMenu.getChildren().addAll(titleView, decoView, btnBox);
 
