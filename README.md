@@ -99,5 +99,8 @@ Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này ch�
 - Bổ sung thêm các Item và Enemy mới.
 
 ## **7 Cây thừa kế**
+ - ![](res/readme/UML1.png)
+ - ![](res/readme/UML2.png)
 
 ## **8 Demo video**
+- https://www.youtube.com/watch?v=wba7TiTQodU

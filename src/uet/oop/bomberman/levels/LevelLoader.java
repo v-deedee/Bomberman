@@ -75,7 +75,6 @@ public class LevelLoader {
     public void addEntity() {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                System.err.print(map[y][x]);
                 switch (map[y][x]) {
                     case '#':
                         board.addWall(new Wall(x, y, Sprite.wall.getFxImage()));
@@ -147,7 +146,6 @@ public class LevelLoader {
                         break;
                 }
             }
-            System.err.println();
         }
     }
 

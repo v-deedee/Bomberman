@@ -256,12 +256,12 @@ public class MainMenu extends Menu {
             Board.BGMusic = true;
         });
         btnOn2.setOnMouseClicked(event -> {
-            Sound.buttonClickAudio.play();
             Board.soundFX = false;
             soundBox.getChildren().remove(btnOn2);
             soundBox.getChildren().add(btnOff2);
         });
         btnOff2.setOnMouseClicked(event -> {
+            Sound.buttonClickAudio.play();
             Board.soundFX = true;
             soundBox.getChildren().remove(btnOff2);
             soundBox.getChildren().add(btnOn2);
