@@ -1,6 +1,6 @@
 package uet.oop.bomberman.levels;
 
-import uet.oop.bomberman.game.Board;
+import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.entities.Item.*;
