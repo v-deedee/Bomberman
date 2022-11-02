@@ -42,7 +42,7 @@ Các *Item* cũng được giấu phía sau Brick và chỉ hiện ra khi Brick 
 - ![](res/sprites/powerup_flamepass.png) *FlamepassItem* sử dụng item này thì thì Bomber có thể đi xuyên qua và không bị ảnh hưởng bởi lửa từ Bom.
 - ![](res/sprites/powerup_clock.png) *ClockItem* sử dụng item này thì thời gian mỗi màn chơi sẽ được tăng tối đa 30 giây giúp người chơi có thêm thời gian hoàn thành màn chơi và tăng thêm số điểm cửa mình.
 
-Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này chỉ yêu cầu cài đặt hai loại Enemy dưới đây:
+Có nhiều loại Enemy trong Bomberman, cụ thể trong phiên bản này gồm:
 - ![](res/sprites/balloom_left1.png) *Balloom* là Enemy đơn giản nhất, di chuyển ngẫu nhiên với vận tốc cố định
 - ![](res/sprites/oneal_left1.png) *Oneal* di chuyển ngẫu nhiên với vận tốc lớn hơn Balloom
 - ![](res/sprites/doll_left1.png) *Doll* là Enemy di chuyển phức tạp hơn Oneal (biết đuổi theo Bomber)
