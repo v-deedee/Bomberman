@@ -10,8 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import uet.oop.bomberman.Board;
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.game.Board;
+import uet.oop.bomberman.game.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 import uet.oop.bomberman.score.Score;
@@ -256,12 +256,12 @@ public class MainMenu extends Menu {
             Board.BGMusic = true;
         });
         btnOn2.setOnMouseClicked(event -> {
-            Sound.buttonClickAudio.play();
             Board.soundFX = false;
             soundBox.getChildren().remove(btnOn2);
             soundBox.getChildren().add(btnOff2);
         });
         btnOff2.setOnMouseClicked(event -> {
+            Sound.buttonClickAudio.play();
             Board.soundFX = true;
             soundBox.getChildren().remove(btnOff2);
             soundBox.getChildren().add(btnOn2);

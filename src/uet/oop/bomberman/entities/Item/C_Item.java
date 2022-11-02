@@ -2,7 +2,7 @@ package uet.oop.bomberman.entities.Item;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.game.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class C_Item extends Item {

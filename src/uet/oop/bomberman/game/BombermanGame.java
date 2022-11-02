@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.game;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import uet.oop.bomberman.Input.InputHandler;
 import uet.oop.bomberman.countdown.CountDown;
+import uet.oop.bomberman.game.Board;
 import uet.oop.bomberman.levels.LevelLoader;
 import com.sun.javafx.perf.PerformanceTracker;
 import uet.oop.bomberman.menu.LoseMenu;

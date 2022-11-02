@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.game;
 
 import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Bomb.Flame;
@@ -166,7 +166,6 @@ public class Board {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).isRemoved) {
                 score += enemies.get(i).getPoint();
-                System.out.println(enemies.get(i).getPoint());
                 enemies.remove(i);
                 i--;
                 if (enemies.size() == 0 && soundFX) {
@@ -376,7 +375,6 @@ public class Board {
                 if ((topLeftX >= x && topLeftX <= x + t && topLeftY >= y && topLeftY <= y + t)
                         || (downRightX >= x && downRightX <= x + t && downRightY >= y && downRightY <= y + t)) {
                     if (BombermanGame.LIVES > 0) {
-                        System.out.println("Res");
                         BombermanGame.LIVES--;
                         bomber.isDR = true;
                         isDeadCDCnt = true;
