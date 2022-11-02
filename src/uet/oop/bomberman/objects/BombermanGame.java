@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.objects;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -24,18 +24,18 @@ public class BombermanGame extends Application {
     public static int LEVEL = 1;
     public static int LIVES = 2;
     private final LevelLoader lvLoad = new LevelLoader();
-    static Group root = new Group();
-    static Scene scene = new Scene(root);
+    private static final Group root = new Group();
+    private static final Scene scene = new Scene(root);
     private final String TITLE = "BombermanGame";
     private final InputHandler _input = new InputHandler();
     private GraphicsContext gc;
     private Canvas canvas;
     private static PerformanceTracker tracker;
-    public static boolean canvasAdded = true;
     private MainMenu mainMenu = new MainMenu();
     private StageMenu stageMenu = new StageMenu();
     private PauseMenu pauseMenu = new PauseMenu();
     private LoseMenu loseMenu = new LoseMenu();
+    public static boolean canvasAdded = true;
     public static CountDown countdown = new CountDown(200);
 
     @Override
@@ -44,15 +44,13 @@ public class BombermanGame extends Application {
         countdown.pause();
         Sound.playBGM();
         stage.getIcons().add(new Image("/textures/icon.jfif"));
-        // Tao Canvas
+
         canvas = new Canvas(LevelLoader.SCREEN_WIDTH, LevelLoader.SCREEN_HEIGHT);
         gc = canvas.getGraphicsContext2D();
         mainMenu.setUpMainMenu(canvas.getWidth(), canvas.getHeight(), lvLoad);
 
-        // Tao root container
         root.getChildren().addAll(canvas, mainMenu);
 
-        // Them scene vao stage
         stage.setScene(scene);
         stage.show();
 
@@ -68,8 +66,8 @@ public class BombermanGame extends Application {
                 } else {
                     Sound.mediaPlayer.play();
                 }
-                if (lvLoad.board.levelOver) {
-                    if (lvLoad.board.passLevel) {
+                if (lvLoad.board.getLevelOver()) {
+                    if (lvLoad.board.isPassLevel()) {
                         mainMenu.unlockStage(LEVEL + 1);
                         MainMenu.writeStageStatus();
                         mainMenu = new MainMenu();
@@ -78,7 +76,6 @@ public class BombermanGame extends Application {
                         stageMenu.setUpStageMenu(canvas.getWidth(), canvas.getHeight(), LEVEL, root, mainMenu, canvas, lvLoad);
                         root.getChildren().clear();
                         root.getChildren().add(stageMenu);
-                        lvLoad.board.levelOver = false;
                     } else {
                         mainMenu = new MainMenu();
                         mainMenu.setUpMainMenu(canvas.getWidth(), canvas.getHeight(), lvLoad);
@@ -86,8 +83,8 @@ public class BombermanGame extends Application {
                         loseMenu.setUpLoseMenu(canvas.getWidth(), canvas.getHeight(), LEVEL, root, mainMenu, canvas, lvLoad);
                         root.getChildren().clear();
                         root.getChildren().add(loseMenu);
-                        lvLoad.board.levelOver = false;
                     }
+                    lvLoad.board.setLevelOver(false);
                 }
                 if (!lvLoad.board.bombers.isEmpty()) {
                     _input.handleInput(lvLoad.board.bombers.get(0), lvLoad.board, lvLoad);
@@ -101,13 +98,11 @@ public class BombermanGame extends Application {
                     if (Board.Pause) {
                         if (!root.getChildren().contains(pauseMenu)) {
                             pauseMenu = new PauseMenu();
-                            pauseMenu.setUpPauseMenu(canvas.getWidth(), canvas.getHeight(), root, canvas, mainMenu, lvLoad);
+                            pauseMenu.setUpPauseMenu(canvas.getWidth(), canvas.getHeight(), root, lvLoad);
                             root.getChildren().add(pauseMenu);
                         }
                     } else {
-                        if (root.getChildren().contains(pauseMenu)) {
-                            root.getChildren().remove(pauseMenu);
-                        }
+                        root.getChildren().remove(pauseMenu);
                     }
                     lvLoad.introLevel.show(gc, canvas.getWidth(), canvas.getHeight());
                     if (!lvLoad.introLevel.getShowIntro()) {

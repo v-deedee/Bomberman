@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Score {
@@ -27,7 +26,6 @@ public class Score {
     }
 
     public static void writeHighScore() {
-        //highScore.sort(Collections.reverseOrder());
         while (highScore.size() != 9) {
             int index = highScore.size() - 1;
             highScore.remove(index);
