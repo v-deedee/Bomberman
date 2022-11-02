@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.objects;
 
 import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Bomb.Flame;
@@ -26,32 +26,23 @@ import java.util.List;
 
 public class Board {
     private int score;
+    private boolean passLevel = false;
+    private boolean levelOver = false;
     private static int deadCD = 180;
     private static boolean isDeadCDCnt = false;
     public static boolean BGMusic = true;
     public static boolean soundFX = true;
     public static int hitboxFix = Sprite.SCALED_SIZE / 6;
     public static boolean Pause = false;
-    public boolean passLevel = false;
-    public boolean levelOver = false;
     public List<Bomber> bombers = new ArrayList<>();
-
     public List<Enemy> enemies = new ArrayList<>();
-
     public List<Bomb> bombs = new ArrayList<>();
-
-    List<Grass> grasses = new ArrayList<>();
-
     public List<Wall> walls = new ArrayList<>();
-
     public List<Brick> bricks = new ArrayList<>();
-
+    List<Grass> grasses = new ArrayList<>();
     List<Portal> portals = new ArrayList<>();
-
     List<Flame> flames = new ArrayList<>();
-
     List<FlameSegment> flameSegments = new ArrayList<>();
-
     List<Item> items = new ArrayList<>();
 
     public Board() {
@@ -65,6 +56,18 @@ public class Board {
 
     public int getScore() {
         return score;
+    }
+
+    public boolean isPassLevel() {
+        return passLevel;
+    }
+
+    public boolean getLevelOver() {
+        return levelOver;
+    }
+
+    public void setLevelOver(boolean levelOver) {
+        this.levelOver = levelOver;
     }
 
     public void addBomber(Bomber bomber) {
@@ -177,7 +180,6 @@ public class Board {
             if (score > Score.highScore.get(BombermanGame.LEVEL - 1)) {
                 Score.highScore.set(BombermanGame.LEVEL - 1, score);
             }
-            //Score.highScore.sort(Collections.reverseOrder());
             while (Score.highScore.size() != 9) {
                 int index = Score.highScore.size() - 1;
                 Score.highScore.remove(index);
@@ -194,7 +196,6 @@ public class Board {
             if (newScore > Score.highScore.get(BombermanGame.LEVEL - 1)) {
                 Score.highScore.set(BombermanGame.LEVEL - 1, newScore);
             }
-            //Score.highScore.sort(Collections.reverseOrder());
             while (Score.highScore.size() != 9) {
                 int index = Score.highScore.size() - 1;
                 Score.highScore.remove(index);

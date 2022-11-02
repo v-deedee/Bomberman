@@ -1,20 +1,19 @@
 package uet.oop.bomberman.menu;
 
 import javafx.scene.Group;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import uet.oop.bomberman.Board;
+import uet.oop.bomberman.objects.Board;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.levels.LevelLoader;
 import uet.oop.bomberman.sound.Sound;
 
 public class PauseMenu extends Menu {
-    public void setUpPauseMenu(double scrW, double scrH, Group root, Canvas canvas, MainMenu mainMenu, LevelLoader lvLoad) {
+    public void setUpPauseMenu(double scrW, double scrH, Group root, LevelLoader lvLoad) {
         Rectangle bg = new Rectangle(0, 0, (int) scrW, (int) scrH);
         bg.setOpacity(0.5);
         bg.setFill(Color.BLACK);
@@ -69,18 +68,15 @@ public class PauseMenu extends Menu {
             Board.BGMusic = true;
         });
         btnOn2.setOnMouseClicked(event -> {
-            Board.soundFX = false;
             if (Board.soundFX) {
                 Sound.buttonClickAudio.play();
             }
+            Board.soundFX = false;
             soundBox.getChildren().remove(btnOn2);
             soundBox.getChildren().add(btnOff2);
         });
         btnOff2.setOnMouseClicked(event -> {
             Board.soundFX = true;
-            if (Board.soundFX) {
-                Sound.buttonClickAudio.play();
-            }
             soundBox.getChildren().remove(btnOff2);
             soundBox.getChildren().add(btnOn2);
         });
@@ -95,7 +91,7 @@ public class PauseMenu extends Menu {
             if (Board.soundFX) {
                 Sound.buttonClickAudio.play();
             }
-            returnMenu(scrW, scrH, root, canvas, mainMenu, lvLoad);
+            returnMenu(scrW, scrH, root, lvLoad);
         });
 
         btnResume.setOnMouseClicked(event -> {
@@ -113,9 +109,9 @@ public class PauseMenu extends Menu {
         getChildren().addAll(bg, menuView, musicBox, soundBox, btnBox);
     }
 
-    public void returnMenu(double scrW, double scrH, Group root, Canvas canvas, MainMenu mainMenu, LevelLoader lvLoad) {
+    public void returnMenu(double scrW, double scrH, Group root, LevelLoader lvLoad) {
         lvLoad.board = new Board();
-        mainMenu = new MainMenu();
+        MainMenu mainMenu = new MainMenu();
         mainMenu.setUpMainMenu(scrW, scrH, lvLoad);
         root.getChildren().clear();
         root.getChildren().add(mainMenu);

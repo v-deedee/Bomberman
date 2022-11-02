@@ -16,7 +16,6 @@ public class MenuButton extends StackPane {
     private final Text text;
 
     public MenuButton(String name, int btnW, int btnH, double fontSize, String fontUrl) {
-        //font = new Font("Cooper Black", FONT_SIZE);
         Font font = Font.loadFont(MenuButton.class.getResourceAsStream(fontUrl), fontSize);
 
         text = new Text(name);

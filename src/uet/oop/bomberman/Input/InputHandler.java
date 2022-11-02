@@ -1,7 +1,7 @@
 package uet.oop.bomberman.Input;
 
 import javafx.scene.Scene;
-import uet.oop.bomberman.Board;
+import uet.oop.bomberman.objects.Board;
 import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.levels.LevelLoader;
 
