@@ -1,24 +1,15 @@
 # Bài tập lớn OOP - Bomberman Game
 
-## **Mục lục**
-1. Thành viên
-2. Giới thiệu
-3. Mô tả về các đối tượng trong trò chơi
-4. Điều khiển và cài đặt
-5. Chức năng bắt buộc và tuỳ chọn đã cài đặt
-6. Chức năng bổ sung
-7. Cây thừa kế
-8. Demo
 
 ## **1. Thành viên** 
-BTL nhóm 15, thành viên nhóm:
+Nhóm 15, thành viên nhóm:
 - Nguyễn Tuấn Đức, mã sinh viên 21020539
 - Nguyễn Việt Anh, mã sinh viên 21020277
 
 ## **2. Giới thiệu**
-Phiên bản làm lại bằng Java của tựa game Bomberman trên máy NES [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM)
+Phiên bản làm lại bằng Java của tựa game Bomberman trên máy NES: [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM)
 
-## **3.Mô tả về các đối tượng trong trò chơi**
+## **3. Mô tả về các đối tượng trong trò chơi**
 Nếu bạn đã từng chơi Bomberman, bạn sẽ cảm thấy quen thuộc với những đối tượng này. Chúng được được chia làm hai loại chính là nhóm đối tượng động (*Bomber*, *Enemy*, *Bomb*) và nhóm đối tượng tĩnh (*Grass*, *Wall*, *Brick*, *Portal*, *Item*).
 
 *Hãy thiết kế hệ thống các đối tượng một cách phù hợp để tận dụng tối đa sức mạnh của OOP: tái sử dụng code, dễ dàng maintain.*
@@ -72,7 +63,7 @@ Có nhiều loại Enemy trong Bomberman, cụ thể trong phiên bản này g�
 | Pause Game     | ESC |
 
 ## **5. Chức năng bắt buộc đã cài đặt**
-# **Chức năng bắt buộc**
+### **Chức năng bắt buộc**
 - Thiết kế cây thừa kế cho các đối tượng game.
 - Xây dựng bản đồ màn chơi từ tệp cấu hình.
 - Di chuyển Bomber theo sự điều khiển từ người chơi.
@@ -80,7 +71,7 @@ Có nhiều loại Enemy trong Bomberman, cụ thể trong phiên bản này g�
 - Xử lý va chạm cho các đối tượng Bomber, Enemy, Wall, Brick, Bomb.
 - Xử lí bom nổ.
 - Xử lý khi Bomber sử dụng các Item và khi đi vào vị trí Portal.
-# **Chức năng tuỳ chọn**
+### **Chức năng tuỳ chọn**
 - Sử dụng Git trong nhóm (branch, commit, pull request, contribution, ...).
 - "Nâng cấp thuật toán tìm đường cho Enemy.
 - Cài đặt các loại Enemy khác.
@@ -98,9 +89,9 @@ Có nhiều loại Enemy trong Bomberman, cụ thể trong phiên bản này g�
 - Có mạng trong mỗi lần chơi.
 - Bổ sung thêm các Item và Enemy mới.
 
-## **7 Cây thừa kế**
+## **7. Cây thừa kế**
  - ![](res/readme/UML1.png)
  - ![](res/readme/UML2.png)
 
-## **8 Demo video**
+## **8. Demo video**
 - https://www.youtube.com/watch?v=wba7TiTQodU
